@@ -211,39 +211,6 @@ const ConclusionSection = () => {
           </Card>
         </div>
 
-        {/* Project Resources */}
-        <div className="text-center scroll-reveal">
-          <Card className="data-card max-w-2xl mx-auto">
-            <CardHeader>
-              <CardTitle>Project Resources</CardTitle>
-              <CardDescription>
-                Access our code, documentation, and additional materials
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="flex items-center gap-2 bg-primary hover:bg-primary-dark">
-                  <Github className="w-4 h-4" />
-                  View Code
-                </Button>
-                <Button variant="outline" className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
-                  Read Paper
-                </Button>
-                <Button variant="outline" className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
-                  Team Info
-                </Button>
-              </div>
-              
-              <div className="mt-6 pt-6 border-t border-border/50">
-                <p className="text-sm text-muted-foreground">
-                  This research was conducted as part of our final project in Data Science & Machine Learning
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </section>
   );

@@ -3,9 +3,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Code, Play, BarChart3, Users, Clock, Smartphone } from "lucide-react";
+import InteractiveDemo from './InteractiveDemo';
 
 const MethodologySection = () => {
   const [activeCode, setActiveCode] = useState('data-collection');
+  const [showDemo, setShowDemo] = useState<string | null>(null);
 
   const codeExamples = {
     'data-collection': `# Data Collection Process
@@ -185,15 +187,23 @@ def train_prediction_model(X, y):
                         <h3 className="text-lg font-semibold">
                           {key.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                         </h3>
-                        <Button size="sm" variant="outline" className="gap-2">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="gap-2"
+                          onClick={() => setShowDemo(showDemo === key ? null : key)}
+                        >
                           <Play className="w-4 h-4" />
-                          Run Code
+                          {showDemo === key ? 'Hide Demo' : 'Run Demo'}
                         </Button>
                       </div>
                       <pre className="text-sm overflow-x-auto">
                         <code className="text-muted-foreground">{code}</code>
                       </pre>
                     </div>
+                    {showDemo === key && (
+                      <InteractiveDemo demoType={key} />
+                    )}
                   </TabsContent>
                 ))}
               </Tabs>
