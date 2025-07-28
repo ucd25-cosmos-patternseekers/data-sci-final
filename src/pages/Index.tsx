@@ -1,12 +1,34 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import HeroSection from "@/components/HeroSection";
+import MethodologySection from "@/components/MethodologySection";
+import ResultsSection from "@/components/ResultsSection";
+import ConclusionSection from "@/components/ConclusionSection";
+import ScrollAnimation from "@/components/ScrollAnimation";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      <ScrollAnimation />
+      
+      {/* Hero Section */}
+      <HeroSection />
+      
+      {/* Methodology Section */}
+      <MethodologySection />
+      
+      {/* Results Section */}
+      <ResultsSection />
+      
+      {/* Conclusion Section */}
+      <ConclusionSection />
+      
+      {/* Footer */}
+      <footer className="py-12 px-6 border-t border-border/50">
+        <div className="container mx-auto text-center">
+          <p className="text-muted-foreground">
+            App Usage Prediction Research Project • Data Science & Machine Learning
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
