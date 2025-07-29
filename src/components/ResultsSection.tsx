@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Target, Zap, Award, TrendingUp, ChevronDown, Eye } from "lucide-react";
+import MetricChart from './MetricChart';
 
 const ResultsSection = () => {
   const [expandedFindings, setExpandedFindings] = useState<number[]>([]);
   const [showAllApps, setShowAllApps] = useState(false);
+  const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
 
   const metrics = {
     accuracy: {
@@ -29,7 +31,7 @@ const ResultsSection = () => {
     loss: {
       value: 0.92,
       description: "Final model loss after training convergence",
-      color: "text-destructive"
+      color: "text-chart-4"
     }
   };
 
@@ -113,7 +115,10 @@ const ResultsSection = () => {
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
-              className="data-card scroll-reveal"
+              className={`data-card cursor-pointer transition-all hover:scale-105 ${
+                selectedMetric === key ? 'ring-2 ring-primary' : ''
+              }`}
+              onClick={() => setSelectedMetric(selectedMetric === key ? null : key)}
             >
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
@@ -127,7 +132,7 @@ const ResultsSection = () => {
                    key === 'loss' ? 'Training Loss' :
                    'Overall Accuracy'}
                 </div>
-                <Progress value={metric.value} className="h-2 mb-3" />
+                <Progress value={key === 'loss' ? metric.value * 100 : metric.value} className="h-2 mb-3" />
                 <p className="text-xs text-muted-foreground">
                   {metric.description}
                 </p>
@@ -135,6 +140,17 @@ const ResultsSection = () => {
             </Card>
           ))}
         </div>
+
+        {/* Metric Chart Display */}
+        {selectedMetric && (
+          <div className="mb-16">
+            <MetricChart 
+              metric={selectedMetric}
+              value={metrics[selectedMetric as keyof typeof metrics].value}
+              description={metrics[selectedMetric as keyof typeof metrics].description}
+            />
+          </div>
+        )}
 
         {/* Key Findings */}
         <div className="mb-16 scroll-reveal">

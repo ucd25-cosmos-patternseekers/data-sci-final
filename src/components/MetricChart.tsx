@@ -57,7 +57,7 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
       case 'accuracy': return 'hsl(var(--primary))';
       case 'precision': return 'hsl(var(--secondary))';
       case 'dataSize': return 'hsl(var(--accent))';
-      case 'loss': return 'hsl(var(--destructive))';
+      case 'loss': return 'hsl(var(--chart-4))';
       default: return 'hsl(var(--primary))';
     }
   };
