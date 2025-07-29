@@ -3,93 +3,98 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
-import { TrendingUp, Users, Clock, Smartphone } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Target, Zap, Award, TrendingUp, ChevronDown, Eye } from "lucide-react";
 
 const ResultsSection = () => {
+  const [expandedFindings, setExpandedFindings] = useState<number[]>([]);
   const [showAllApps, setShowAllApps] = useState(false);
 
   const metrics = {
     accuracy: {
       value: 74.1,
-      description: "Overall prediction accuracy",
+      description: "Overall prediction accuracy across all apps",
       color: "text-primary"
     },
-    appsCovered: {
-      value: 43,
-      description: "Different apps analyzed",
+    topAppAccuracy: {
+      value: 92.0,
+      description: "Best performing app (WeChat) accuracy",
       color: "text-secondary"
     },
     dataSize: {
       value: 73,
-      description: "Thousand transitions analyzed",
+      description: "Thousand app transitions analyzed",
       color: "text-accent"
     },
-    convergence: {
+    trainingTime: {
       value: 36,
-      description: "Epochs to convergence",
+      description: "Training epochs until convergence",
       color: "text-primary"
     }
   };
 
-  // Training progression data
-  const trainingData = [
-    { epoch: 1, train: 37.7, val: 65.5 },
-    { epoch: 5, train: 72.5, val: 73.1 },
-    { epoch: 10, train: 73.7, val: 73.7 },
-    { epoch: 15, train: 74.2, val: 73.9 },
-    { epoch: 20, train: 74.4, val: 74.0 },
-    { epoch: 25, train: 74.6, val: 74.0 },
-    { epoch: 30, train: 74.9, val: 74.1 },
-    { epoch: 36, train: 75.0, val: 74.1 }
+  const keyFindings = [
+    {
+      title: "Communication Apps Dominate",
+      description: "Messaging and communication apps show the highest prediction accuracy",
+      impact: "85%+ accuracy",
+      icon: <Target className="w-5 h-5" />,
+      details: "WeChat achieved 92% F1-score, while Google services reached 85% accuracy. This suggests users have highly predictable patterns when switching between communication platforms."
+    },
+    {
+      title: "Social Media Patterns",
+      description: "Instagram, Facebook, and Twitter show moderate predictability with clear usage sequences",
+      impact: "68-74% F1-score",
+      icon: <Zap className="w-5 h-5" />,
+      details: "Social media apps demonstrated consistent transition patterns, with Facebook-to-Instagram being a common sequence. Reddit showed particularly strong predictability at 77% F1-score."
+    },
+    {
+      title: "Utility Apps Challenge",
+      description: "Calendar, Calculator, and Clock apps proved most difficult to predict",
+      impact: "46-61% F1-score",
+      icon: <Award className="w-5 h-5" />,
+      details: "Utility apps showed lower predictability due to their sporadic, need-based usage patterns. Calendar had the lowest F1-score at 46%, indicating unpredictable access patterns."
+    },
+    {
+      title: "Reward Apps Excellence",
+      description: "Survey and reward apps like Faceu and SurveyCow showed exceptional predictability",
+      impact: "88% F1-score",
+      icon: <TrendingUp className="w-5 h-5" />,
+      details: "Users demonstrate highly routine behavior with reward-based apps, likely due to daily check-in patterns and scheduled reward collection times."
+    }
   ];
 
-  // App category performance
-  const categoryData = [
-    { category: 'Messaging', accuracy: 82, apps: ['WeChat', 'Telegram', 'Messages'] },
-    { category: 'Social Media', accuracy: 70, apps: ['Facebook', 'Instagram', 'Twitter'] },
-    { category: 'Utilities', accuracy: 52, apps: ['Calculator', 'Clock', 'Calendar'] },
-    { category: 'Entertainment', accuracy: 72, apps: ['YouTube', 'Netflix', 'Hulu'] },
-    { category: 'Productivity', accuracy: 75, apps: ['Gmail', 'Google', 'Settings'] },
-    { category: 'Rewards', accuracy: 85, apps: ['Slidejoy', 'SurveyCow', 'Swagbucks'] }
-  ];
-
-  // App transition patterns
-  const transitionPatterns = [
-    { name: 'Time-based', morning: 94, afternoon: 78, evening: 91, night: 72 },
-    { name: 'Sequential', first: 89, second: 76, third: 68, fourth: 61 },
-    { name: 'Context', home: 84, work: 87, commute: 92, other: 65 }
-  ];
-
-  // Performance distribution
-  const performanceDistribution = [
-    { range: '90-100%', count: 2, apps: 'WeChat, Faceu' },
-    { range: '80-89%', count: 5, apps: 'SurveyCow, Slidejoy, Google' },
-    { range: '70-79%', count: 12, apps: 'Facebook, Messages, Reddit' },
-    { range: '60-69%', count: 15, apps: 'Instagram, Twitter, Clock' },
-    { range: '50-59%', count: 6, apps: 'Netflix, Pinterest, Hulu' },
-    { range: '40-49%', count: 3, apps: 'Calendar, Calculator, iBotta' }
+  const topApps = [
+    { name: "WeChat", f1Score: 92 },
+    { name: "Faceu", f1Score: 88 },
+    { name: "SurveyCow", f1Score: 88 },
+    { name: "Slidejoy", f1Score: 87 },
+    { name: "Google", f1Score: 85 }
   ];
 
   const allApps = [
-    { name: "WeChat", score: 92 },
-    { name: "Faceu", score: 88 },
-    { name: "SurveyCow", score: 88 },
-    { name: "Slidejoy", score: 87 },
-    { name: "Google", score: 85 },
-    { name: "Walmart", score: 79 },
-    { name: "Reddit", score: 77 },
-    { name: "Camera", score: 77 },
-    { name: "Messages", score: 76 },
-    { name: "AOL", score: 75 },
-    { name: "Facebook", score: 74 },
-    { name: "Telegram", score: 72 },
-    { name: "Twitter", score: 68 },
-    { name: "Instagram", score: 68 },
-    { name: "Clock", score: 61 },
-    { name: "Calculator", score: 49 },
-    { name: "Calendar", score: 46 }
+    ...topApps,
+    { name: "Walmart", f1Score: 79 },
+    { name: "Reddit", f1Score: 77 },
+    { name: "Camera", f1Score: 77 },
+    { name: "Messages", f1Score: 76 },
+    { name: "AOL", f1Score: 75 },
+    { name: "Facebook", f1Score: 74 },
+    { name: "Telegram", f1Score: 72 },
+    { name: "Twitter", f1Score: 68 },
+    { name: "Instagram", f1Score: 68 },
+    { name: "Clock", f1Score: 61 },
+    { name: "Calculator", f1Score: 49 },
+    { name: "Calendar", f1Score: 46 }
   ];
+
+  const toggleFinding = (index: number) => {
+    setExpandedFindings(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
 
   return (
     <section id="results" className="py-20 px-6 bg-gradient-to-b from-background to-muted/20">
@@ -99,192 +104,193 @@ const ResultsSection = () => {
             <span className="gradient-text">Model Performance</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Deep learning model trained on 72,854 app transitions across 43 applications
+            Trained on 72,854 app transitions across 43 different applications
           </p>
         </div>
 
         {/* Performance Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {Object.entries(metrics).map(([key, metric]) => (
-            <Card key={key} className="data-card scroll-reveal">
+            <Card 
+              key={key}
+              className="data-card scroll-reveal"
+            >
               <CardContent className="pt-6">
-                <div className="flex items-center gap-3 mb-3">
-                  {key === 'accuracy' && <TrendingUp className="w-5 h-5 text-primary" />}
-                  {key === 'appsCovered' && <Smartphone className="w-5 h-5 text-secondary" />}
-                  {key === 'dataSize' && <Users className="w-5 h-5 text-accent" />}
-                  {key === 'convergence' && <Clock className="w-5 h-5 text-primary" />}
-                </div>
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
                   {key === 'dataSize' ? `${metric.value}k` : 
-                   key === 'convergence' ? metric.value :
-                   key === 'appsCovered' ? metric.value :
+                   key === 'trainingTime' ? metric.value :
                    `${metric.value}%`}
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <div className="text-sm font-medium mb-1">
+                  {key === 'topAppAccuracy' ? 'Top App Performance' : 
+                   key === 'dataSize' ? 'Data Points (K)' :
+                   key === 'trainingTime' ? 'Training Epochs' :
+                   'Overall Accuracy'}
+                </div>
+                <Progress value={metric.value} className="h-2 mb-3" />
+                <p className="text-xs text-muted-foreground">
                   {metric.description}
                 </p>
-                <Progress value={key === 'accuracy' ? metric.value : metric.value * 2} className="h-2 mt-3" />
               </CardContent>
             </Card>
           ))}
         </div>
 
-        {/* Training Progress Visualization */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
-          <Card className="data-card scroll-reveal">
-            <CardHeader>
-              <CardTitle>Training Convergence</CardTitle>
-              <CardDescription>Model accuracy over training epochs</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={trainingData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                  <XAxis dataKey="epoch" stroke="#888" />
-                  <YAxis stroke="#888" />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
-                    labelStyle={{ color: '#888' }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="train" 
-                    stroke="#8b5cf6" 
-                    strokeWidth={2}
-                    name="Training Accuracy"
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="val" 
-                    stroke="#10b981" 
-                    strokeWidth={2}
-                    name="Validation Accuracy"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-              <p className="text-sm text-muted-foreground mt-4">
-                Early stopping activated at epoch 36 to prevent overfitting
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="data-card scroll-reveal">
-            <CardHeader>
-              <CardTitle>Category Performance</CardTitle>
-              <CardDescription>Prediction accuracy by app category</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={categoryData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                  <XAxis dataKey="category" angle={-45} textAnchor="end" height={80} stroke="#888" />
-                  <YAxis stroke="#888" />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1a1a1a', border: '1px solid #333' }}
-                    formatter={(value) => `${value}%`}
-                  />
-                  <Bar dataKey="accuracy" fill="#8b5cf6" />
-                </BarChart>
-              </ResponsiveContainer>
-              <p className="text-sm text-muted-foreground mt-4">
-                Reward apps show highest predictability due to routine usage patterns
-              </p>
-            </CardContent>
-          </Card>
+        {/* Key Findings */}
+        <div className="mb-16 scroll-reveal">
+          <h3 className="text-3xl font-bold mb-8 text-center">Key Insights</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {keyFindings.map((finding, index) => (
+              <Collapsible key={index}>
+                <Card className="data-card group">
+                  <CollapsibleTrigger asChild>
+                    <CardHeader className="cursor-pointer">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
+                            {finding.icon}
+                          </div>
+                          <div>
+                            <CardTitle className="text-lg">{finding.title}</CardTitle>
+                            <Badge variant="secondary" className="mt-1">
+                              {finding.impact}
+                            </Badge>
+                          </div>
+                        </div>
+                        <ChevronDown className={`w-5 h-5 text-muted-foreground group-hover:text-primary transition-all ${expandedFindings.includes(index) ? 'rotate-180' : ''}`} />
+                      </div>
+                    </CardHeader>
+                  </CollapsibleTrigger>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-4">{finding.description}</p>
+                    <CollapsibleContent>
+                      <div className="pt-4 border-t border-border/50">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {finding.details}
+                        </p>
+                      </div>
+                    </CollapsibleContent>
+                  </CardContent>
+                </Card>
+              </Collapsible>
+            ))}
+          </div>
         </div>
 
-        {/* Pattern Analysis */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
-          <Card className="data-card scroll-reveal">
+        {/* Most vs Least Accurate Apps */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 scroll-reveal">
+          <Card className="overflow-hidden border-green-500/30 bg-gradient-to-br from-green-500/5 to-transparent">
             <CardHeader>
-              <CardTitle>Contextual Patterns</CardTitle>
-              <CardDescription>Prediction accuracy across different contexts</CardDescription>
+              <CardTitle className="text-green-600 dark:text-green-400">Most Predictable Apps</CardTitle>
+              <CardDescription>Apps with highest prediction accuracy</CardDescription>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <RadarChart data={transitionPatterns}>
-                  <PolarGrid stroke="#333" />
-                  <PolarAngleAxis dataKey="name" stroke="#888" />
-                  <PolarRadiusAxis angle={90} domain={[0, 100]} stroke="#888" />
-                  <Radar name="Morning" dataKey="morning" stroke="#f97316" fill="#f97316" fillOpacity={0.6} />
-                  <Radar name="Evening" dataKey="evening" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.6} />
-                  <Radar name="Commute" dataKey="commute" stroke="#10b981" fill="#10b981" fillOpacity={0.6} />
-                </RadarChart>
-              </ResponsiveContainer>
-              <div className="flex gap-4 justify-center mt-4">
-                <Badge variant="outline" className="bg-orange-500/20">Morning</Badge>
-                <Badge variant="outline" className="bg-purple-500/20">Evening</Badge>
-                <Badge variant="outline" className="bg-green-500/20">Commute</Badge>
+              <div className="space-y-3">
+                {[
+                  { name: "WeChat", score: 92, reason: "Consistent messaging patterns" },
+                  { name: "Faceu", score: 88, reason: "Regular photo filter usage" },
+                  { name: "SurveyCow", score: 88, reason: "Daily reward checking" },
+                  { name: "Slidejoy", score: 87, reason: "Lock screen interactions" },
+                  { name: "Google", score: 85, reason: "Primary search behavior" }
+                ].map((app, i) => (
+                  <div key={i} className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg">
+                    <div>
+                      <p className="font-medium">{app.name}</p>
+                      <p className="text-xs text-muted-foreground">{app.reason}</p>
+                    </div>
+                    <Badge variant="outline" className="bg-green-500/20">
+                      {app.score}%
+                    </Badge>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
 
-          <Card className="data-card scroll-reveal">
+          <Card className="overflow-hidden border-red-500/30 bg-gradient-to-br from-red-500/5 to-transparent">
             <CardHeader>
-              <CardTitle>Performance Distribution</CardTitle>
-              <CardDescription>Number of apps by accuracy range</CardDescription>
+              <CardTitle className="text-red-600 dark:text-red-400">Most Challenging Apps</CardTitle>
+              <CardDescription>Apps hardest to predict accurately</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {performanceDistribution.map((range, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-20 text-sm font-medium text-muted-foreground">
-                      {range.range}
+                {[
+                  { name: "Calendar", score: 46, reason: "Sporadic event checking" },
+                  { name: "Calculator", score: 49, reason: "Random usage patterns" },
+                  { name: "iBotta", score: 51, reason: "Irregular shopping habits" },
+                  { name: "Netflix", score: 56, reason: "Varied viewing times" },
+                  { name: "Pinterest", score: 59, reason: "Browsing unpredictability" }
+                ].map((app, i) => (
+                  <div key={i} className="flex items-center justify-between p-3 bg-red-500/10 rounded-lg">
+                    <div>
+                      <p className="font-medium">{app.name}</p>
+                      <p className="text-xs text-muted-foreground">{app.reason}</p>
                     </div>
-                    <div className="flex-1">
-                      <Progress 
-                        value={(range.count / 43) * 100} 
-                        className="h-6"
-                      />
+                    <Badge variant="outline" className="bg-red-500/20">
+                      {app.score}%
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* App Performance Analysis */}
+        <div className="scroll-reveal">
+          <Card className="data-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3">
+                <Eye className="w-6 h-6 text-primary" />
+                Complete Performance Rankings
+              </CardTitle>
+              <CardDescription>
+                All 43 apps ranked by prediction performance (higher = more predictable)
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {(showAllApps ? allApps : topApps).map((app, index) => (
+                  <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{app.name}</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Prediction performance score
+                        </p>
+                      </div>
                     </div>
-                    <div className="w-12 text-sm font-bold">
-                      {range.count}
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-primary">
+                        {app.f1Score}%
+                      </div>
+                      <div className="text-xs text-muted-foreground">Performance</div>
+                      <Progress value={app.f1Score} className="w-24 h-2 mt-1" />
                     </div>
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                Most apps fall in the 60-79% accuracy range, showing room for improvement
-              </p>
+              
+              <div className="mt-6 pt-6 border-t border-border/50">
+                <Button 
+                  className="w-full" 
+                  variant="outline"
+                  onClick={() => setShowAllApps(!showAllApps)}
+                >
+                  {showAllApps ? 'Show Less' : 'View All'}
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Complete Rankings */}
-        <Card className="data-card scroll-reveal">
-          <CardHeader>
-            <CardTitle>Individual App Performance</CardTitle>
-            <CardDescription>All 43 apps ranked by prediction accuracy</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {(showAllApps ? allApps : allApps.slice(0, 8)).map((app, index) => (
-                <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                      {index + 1}
-                    </div>
-                    <span className="font-medium">{app.name}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Progress value={app.score} className="w-20 h-2" />
-                    <span className="text-sm font-bold w-12 text-right">{app.score}%</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-6 pt-6 border-t border-border/50">
-              <Button 
-                className="w-full" 
-                variant="outline"
-                onClick={() => setShowAllApps(!showAllApps)}
-              >
-                {showAllApps ? 'Show Less' : 'View All 43 Apps'}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Training Summary */}
+        <div className="mt-12 text-center text-sm text-muted-foreground">
+          <p>Trained on 72,854 app transitions across 43 different applications • Model converged with early stopping</p>
+        </div>
       </div>
     </section>
   );
