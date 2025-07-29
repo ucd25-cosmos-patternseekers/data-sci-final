@@ -3,12 +3,45 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Target, Zap, Award, TrendingUp, ChevronDown } from "lucide-react";
+import { Target, Zap, Award, TrendingUp, ChevronDown, X } from "lucide-react";
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 
 const ResultsSection = () => {
   const [expandedFindings, setExpandedFindings] = useState<number[]>([]);
+  const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
+
+  // Training data for visualizations
+  const trainingData = [
+    { epoch: 0, loss: 3.2, accuracy: 45.2 },
+    { epoch: 5, loss: 2.8, accuracy: 52.3 },
+    { epoch: 10, loss: 2.3, accuracy: 61.5 },
+    { epoch: 15, loss: 1.9, accuracy: 66.8 },
+    { epoch: 20, loss: 1.6, accuracy: 70.2 },
+    { epoch: 25, loss: 1.4, accuracy: 72.1 },
+    { epoch: 30, loss: 1.3, accuracy: 73.5 },
+    { epoch: 35, loss: 1.2, accuracy: 74.1 },
+    { epoch: 36, loss: 1.2, accuracy: 74.1 }
+  ];
+
+  const topAppsData = [
+    { name: 'WeChat', score: 92 },
+    { name: 'Faceu', score: 88 },
+    { name: 'SurveyCow', score: 88 },
+    { name: 'Slidejoy', score: 87 },
+    { name: 'Google', score: 85 },
+    { name: 'Walmart', score: 79 },
+    { name: 'Reddit', score: 77 },
+    { name: 'Camera', score: 77 },
+    { name: 'Messages', score: 76 },
+    { name: 'AOL', score: 75 }
+  ];
 
   const metrics = {
+    loss: {
+      value: 1.2,
+      description: "Final training loss after convergence",
+      color: "text-red-500"
+    },
     accuracy: {
       value: 74.1,
       description: "Overall prediction accuracy across all apps",
@@ -18,11 +51,6 @@ const ResultsSection = () => {
       value: 92.0,
       description: "Best performing app (WeChat) accuracy",
       color: "text-secondary"
-    },
-    trainingTime: {
-      value: 36,
-      description: "Training epochs until convergence",
-      color: "text-accent"
     }
   };
 
@@ -65,6 +93,85 @@ const ResultsSection = () => {
     );
   };
 
+  const renderVisualization = () => {
+    switch(selectedMetric) {
+      case 'loss':
+        return (
+          <div className="w-full h-96 p-6">
+            <h3 className="text-xl font-semibold mb-4">Training Loss Over Epochs</h3>
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={trainingData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis dataKey="epoch" stroke="#666" />
+                <YAxis stroke="#666" />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
+                  formatter={(value: number) => value.toFixed(2)}
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="loss" 
+                  stroke="#ef4444" 
+                  fill="#ef4444" 
+                  fillOpacity={0.2}
+                  strokeWidth={2}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        );
+      case 'accuracy':
+        return (
+          <div className="w-full h-96 p-6">
+            <h3 className="text-xl font-semibold mb-4">Accuracy Improvement During Training</h3>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={trainingData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis dataKey="epoch" stroke="#666" />
+                <YAxis stroke="#666" domain={[40, 80]} />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
+                  formatter={(value: number) => `${value.toFixed(1)}%`}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="accuracy" 
+                  stroke="#3b82f6" 
+                  strokeWidth={3}
+                  dot={{ fill: '#3b82f6', r: 4 }}
+                  activeDot={{ r: 6 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        );
+      case 'topAppAccuracy':
+        return (
+          <div className="w-full h-96 p-6">
+            <h3 className="text-xl font-semibold mb-4">Top 10 Apps by Prediction Accuracy</h3>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={topAppsData} layout="horizontal">
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis type="number" domain={[0, 100]} stroke="#666" />
+                <YAxis dataKey="name" type="category" stroke="#666" width={80} />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
+                  formatter={(value: number) => `${value}%`}
+                />
+                <Bar 
+                  dataKey="score" 
+                  fill="#8b5cf6"
+                  radius={[0, 4, 4, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <section id="results" className="py-20 px-6 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto max-w-7xl">
@@ -82,25 +189,50 @@ const ResultsSection = () => {
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
-              className="data-card scroll-reveal"
+              className="data-card scroll-reveal cursor-pointer hover:scale-105 transition-transform"
+              onClick={() => setSelectedMetric(key)}
             >
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
-                  {key === 'trainingTime' ? metric.value : `${metric.value}%`}
+                  {key === 'loss' ? metric.value.toFixed(1) : `${metric.value}%`}
                 </div>
                 <div className="text-sm font-medium mb-1">
-                  {key === 'topAppAccuracy' ? 'Top App Performance' : 
-                   key === 'trainingTime' ? 'Training Epochs' :
+                  {key === 'loss' ? 'Training Loss' :
+                   key === 'topAppAccuracy' ? 'Top App Performance' : 
                    'Overall Accuracy'}
                 </div>
-                <Progress value={metric.value} className="h-2 mb-3" />
+                <Progress 
+                  value={key === 'loss' ? (1 - metric.value/3.2) * 100 : metric.value} 
+                  className="h-2 mb-3" 
+                />
                 <p className="text-xs text-muted-foreground">
                   {metric.description}
                 </p>
+                <p className="text-xs text-primary mt-2">Click to view details →</p>
               </CardContent>
             </Card>
           ))}
         </div>
+
+        {/* Visualization Modal */}
+        {selectedMetric && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedMetric(null)}>
+            <Card className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle>Performance Visualization</CardTitle>
+                <button 
+                  onClick={() => setSelectedMetric(null)}
+                  className="p-2 hover:bg-muted rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </CardHeader>
+              <CardContent>
+                {renderVisualization()}
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Key Findings */}
         <div className="mb-16 scroll-reveal">
