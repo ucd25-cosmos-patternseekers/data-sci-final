@@ -59,8 +59,11 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--background))', 
-                border: '1px solid hsl(var(--border))' 
-              }} 
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+              }}
+              cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: '5 5' }}
             />
             <Line 
               type="monotone" 
@@ -85,8 +88,11 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
             <Tooltip 
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--background))', 
-                border: '1px solid hsl(var(--border))' 
-              }} 
+                border: '1px solid hsl(var(--border))',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+              }}
+              cursor={{ fill: 'transparent' }}
             />
             <Bar 
               dataKey="value" 
