@@ -12,13 +12,13 @@ const ResultsSection = () => {
 
   const metrics = {
     accuracy: {
-      value: 74.1,
+      value: 74.17,
       description: "Overall prediction accuracy across all apps",
       color: "text-primary"
     },
-    topAppAccuracy: {
-      value: 92.0,
-      description: "Best performing app (WeChat) accuracy",
+    precision: {
+      value: 72.0,
+      description: "Macro average precision across all app categories",
       color: "text-secondary"
     },
     dataSize: {
@@ -26,10 +26,10 @@ const ResultsSection = () => {
       description: "Thousand app transitions analyzed",
       color: "text-accent"
     },
-    trainingTime: {
-      value: 36,
-      description: "Training epochs until convergence",
-      color: "text-primary"
+    loss: {
+      value: 0.92,
+      description: "Final model loss after training convergence",
+      color: "text-destructive"
     }
   };
 
@@ -118,13 +118,13 @@ const ResultsSection = () => {
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
                   {key === 'dataSize' ? `${metric.value}k` : 
-                   key === 'trainingTime' ? metric.value :
+                   key === 'loss' ? metric.value :
                    `${metric.value}%`}
                 </div>
                 <div className="text-sm font-medium mb-1">
-                  {key === 'topAppAccuracy' ? 'Top App Performance' : 
+                  {key === 'precision' ? 'Macro Avg Precision' : 
                    key === 'dataSize' ? 'Data Points (K)' :
-                   key === 'trainingTime' ? 'Training Epochs' :
+                   key === 'loss' ? 'Training Loss' :
                    'Overall Accuracy'}
                 </div>
                 <Progress value={metric.value} className="h-2 mb-3" />

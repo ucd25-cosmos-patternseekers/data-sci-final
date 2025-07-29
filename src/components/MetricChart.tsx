@@ -11,35 +11,39 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
     switch (metric) {
       case 'accuracy':
         return [
-          { epoch: 1, value: 65.2 },
-          { epoch: 2, value: 72.1 },
-          { epoch: 3, value: 78.9 },
-          { epoch: 4, value: 82.3 },
-          { epoch: 5, value: 85.1 },
-          { epoch: 6, value: 86.8 },
-          { epoch: 7, value: 87.3 }
+          { epoch: 1, value: 37.7 },
+          { epoch: 5, value: 72.5 },
+          { epoch: 10, value: 73.7 },
+          { epoch: 15, value: 74.2 },
+          { epoch: 20, value: 74.4 },
+          { epoch: 25, value: 74.6 },
+          { epoch: 30, value: 74.9 },
+          { epoch: 36, value: 74.17 }
         ];
       case 'precision':
         return [
-          { category: 'Social', value: 89.2 },
-          { category: 'Productivity', value: 82.1 },
-          { category: 'Entertainment', value: 85.6 },
-          { category: 'Shopping', value: 81.3 },
-          { category: 'News', value: 86.9 }
+          { category: 'Communication', value: 85 },
+          { category: 'Social Media', value: 71 },
+          { category: 'Utilities', value: 55 },
+          { category: 'Entertainment', value: 63 },
+          { category: 'Productivity', value: 67 }
         ];
-      case 'recall':
+      case 'dataSize':
         return [
-          { timeOfDay: 'Morning', value: 92.1 },
-          { timeOfDay: 'Afternoon', value: 85.6 },
-          { timeOfDay: 'Evening', value: 91.3 },
-          { timeOfDay: 'Night', value: 87.8 }
+          { phase: 'Training', value: 58.3 },
+          { phase: 'Validation', value: 14.6 },
+          { phase: 'Total Analyzed', value: 72.9 }
         ];
-      case 'f1Score':
+      case 'loss':
         return [
-          { userType: 'Heavy Users', value: 91.2 },
-          { userType: 'Regular Users', value: 86.8 },
-          { userType: 'Light Users', value: 82.4 },
-          { userType: 'New Users', value: 78.9 }
+          { epoch: 1, value: 2.94 },
+          { epoch: 5, value: 1.04 },
+          { epoch: 10, value: 0.95 },
+          { epoch: 15, value: 0.94 },
+          { epoch: 20, value: 0.93 },
+          { epoch: 25, value: 0.93 },
+          { epoch: 30, value: 0.92 },
+          { epoch: 36, value: 0.92 }
         ];
       default:
         return [];
@@ -48,8 +52,20 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
 
   const data = getChartData();
 
+  const getChartColor = (metric: string) => {
+    switch (metric) {
+      case 'accuracy': return 'hsl(var(--primary))';
+      case 'precision': return 'hsl(var(--secondary))';
+      case 'dataSize': return 'hsl(var(--accent))';
+      case 'loss': return 'hsl(var(--destructive))';
+      default: return 'hsl(var(--primary))';
+    }
+  };
+
   const renderChart = () => {
-    if (metric === 'accuracy') {
+    const color = getChartColor(metric);
+    
+    if (metric === 'accuracy' || metric === 'loss') {
       return (
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={data}>
@@ -63,25 +79,26 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
                 borderRadius: '8px',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
               }}
-              cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: '5 5' }}
+              cursor={{ stroke: color, strokeWidth: 1, strokeDasharray: '5 5' }}
             />
             <Line 
               type="monotone" 
               dataKey="value" 
-              stroke="hsl(var(--primary))" 
+              stroke={color}
               strokeWidth={3}
-              dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 4 }}
+              dot={{ fill: color, strokeWidth: 2, r: 4 }}
             />
           </LineChart>
         </ResponsiveContainer>
       );
     } else {
+      const dataKey = metric === 'precision' ? 'category' : 'phase';
       return (
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
             <XAxis 
-              dataKey={metric === 'precision' ? 'category' : metric === 'recall' ? 'timeOfDay' : 'userType'} 
+              dataKey={dataKey}
               stroke="hsl(var(--muted-foreground))" 
             />
             <YAxis stroke="hsl(var(--muted-foreground))" />
@@ -96,7 +113,7 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
             />
             <Bar 
               dataKey="value" 
-              fill="hsl(var(--primary))" 
+              fill={color}
               radius={[4, 4, 0, 0]}
             />
           </BarChart>
@@ -115,8 +132,12 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
         {renderChart()}
       </div>
       <div className="text-center">
-        <span className="text-2xl font-bold text-primary">{value}%</span>
-        <p className="text-xs text-muted-foreground mt-1">Current Model Performance</p>
+        <span className="text-2xl font-bold text-primary">
+          {metric === 'loss' ? value : `${value}%`}
+        </span>
+        <p className="text-xs text-muted-foreground mt-1">
+          {metric === 'loss' ? 'Final Training Loss' : 'Current Model Performance'}
+        </p>
       </div>
     </div>
   );
