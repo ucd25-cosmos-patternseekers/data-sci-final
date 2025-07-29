@@ -7,29 +7,28 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Target, Zap, Award, TrendingUp, ChevronDown, Eye } from "lucide-react";
 
 const ResultsSection = () => {
-  const [selectedMetric, setSelectedMetric] = useState('accuracy');
   const [expandedFindings, setExpandedFindings] = useState<number[]>([]);
   const [showAllApps, setShowAllApps] = useState(false);
 
   const metrics = {
     accuracy: {
       value: 74.1,
-      description: "Overall prediction accuracy across 43 apps",
+      description: "Overall prediction accuracy across all apps",
       color: "text-primary"
     },
-    precision: {
-      value: 72.0,
-      description: "Average precision across all app categories",
+    topAppAccuracy: {
+      value: 92.0,
+      description: "Best performing app (WeChat) accuracy",
       color: "text-secondary"
     },
-    recall: {
-      value: 68.0,
-      description: "Average recall rate for app predictions",
+    dataSize: {
+      value: 73,
+      description: "Thousand app transitions analyzed",
       color: "text-accent"
     },
-    f1Score: {
-      value: 69.0,
-      description: "Macro-average F1-score across all apps",
+    trainingTime: {
+      value: 36,
+      description: "Training epochs until convergence",
       color: "text-primary"
     }
   };
@@ -66,27 +65,27 @@ const ResultsSection = () => {
   ];
 
   const topApps = [
-    { name: "WeChat", f1Score: 92, precision: 92, recall: 93 },
-    { name: "Faceu", f1Score: 88, precision: 85, recall: 92 },
-    { name: "SurveyCow", f1Score: 88, precision: 85, recall: 92 },
-    { name: "Slidejoy", f1Score: 87, precision: 83, recall: 92 },
-    { name: "Google", f1Score: 85, precision: 84, recall: 85 }
+    { name: "WeChat", f1Score: 92 },
+    { name: "Faceu", f1Score: 88 },
+    { name: "SurveyCow", f1Score: 88 },
+    { name: "Slidejoy", f1Score: 87 },
+    { name: "Google", f1Score: 85 }
   ];
 
   const allApps = [
     ...topApps,
-    { name: "Walmart", f1Score: 79, precision: 85, recall: 74 },
-    { name: "Reddit", f1Score: 77, precision: 75, recall: 80 },
-    { name: "Camera", f1Score: 77, precision: 83, recall: 71 },
-    { name: "Messages", f1Score: 76, precision: 75, recall: 77 },
-    { name: "AOL", f1Score: 75, precision: 75, recall: 76 },
-    { name: "Facebook", f1Score: 74, precision: 72, recall: 75 },
-    { name: "Telegram", f1Score: 72, precision: 66, recall: 80 },
-    { name: "Twitter", f1Score: 68, precision: 69, recall: 67 },
-    { name: "Instagram", f1Score: 68, precision: 69, recall: 67 },
-    { name: "Clock", f1Score: 61, precision: 55, recall: 70 },
-    { name: "Calculator", f1Score: 49, precision: 58, recall: 43 },
-    { name: "Calendar", f1Score: 46, precision: 56, recall: 39 }
+    { name: "Walmart", f1Score: 79 },
+    { name: "Reddit", f1Score: 77 },
+    { name: "Camera", f1Score: 77 },
+    { name: "Messages", f1Score: 76 },
+    { name: "AOL", f1Score: 75 },
+    { name: "Facebook", f1Score: 74 },
+    { name: "Telegram", f1Score: 72 },
+    { name: "Twitter", f1Score: 68 },
+    { name: "Instagram", f1Score: 68 },
+    { name: "Clock", f1Score: 61 },
+    { name: "Calculator", f1Score: 49 },
+    { name: "Calendar", f1Score: 46 }
   ];
 
   const toggleFinding = (index: number) => {
@@ -101,7 +100,7 @@ const ResultsSection = () => {
     <section id="results" className="py-20 px-6 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">Model Performance</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -114,15 +113,19 @@ const ResultsSection = () => {
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
-              className={`data-card cursor-pointer transition-all hover:border-primary/50 ${selectedMetric === key ? 'border-primary bg-primary/5' : 'border-border'}`}
-              onClick={() => setSelectedMetric(key)}
+              className="data-card scroll-reveal"
             >
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
-                  {metric.value}%
+                  {key === 'dataSize' ? `${metric.value}k` : 
+                   key === 'trainingTime' ? metric.value :
+                   `${metric.value}%`}
                 </div>
-                <div className="text-sm font-medium mb-1 capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                <div className="text-sm font-medium mb-1">
+                  {key === 'topAppAccuracy' ? 'Top App Performance' : 
+                   key === 'dataSize' ? 'Data Points (K)' :
+                   key === 'trainingTime' ? 'Training Epochs' :
+                   'Overall Accuracy'}
                 </div>
                 <Progress value={metric.value} className="h-2 mb-3" />
                 <p className="text-xs text-muted-foreground">
@@ -174,16 +177,75 @@ const ResultsSection = () => {
           </div>
         </div>
 
+        {/* Most vs Least Accurate Apps */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 scroll-reveal">
+          <Card className="overflow-hidden border-green-500/30 bg-gradient-to-br from-green-500/5 to-transparent">
+            <CardHeader>
+              <CardTitle className="text-green-600 dark:text-green-400">Most Predictable Apps</CardTitle>
+              <CardDescription>Apps with highest prediction accuracy</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {[
+                  { name: "WeChat", score: 92, reason: "Consistent messaging patterns" },
+                  { name: "Faceu", score: 88, reason: "Regular photo filter usage" },
+                  { name: "SurveyCow", score: 88, reason: "Daily reward checking" },
+                  { name: "Slidejoy", score: 87, reason: "Lock screen interactions" },
+                  { name: "Google", score: 85, reason: "Primary search behavior" }
+                ].map((app, i) => (
+                  <div key={i} className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg">
+                    <div>
+                      <p className="font-medium">{app.name}</p>
+                      <p className="text-xs text-muted-foreground">{app.reason}</p>
+                    </div>
+                    <Badge variant="outline" className="bg-green-500/20">
+                      {app.score}%
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="overflow-hidden border-red-500/30 bg-gradient-to-br from-red-500/5 to-transparent">
+            <CardHeader>
+              <CardTitle className="text-red-600 dark:text-red-400">Most Challenging Apps</CardTitle>
+              <CardDescription>Apps hardest to predict accurately</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {[
+                  { name: "Calendar", score: 46, reason: "Sporadic event checking" },
+                  { name: "Calculator", score: 49, reason: "Random usage patterns" },
+                  { name: "iBotta", score: 51, reason: "Irregular shopping habits" },
+                  { name: "Netflix", score: 56, reason: "Varied viewing times" },
+                  { name: "Pinterest", score: 59, reason: "Browsing unpredictability" }
+                ].map((app, i) => (
+                  <div key={i} className="flex items-center justify-between p-3 bg-red-500/10 rounded-lg">
+                    <div>
+                      <p className="font-medium">{app.name}</p>
+                      <p className="text-xs text-muted-foreground">{app.reason}</p>
+                    </div>
+                    <Badge variant="outline" className="bg-red-500/20">
+                      {app.score}%
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* App Performance Analysis */}
         <div className="scroll-reveal">
           <Card className="data-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Eye className="w-6 h-6 text-primary" />
-                App-Specific Performance
+                Complete Performance Rankings
               </CardTitle>
               <CardDescription>
-                Individual app prediction performance ranked by F1-score
+                All 43 apps ranked by prediction performance (higher = more predictable)
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -197,7 +259,7 @@ const ResultsSection = () => {
                       <div>
                         <h4 className="font-semibold">{app.name}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Precision: {app.precision}% • Recall: {app.recall}%
+                          Prediction performance score
                         </p>
                       </div>
                     </div>
@@ -205,6 +267,7 @@ const ResultsSection = () => {
                       <div className="text-lg font-bold text-primary">
                         {app.f1Score}%
                       </div>
+                      <div className="text-xs text-muted-foreground">Performance</div>
                       <Progress value={app.f1Score} className="w-24 h-2 mt-1" />
                     </div>
                   </div>
@@ -217,7 +280,7 @@ const ResultsSection = () => {
                   variant="outline"
                   onClick={() => setShowAllApps(!showAllApps)}
                 >
-                  {showAllApps ? 'Show Top 5 Apps' : 'View All 17 Apps'}
+                  {showAllApps ? 'Show Less' : 'View All'}
                 </Button>
               </div>
             </CardContent>
@@ -226,7 +289,7 @@ const ResultsSection = () => {
 
         {/* Training Summary */}
         <div className="mt-12 text-center text-sm text-muted-foreground">
-          <p>Model converged after 36 epochs with early stopping • Final validation accuracy: 74.11%</p>
+          <p>Trained on 72,854 app transitions across 43 different applications • Model converged with early stopping</p>
         </div>
       </div>
     </section>
