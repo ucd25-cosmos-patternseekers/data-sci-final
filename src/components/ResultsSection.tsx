@@ -1,47 +1,16 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Target, Zap, Award, TrendingUp, ChevronDown, X } from "lucide-react";
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { Target, Zap, Award, TrendingUp, ChevronDown, Eye } from "lucide-react";
 
 const ResultsSection = () => {
   const [expandedFindings, setExpandedFindings] = useState<number[]>([]);
-  const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
-
-  // Training data for visualizations
-  const trainingData = [
-    { epoch: 0, loss: 3.2, accuracy: 45.2 },
-    { epoch: 5, loss: 2.8, accuracy: 52.3 },
-    { epoch: 10, loss: 2.3, accuracy: 61.5 },
-    { epoch: 15, loss: 1.9, accuracy: 66.8 },
-    { epoch: 20, loss: 1.6, accuracy: 70.2 },
-    { epoch: 25, loss: 1.4, accuracy: 72.1 },
-    { epoch: 30, loss: 1.3, accuracy: 73.5 },
-    { epoch: 35, loss: 1.2, accuracy: 74.1 },
-    { epoch: 36, loss: 1.2, accuracy: 74.1 }
-  ];
-
-  const topAppsData = [
-    { name: 'WeChat', score: 92 },
-    { name: 'Faceu', score: 88 },
-    { name: 'SurveyCow', score: 88 },
-    { name: 'Slidejoy', score: 87 },
-    { name: 'Google', score: 85 },
-    { name: 'Walmart', score: 79 },
-    { name: 'Reddit', score: 77 },
-    { name: 'Camera', score: 77 },
-    { name: 'Messages', score: 76 },
-    { name: 'AOL', score: 75 }
-  ];
+  const [showAllApps, setShowAllApps] = useState(false);
 
   const metrics = {
-    loss: {
-      value: 1.2,
-      description: "Final training loss after convergence",
-      color: "text-red-500"
-    },
     accuracy: {
       value: 74.1,
       description: "Overall prediction accuracy across all apps",
@@ -51,6 +20,16 @@ const ResultsSection = () => {
       value: 92.0,
       description: "Best performing app (WeChat) accuracy",
       color: "text-secondary"
+    },
+    dataSize: {
+      value: 73,
+      description: "Thousand app transitions analyzed",
+      color: "text-accent"
+    },
+    trainingTime: {
+      value: 36,
+      description: "Training epochs until convergence",
+      color: "text-primary"
     }
   };
 
@@ -85,91 +64,36 @@ const ResultsSection = () => {
     }
   ];
 
+  const topApps = [
+    { name: "WeChat", f1Score: 92 },
+    { name: "Faceu", f1Score: 88 },
+    { name: "SurveyCow", f1Score: 88 },
+    { name: "Slidejoy", f1Score: 87 },
+    { name: "Google", f1Score: 85 }
+  ];
+
+  const allApps = [
+    ...topApps,
+    { name: "Walmart", f1Score: 79 },
+    { name: "Reddit", f1Score: 77 },
+    { name: "Camera", f1Score: 77 },
+    { name: "Messages", f1Score: 76 },
+    { name: "AOL", f1Score: 75 },
+    { name: "Facebook", f1Score: 74 },
+    { name: "Telegram", f1Score: 72 },
+    { name: "Twitter", f1Score: 68 },
+    { name: "Instagram", f1Score: 68 },
+    { name: "Clock", f1Score: 61 },
+    { name: "Calculator", f1Score: 49 },
+    { name: "Calendar", f1Score: 46 }
+  ];
+
   const toggleFinding = (index: number) => {
     setExpandedFindings(prev => 
       prev.includes(index) 
         ? prev.filter(i => i !== index)
         : [...prev, index]
     );
-  };
-
-  const renderVisualization = () => {
-    switch(selectedMetric) {
-      case 'loss':
-        return (
-          <div className="w-full h-96 p-6">
-            <h3 className="text-xl font-semibold mb-4">Training Loss Over Epochs</h3>
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={trainingData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis dataKey="epoch" stroke="#666" />
-                <YAxis stroke="#666" />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
-                  formatter={(value: number) => value.toFixed(2)}
-                />
-                <Area 
-                  type="monotone" 
-                  dataKey="loss" 
-                  stroke="#ef4444" 
-                  fill="#ef4444" 
-                  fillOpacity={0.2}
-                  strokeWidth={2}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        );
-      case 'accuracy':
-        return (
-          <div className="w-full h-96 p-6">
-            <h3 className="text-xl font-semibold mb-4">Accuracy Improvement During Training</h3>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={trainingData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis dataKey="epoch" stroke="#666" />
-                <YAxis stroke="#666" domain={[40, 80]} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
-                  formatter={(value: number) => `${value.toFixed(1)}%`}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="accuracy" 
-                  stroke="#3b82f6" 
-                  strokeWidth={3}
-                  dot={{ fill: '#3b82f6', r: 4 }}
-                  activeDot={{ r: 6 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        );
-      case 'topAppAccuracy':
-        return (
-          <div className="w-full h-96 p-6">
-            <h3 className="text-xl font-semibold mb-4">Top 10 Apps by Prediction Accuracy</h3>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={topAppsData} layout="horizontal">
-                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis type="number" domain={[0, 100]} stroke="#666" />
-                <YAxis dataKey="name" type="category" stroke="#666" width={80} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #ccc' }}
-                  formatter={(value: number) => `${value}%`}
-                />
-                <Bar 
-                  dataKey="score" 
-                  fill="#8b5cf6"
-                  radius={[0, 4, 4, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        );
-      default:
-        return null;
-    }
   };
 
   return (
@@ -185,54 +109,32 @@ const ResultsSection = () => {
         </div>
 
         {/* Performance Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
-              className="data-card scroll-reveal cursor-pointer hover:scale-105 transition-transform"
-              onClick={() => setSelectedMetric(key)}
+              className="data-card scroll-reveal"
             >
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
-                  {key === 'loss' ? metric.value.toFixed(1) : `${metric.value}%`}
+                  {key === 'dataSize' ? `${metric.value}k` : 
+                   key === 'trainingTime' ? metric.value :
+                   `${metric.value}%`}
                 </div>
                 <div className="text-sm font-medium mb-1">
-                  {key === 'loss' ? 'Training Loss' :
-                   key === 'topAppAccuracy' ? 'Top App Performance' : 
+                  {key === 'topAppAccuracy' ? 'Top App Performance' : 
+                   key === 'dataSize' ? 'Data Points (K)' :
+                   key === 'trainingTime' ? 'Training Epochs' :
                    'Overall Accuracy'}
                 </div>
-                <Progress 
-                  value={key === 'loss' ? (1 - metric.value/3.2) * 100 : metric.value} 
-                  className="h-2 mb-3" 
-                />
+                <Progress value={metric.value} className="h-2 mb-3" />
                 <p className="text-xs text-muted-foreground">
                   {metric.description}
                 </p>
-                <p className="text-xs text-primary mt-2">Click to view details →</p>
               </CardContent>
             </Card>
           ))}
         </div>
-
-        {/* Visualization Modal */}
-        {selectedMetric && (
-          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setSelectedMetric(null)}>
-            <Card className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Performance Visualization</CardTitle>
-                <button 
-                  onClick={() => setSelectedMetric(null)}
-                  className="p-2 hover:bg-muted rounded-lg transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </CardHeader>
-              <CardContent>
-                {renderVisualization()}
-              </CardContent>
-            </Card>
-          </div>
-        )}
 
         {/* Key Findings */}
         <div className="mb-16 scroll-reveal">
@@ -329,6 +231,57 @@ const ResultsSection = () => {
                     </Badge>
                   </div>
                 ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* App Performance Analysis */}
+        <div className="scroll-reveal">
+          <Card className="data-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3">
+                <Eye className="w-6 h-6 text-primary" />
+                Complete Performance Rankings
+              </CardTitle>
+              <CardDescription>
+                All 43 apps ranked by prediction performance (higher = more predictable)
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {(showAllApps ? allApps : topApps).map((app, index) => (
+                  <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{app.name}</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Prediction performance score
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-primary">
+                        {app.f1Score}%
+                      </div>
+                      <div className="text-xs text-muted-foreground">Performance</div>
+                      <Progress value={app.f1Score} className="w-24 h-2 mt-1" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-6 pt-6 border-t border-border/50">
+                <Button 
+                  className="w-full" 
+                  variant="outline"
+                  onClick={() => setShowAllApps(!showAllApps)}
+                >
+                  {showAllApps ? 'Show Less' : 'View All'}
+                </Button>
               </div>
             </CardContent>
           </Card>
