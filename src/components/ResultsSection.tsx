@@ -110,7 +110,7 @@ const ResultsSection = () => {
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
-              className={`data-card cursor-pointer transition-all hover:border-primary/50 ${selectedMetric === key ? 'border-primary bg-primary/5' : 'border-border'} scroll-reveal`}
+              className={`data-card cursor-pointer transition-all hover:border-primary/50 ${selectedMetric === key ? 'border-primary bg-primary/5' : 'border-border'}`}
               onClick={() => setSelectedMetric(key)}
             >
               <CardContent className="pt-6">
