@@ -4,9 +4,175 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Target, Zap, Award, TrendingUp, ChevronDown, Eye } from "lucide-react";
+import { Target, Zap, Award, TrendingUp, ChevronDown, Eye, BarChart, LineChart, PieChart, Activity } from "lucide-react";
+import { LineChart as RechartsLineChart, Line, BarChart as RechartsBarChart, Bar, PieChart as RechartsPieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadialBarChart, RadialBar } from 'recharts';
+
+const MetricVisualization = ({ metric, metrics, topApps }) => {
+  const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];
+  
+  const getVisualization = () => {
+    switch(metric) {
+      case 'accuracy':
+        // Training accuracy over epochs
+        const trainingData = [
+          { epoch: 1, accuracy: 37.7, val_accuracy: 65.5 },
+          { epoch: 5, accuracy: 72.5, val_accuracy: 73.1 },
+          { epoch: 10, accuracy: 73.7, val_accuracy: 73.7 },
+          { epoch: 15, accuracy: 74.2, val_accuracy: 73.9 },
+          { epoch: 20, accuracy: 74.4, val_accuracy: 74.0 },
+          { epoch: 25, accuracy: 74.6, val_accuracy: 74.0 },
+          { epoch: 30, accuracy: 74.9, val_accuracy: 74.1 },
+          { epoch: 36, accuracy: 75.0, val_accuracy: 74.1 }
+        ];
+        
+        return (
+          <Card className="data-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <LineChart className="w-5 h-5 text-primary" />
+                Training Progress
+              </CardTitle>
+              <CardDescription>Model accuracy improvement over training epochs</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <RechartsLineChart data={trainingData}>
+                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+                  <XAxis dataKey="epoch" label={{ value: 'Epoch', position: 'insideBottom', offset: -5 }} />
+                  <YAxis label={{ value: 'Accuracy (%)', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="accuracy" stroke="#3b82f6" name="Training" strokeWidth={2} />
+                  <Line type="monotone" dataKey="val_accuracy" stroke="#10b981" name="Validation" strokeWidth={2} />
+                </RechartsLineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        );
+        
+      case 'topAppAccuracy':
+        // Top performing apps visualization
+        const appPerformanceData = topApps.map((app, index) => ({
+          name: app.name,
+          performance: app.f1Score,
+          fill: COLORS[index % COLORS.length]
+        }));
+        
+        return (
+          <Card className="data-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart className="w-5 h-5 text-primary" />
+                Top Performing Apps
+              </CardTitle>
+              <CardDescription>Apps with highest prediction accuracy</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <RechartsBarChart data={appPerformanceData}>
+                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+                  <XAxis dataKey="name" />
+                  <YAxis label={{ value: 'Accuracy (%)', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip />
+                  <Bar dataKey="performance" radius={[8, 8, 0, 0]}>
+                    {appPerformanceData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Bar>
+                </RechartsBarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        );
+        
+      case 'dataSize':
+        // App category distribution
+        const categoryData = [
+          { name: 'Communication', value: 35, count: 14991 },
+          { name: 'Social Media', value: 25, count: 10788 },
+          { name: 'Utilities', value: 20, count: 8576 },
+          { name: 'Entertainment', value: 12, count: 5160 },
+          { name: 'Shopping/Rewards', value: 8, count: 3439 }
+        ];
+        
+        return (
+          <Card className="data-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <PieChart className="w-5 h-5 text-primary" />
+                Data Distribution
+              </CardTitle>
+              <CardDescription>App categories in the dataset</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <RechartsPieChart>
+                  <Pie
+                    data={categoryData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, value }) => `${name}: ${value}%`}
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {categoryData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value, name, props) => [`${value}% (${props.payload.count} samples)`, name]} />
+                </RechartsPieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        );
+        
+      case 'trainingTime':
+        // Loss reduction visualization
+        const lossData = [
+          { epoch: 1, loss: 2.94, val_loss: 1.34 },
+          { epoch: 5, loss: 1.05, val_loss: 1.00 },
+          { epoch: 10, loss: 0.97, val_loss: 0.95 },
+          { epoch: 15, loss: 0.94, val_loss: 0.94 },
+          { epoch: 20, loss: 0.93, val_loss: 0.93 },
+          { epoch: 25, loss: 0.91, val_loss: 0.93 },
+          { epoch: 30, loss: 0.89, val_loss: 0.93 },
+          { epoch: 36, loss: 0.88, val_loss: 0.93 }
+        ];
+        
+        return (
+          <Card className="data-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Activity className="w-5 h-5 text-primary" />
+                Loss Reduction
+              </CardTitle>
+              <CardDescription>Model loss improvement during training</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <RechartsLineChart data={lossData}>
+                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+                  <XAxis dataKey="epoch" label={{ value: 'Epoch', position: 'insideBottom', offset: -5 }} />
+                  <YAxis label={{ value: 'Loss', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="loss" stroke="#ef4444" name="Training Loss" strokeWidth={2} />
+                  <Line type="monotone" dataKey="val_loss" stroke="#f59e0b" name="Validation Loss" strokeWidth={2} />
+                </RechartsLineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        );
+    }
+  };
+  
+  return getVisualization();
+};
 
 const ResultsSection = () => {
+  const [selectedMetric, setSelectedMetric] = useState('accuracy');
   const [expandedFindings, setExpandedFindings] = useState<number[]>([]);
   const [showAllApps, setShowAllApps] = useState(false);
 
@@ -14,22 +180,26 @@ const ResultsSection = () => {
     accuracy: {
       value: 74.1,
       description: "Overall prediction accuracy across all apps",
-      color: "text-primary"
+      color: "text-primary",
+      icon: <LineChart className="w-4 h-4" />
     },
     topAppAccuracy: {
       value: 92.0,
       description: "Best performing app (WeChat) accuracy",
-      color: "text-secondary"
+      color: "text-secondary",
+      icon: <BarChart className="w-4 h-4" />
     },
     dataSize: {
       value: 73,
       description: "Thousand app transitions analyzed",
-      color: "text-accent"
+      color: "text-accent",
+      icon: <PieChart className="w-4 h-4" />
     },
     trainingTime: {
       value: 36,
       description: "Training epochs until convergence",
-      color: "text-primary"
+      color: "text-primary",
+      icon: <Activity className="w-4 h-4" />
     }
   };
 
@@ -106,6 +276,9 @@ const ResultsSection = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Trained on 72,854 app transitions across 43 different applications
           </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            Click on any metric below to see detailed visualizations
+          </p>
         </div>
 
         {/* Performance Metrics */}
@@ -113,7 +286,8 @@ const ResultsSection = () => {
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
-              className="data-card scroll-reveal"
+              className={`data-card cursor-pointer transition-all hover:scale-105 ${selectedMetric === key ? 'border-primary animate-glow shadow-lg' : ''} scroll-reveal`}
+              onClick={() => setSelectedMetric(key)}
             >
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
@@ -135,6 +309,17 @@ const ResultsSection = () => {
             </Card>
           ))}
         </div>
+
+        {/* Interactive Metric Visualization */}
+        {selectedMetric && (
+          <div className="mb-16 scroll-reveal">
+            <MetricVisualization 
+              metric={selectedMetric}
+              metrics={metrics}
+              topApps={topApps}
+            />
+          </div>
+        )}
 
         {/* Key Findings */}
         <div className="mb-16 scroll-reveal">
