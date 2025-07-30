@@ -17,38 +17,38 @@ const ConclusionSection = () => {
     {
       icon: <Smartphone className="w-5 h-5" />,
       title: "Smart App Suggestions",
-      description: "App stores and platforms can analyze typical app-to-app transitions to suggest the next app a user is likely to need based on their recently used app, improving convenience and user satisfaction. For example, suggesting a music app after opening a fitness app.",
+      description: "App stores can suggest the next likely app based on usage patterns - like recommending music apps after fitness apps.",
       impact: "Faster Navigation"
     },
     {
       icon: <Users className="w-5 h-5" />,
       title: "Targeted Advertising",
-      description: "Marketers can deliver highly relevant ads or product suggestions aligned with common app transition patterns. For instance, showing food delivery offers after fitness app usage, or travel apps after calendar apps during vacation planning periods.",
+      description: "Show relevant ads based on app transitions - food delivery ads after fitness apps, travel apps after calendar usage.",
       impact: "Higher Ad Engagement"
     },
     {
       icon: <Lightbulb className="w-5 h-5" />,
       title: "Security & Fraud Detection",
-      description: "Unusual app transition patterns, such as rapid switching between sensitive financial apps or unexpected access to private data apps, can be flagged as potentially suspicious behavior, helping identify compromised devices or fraudulent activity.",
+      description: "Flag unusual app switching patterns as potentially suspicious behavior or compromised devices.",
       impact: "Enhanced Security"
     },
     {
       icon: <CheckCircle className="w-5 h-5" />,
-      title: "System Performance Optimization",
-      description: "Operating systems can intelligently pre-load predicted apps in background memory, optimize resource allocation, and manage battery usage by understanding which apps users are likely to open next, reducing app launch times and improving overall device performance.",
+      title: "System Optimization",
+      description: "Pre-load predicted apps in background memory and optimize resource allocation for faster performance.",
       impact: "Better Performance"
     },
     {
       icon: <FileText className="w-5 h-5" />,
-      title: "Digital Wellness & Productivity",
-      description: "Applications can provide insights into app usage patterns to help users understand their digital habits, suggest productivity improvements, and identify when users might be procrastinating or need breaks from certain app categories.",
+      title: "Digital Wellness",
+      description: "Provide insights into usage patterns to help users understand habits and improve productivity.",
       impact: "Improved Wellness"
     },
     {
       icon: <AlertCircle className="w-5 h-5" />,
-      title: "Personalized UI/UX",
-      description: "Device interfaces can dynamically reorganize home screens, widget placement, and quick-access menus based on predicted app usage patterns throughout the day, creating a more intuitive and personalized user experience that adapts to individual routines.",
-      impact: "Dynamic Interfaces"
+      title: "Personalized Interfaces",
+      description: "Dynamically reorganize home screens and widgets based on predicted usage throughout the day.",
+      impact: "Dynamic UX"
     }
   ];
 
