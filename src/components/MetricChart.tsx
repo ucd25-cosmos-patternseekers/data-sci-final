@@ -28,12 +28,6 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
           { category: 'Entertainment', value: 63 },
           { category: 'Productivity', value: 67 }
         ];
-      case 'dataSize':
-        return [
-          { phase: 'Training', value: 58.3 },
-          { phase: 'Validation', value: 14.6 },
-          { phase: 'Total Analyzed', value: 72.9 }
-        ];
       case 'loss':
         return [
           { epoch: 1, value: 2.94 },
@@ -56,8 +50,7 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
     switch (metric) {
       case 'accuracy': return 'hsl(var(--primary))';
       case 'precision': return 'hsl(var(--secondary))';
-      case 'dataSize': return 'hsl(var(--accent))';
-      case 'loss': return 'hsl(var(--chart-4))';
+      case 'loss': return 'hsl(168 100% 36%)'; // Teal color
       default: return 'hsl(var(--primary))';
     }
   };
@@ -92,13 +85,12 @@ const MetricChart = ({ metric, value, description }: MetricChartProps) => {
         </ResponsiveContainer>
       );
     } else {
-      const dataKey = metric === 'precision' ? 'category' : 'phase';
       return (
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
             <XAxis 
-              dataKey={dataKey}
+              dataKey="category"
               stroke="hsl(var(--muted-foreground))" 
             />
             <YAxis stroke="hsl(var(--muted-foreground))" />

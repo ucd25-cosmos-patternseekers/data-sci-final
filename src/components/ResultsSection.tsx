@@ -23,15 +23,10 @@ const ResultsSection = () => {
       description: "Macro average precision across all app categories",
       color: "text-secondary"
     },
-    dataSize: {
-      value: 73,
-      description: "Thousand app transitions analyzed",
-      color: "text-accent"
-    },
     loss: {
       value: 0.92,
       description: "Final model loss after training convergence",
-      color: "text-chart-4"
+      color: "text-teal-600"
     }
   };
 
@@ -111,7 +106,7 @@ const ResultsSection = () => {
         </div>
 
         {/* Performance Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
@@ -122,13 +117,10 @@ const ResultsSection = () => {
             >
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
-                  {key === 'dataSize' ? `${metric.value}k` : 
-                   key === 'loss' ? metric.value :
-                   `${metric.value}%`}
+                  {key === 'loss' ? metric.value : `${metric.value}%`}
                 </div>
                 <div className="text-sm font-medium mb-1">
                   {key === 'precision' ? 'Macro Avg Precision' : 
-                   key === 'dataSize' ? 'Data Points (K)' :
                    key === 'loss' ? 'Training Loss' :
                    'Overall Accuracy'}
                 </div>
