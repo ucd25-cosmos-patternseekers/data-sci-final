@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { 
   Database, 
@@ -12,16 +11,17 @@ import {
   Layers, 
   Brain,
   Target,
-  Search
+  Search,
+  TrendingUp,
+  Settings
 } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, LineChart, Line, Area, AreaChart } from 'recharts';
 
 const MethodologySection = () => {
   const [filterApplied, setFilterApplied] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [trainRatio, setTrainRatio] = useState([70]);
-  const [valRatio, setValRatio] = useState([10]);
   const [windowPosition, setWindowPosition] = useState(0);
+  const [currentTrial, setCurrentTrial] = useState(0);
 
   // Sample data for visualizations
   const appData = [
@@ -60,13 +60,35 @@ const MethodologySection = () => {
     { app: 'Twitter', token: 10 }
   ];
 
-  const userApps = ['📱', '📷', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺', '🗺️'];
+  const userApps = ['📱', '📷', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺', '🗺️', '📱', '💬', '🌐', '📧', '🎵', '📺'];
 
   const filteredTokens = tokenData.filter(item => 
     item.app.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const testRatio = 100 - trainRatio[0] - valRatio[0];
+  const splitData = [
+    { name: 'Train', value: 70, color: 'hsl(var(--primary))' },
+    { name: 'Validation', value: 10, color: 'hsl(var(--secondary))' },
+    { name: 'Test', value: 20, color: 'hsl(var(--accent))' }
+  ];
+
+  const hyperparameterTrials = [
+    { trial: 1, embedding: 64, lstm: 128, dense: 64, dropout: 0.3, lr: 0.001, accuracy: 68.2 },
+    { trial: 2, embedding: 128, lstm: 256, dense: 128, dropout: 0.4, lr: 0.002, accuracy: 71.5 },
+    { trial: 3, embedding: 64, lstm: 64, dense: 256, dropout: 0.2, lr: 0.0005, accuracy: 69.8 },
+    { trial: 4, embedding: 128, lstm: 128, dense: 128, dropout: 0.35, lr: 0.0015, accuracy: 73.1 },
+    { trial: 5, embedding: 128, lstm: 256, dense: 256, dropout: 0.3, lr: 0.001, accuracy: 74.17 }
+  ];
+
+  const trainingProgress = [
+    { epoch: 1, loss: 2.8, accuracy: 45.2 },
+    { epoch: 5, loss: 1.9, accuracy: 62.1 },
+    { epoch: 10, loss: 1.4, accuracy: 68.5 },
+    { epoch: 15, loss: 1.1, accuracy: 71.8 },
+    { epoch: 20, loss: 0.9, accuracy: 73.2 },
+    { epoch: 25, loss: 0.8, accuracy: 74.0 },
+    { epoch: 30, loss: 0.75, accuracy: 74.17 }
+  ];
 
   return (
     <section id="methodology" className="py-20 px-6">
@@ -76,11 +98,11 @@ const MethodologySection = () => {
             <span className="gradient-text">Methodology</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Five-step process from raw data to predictions
+            From raw data to neural predictions through five systematic steps
           </p>
         </div>
 
-        {/* Step 1: Preparing Data */}
+        {/* Step 1: Data Collection & Processing */}
         <div className="scroll-reveal">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
             <div>
@@ -88,45 +110,47 @@ const MethodologySection = () => {
                 <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
                   <Database className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-3xl font-bold">1. Preparing Data</h3>
+                <h3 className="text-3xl font-bold">1. Data Collection & Processing</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Raw data consists of user ID, app name, and timestamps. We focus the model on common usage patterns.
+                Raw dataset contains user interactions with timestamps. We filter for quality and convert text to numerical tokens.
               </p>
               <ul className="space-y-2 text-muted-foreground">
-                <li>• Dataset contains user interactions with apps over time</li>
-                <li>• Filter out apps appearing fewer than 50 times</li>
-                <li>• Map each app name to unique integer tokens for neural network processing</li>
+                <li>• Dataset: user_id, app_name, timestamp triplets</li>
+                <li>• Filter apps appearing ≥50 times (removes noise)</li>
+                <li>• Tokenize app names to integers for neural processing</li>
+                <li>• Create sliding windows of 30 apps + 1 target</li>
               </ul>
             </div>
             <Card className="data-card">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
-                  <span>App Usage Filtering</span>
+                  <span>App Frequency Filter</span>
                   <Button 
                     size="sm" 
                     variant={filterApplied ? "default" : "outline"}
                     onClick={() => setFilterApplied(!filterApplied)}
                   >
-                    {filterApplied ? "Show All" : "Apply Filter"}
+                    <Filter className="w-4 h-4 mr-1" />
+                    {filterApplied ? "Show All" : "Apply ≥50 Filter"}
                   </Button>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={appData.slice(0, 12)}>
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart data={appData.slice(0, 15)}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis 
                       dataKey="name" 
                       stroke="hsl(var(--muted-foreground))" 
                       angle={-45}
                       textAnchor="end"
-                      height={50}
+                      height={60}
                       fontSize={10}
                     />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
                     <Bar dataKey="count" radius={[2, 2, 0, 0]}>
-                      {appData.slice(0, 12).map((entry, index) => (
+                      {appData.slice(0, 15).map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`} 
                           fill={filterApplied && !entry.filtered ? "hsl(var(--muted))" : "hsl(var(--primary))"} 
@@ -135,55 +159,63 @@ const MethodologySection = () => {
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
-                <p className="text-xs text-muted-foreground text-center mt-2">
-                  {filterApplied ? "Filtered apps (gray) removed from training" : "All apps before filtering"}
-                </p>
+                <div className="mt-4 p-3 bg-muted/20 rounded-lg">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Hash className="w-4 h-4 text-secondary" />
+                    <span className="text-sm font-medium">Tokenizer Example</span>
+                  </div>
+                  <Input
+                    placeholder="Search app name..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="mb-2"
+                  />
+                  <div className="space-y-1 max-h-20 overflow-y-auto">
+                    {filteredTokens.slice(0, 3).map((item, index) => (
+                      <div key={index} className="flex justify-between text-xs">
+                        <span>{item.app}</span>
+                        <span className="text-primary">Token: {item.token}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
 
-        {/* Step 2: Creating Sequences */}
+        {/* Step 2: Train/Test Split */}
         <div className="scroll-reveal">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
             <Card className="data-card order-2 lg:order-1">
               <CardHeader>
-                <CardTitle>Sliding Window Technique</CardTitle>
+                <CardTitle>Chronological Data Split</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm font-medium">User Timeline</span>
-                  <Button 
-                    size="sm" 
-                    onClick={() => setWindowPosition((prev) => (prev + 1) % (userApps.length - 30))}
-                  >
-                    Slide →
-                  </Button>
-                </div>
-                <div className="flex gap-1 overflow-x-auto p-3 bg-muted/20 rounded-lg">
-                  {userApps.slice(0, 20).map((app, index) => (
-                    <div 
-                      key={index}
-                      className={`w-6 h-6 flex items-center justify-center text-sm rounded border flex-shrink-0 transition-all ${
-                        index >= windowPosition && index < windowPosition + 15 
-                          ? 'bg-primary/20 border-primary scale-110' 
-                          : index === windowPosition + 15 
-                          ? 'bg-accent/20 border-accent scale-110' 
-                          : 'bg-background border-border'
-                      }`}
-                    >
-                      {app}
+                <div className="space-y-4">
+                  <ResponsiveContainer width="100%" height={150}>
+                    <BarChart data={splitData} layout="horizontal">
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis type="number" stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <YAxis type="category" dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                        {splitData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                  <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target className="w-4 h-4 text-amber-600" />
+                      <span className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                        Why Chronological?
+                      </span>
                     </div>
-                  ))}
-                </div>
-                <div className="flex justify-center gap-6 mt-3 text-xs">
-                  <div className="flex items-center gap-1">
-                    <div className="w-3 h-3 bg-primary/20 border border-primary rounded"></div>
-                    <span>Input (30 apps)</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <div className="w-3 h-3 bg-accent/20 border border-accent rounded"></div>
-                    <span>Target</span>
+                    <p className="text-xs text-amber-700 dark:text-amber-300">
+                      Random splitting would allow the model to "cheat" by learning from future data to predict the past. 
+                      Time-based splits simulate real-world scenarios.
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -191,71 +223,80 @@ const MethodologySection = () => {
             <div className="order-1 lg:order-2">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center">
-                  <BarChart3 className="w-6 h-6 text-secondary" />
+                  <Layers className="w-6 h-6 text-secondary" />
                 </div>
-                <h3 className="text-3xl font-bold">2. Creating Sequences</h3>
+                <h3 className="text-3xl font-bold">2. Train/Test Split</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Transform continuous app usage into training sequences using a sliding window approach.
+                Preventing data leakage through chronological splitting ensures realistic performance evaluation.
               </p>
               <ul className="space-y-2 text-muted-foreground">
-                <li>• Take 30 consecutive apps as input sequence</li>
-                <li>• Use the next app as prediction target</li>
-                <li>• Slide window across entire user history</li>
-                <li>• Creates thousands of training examples per user</li>
+                <li>• Per-user chronological split prevents future data leakage</li>
+                <li>• Train: 70% oldest sequences (VAL_RATIO=0.10, TEST_RATIO=0.20)</li>
+                <li>• Validation: 10% middle sequences for hyperparameter tuning</li>
+                <li>• Test: 20% newest sequences for final evaluation</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Step 3: Chronological Split */}
+        {/* Step 3: Model Choice */}
         <div className="scroll-reveal">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
-                  <Layers className="w-6 h-6 text-accent" />
+                  <Brain className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-3xl font-bold">3. Chronological Split</h3>
+                <h3 className="text-3xl font-bold">3. Model Architecture</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Time-based splitting prevents data leakage and simulates real-world prediction scenarios.
+                Bidirectional LSTM with embedding layer captures both sequential patterns and app relationships.
               </p>
               <ul className="space-y-2 text-muted-foreground">
-                <li>• Random shuffling would allow "cheating" from future data</li>
-                <li>• 70% oldest sequences for training the model</li>
-                <li>• 10% middle sequences for validation and tuning</li>
-                <li>• 20% newest sequences for final testing</li>
+                <li>• Embedding layer: Dense representations of app relationships</li>
+                <li>• Bidirectional LSTM: Forward + backward sequence processing</li>
+                <li>• Dense layers: Context processing with LeakyReLU activation</li>
+                <li>• Softmax output: Probability distribution over all apps</li>
               </ul>
             </div>
             <Card className="data-card">
               <CardHeader>
-                <CardTitle>Data Split Visualization</CardTitle>
+                <CardTitle>Neural Network Flow</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={[
-                      { name: 'Train', value: 70, color: 'hsl(var(--primary))' },
-                      { name: 'Val', value: 10, color: 'hsl(var(--secondary))' },
-                      { name: 'Test', value: 20, color: 'hsl(var(--accent))' }
-                    ]} layout="horizontal">
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis type="number" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <YAxis type="category" dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                        {[
-                          { fill: 'hsl(var(--primary))' },
-                          { fill: 'hsl(var(--secondary))' },
-                          { fill: 'hsl(var(--accent))' }
-                        ].map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.fill} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                  <div className="text-xs text-muted-foreground text-center">
-                    Timeline: Past → Present → Future
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg border border-primary/20">
+                    <span className="text-sm font-medium">Input Sequence</span>
+                    <div className="text-xs bg-primary/20 px-2 py-1 rounded">30 tokens</div>
+                  </div>
+                  <div className="flex justify-center">
+                    <div className="w-px h-6 bg-border"></div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-secondary/10 rounded-lg border border-secondary/20">
+                    <span className="text-sm font-medium">Embedding Layer</span>
+                    <div className="text-xs bg-secondary/20 px-2 py-1 rounded">64-128 dim</div>
+                  </div>
+                  <div className="flex justify-center">
+                    <div className="w-px h-6 bg-border"></div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-accent/10 rounded-lg border border-accent/20">
+                    <span className="text-sm font-medium">Bi-LSTM</span>
+                    <div className="text-xs bg-accent/20 px-2 py-1 rounded">64-256 units</div>
+                  </div>
+                  <div className="flex justify-center">
+                    <div className="w-px h-6 bg-border"></div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                    <span className="text-sm font-medium">Dense Layers</span>
+                    <div className="text-xs bg-purple-500/20 px-2 py-1 rounded">2x layers</div>
+                  </div>
+                  <div className="flex justify-center">
+                    <div className="w-px h-6 bg-border"></div>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                    <span className="text-sm font-medium">Softmax Output</span>
+                    <div className="text-xs bg-green-500/20 px-2 py-1 rounded">Probabilities</div>
                   </div>
                 </div>
               </CardContent>
@@ -263,106 +304,131 @@ const MethodologySection = () => {
           </div>
         </div>
 
-        {/* Step 4: Building Model */}
+        {/* Step 4: Optuna Tuning */}
         <div className="scroll-reveal">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
             <Card className="data-card order-2 lg:order-1">
               <CardHeader>
-                <CardTitle>Neural Network Architecture</CardTitle>
+                <CardTitle className="flex items-center justify-between">
+                  <span>Hyperparameter Optimization</span>
+                  <Button 
+                    size="sm" 
+                    onClick={() => setCurrentTrial((prev) => (prev + 1) % hyperparameterTrials.length)}
+                  >
+                    Trial {currentTrial + 1}/5
+                  </Button>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
-                    <span className="text-sm font-medium">Input Layer</span>
-                    <div className="w-16 h-8 bg-primary/20 rounded flex items-center justify-center text-xs">30 apps</div>
-                  </div>
-                  <div className="flex justify-center">
-                    <div className="w-1 h-8 bg-border"></div>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
-                    <span className="text-sm font-medium">Embedding</span>
-                    <div className="w-16 h-8 bg-secondary/20 rounded flex items-center justify-center text-xs">Dense</div>
-                  </div>
-                  <div className="flex justify-center">
-                    <div className="w-1 h-8 bg-border"></div>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
-                    <span className="text-sm font-medium">Bi-LSTM</span>
-                    <div className="w-16 h-8 bg-accent/20 rounded flex items-center justify-center text-xs">Context</div>
-                  </div>
-                  <div className="flex justify-center">
-                    <div className="w-1 h-8 bg-border"></div>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/20 rounded-lg">
-                    <span className="text-sm font-medium">Output</span>
-                    <div className="w-16 h-8 bg-green-500/20 rounded flex items-center justify-center text-xs">Softmax</div>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <LineChart data={hyperparameterTrials}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="trial" stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <Line 
+                        type="monotone" 
+                        dataKey="accuracy" 
+                        stroke="hsl(var(--primary))" 
+                        strokeWidth={2}
+                        dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 4 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                  <div className="bg-muted/20 rounded-lg p-3">
+                    <div className="text-sm font-medium mb-2">
+                      Trial {currentTrial + 1} Parameters:
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>Embedding: {hyperparameterTrials[currentTrial].embedding}</div>
+                      <div>LSTM: {hyperparameterTrials[currentTrial].lstm}</div>
+                      <div>Dense: {hyperparameterTrials[currentTrial].dense}</div>
+                      <div>Dropout: {hyperparameterTrials[currentTrial].dropout}</div>
+                      <div>Learning Rate: {hyperparameterTrials[currentTrial].lr}</div>
+                      <div className="text-primary font-medium">Accuracy: {hyperparameterTrials[currentTrial].accuracy}%</div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
             <div className="order-1 lg:order-2">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-teal-500/20 rounded-lg flex items-center justify-center">
-                  <Brain className="w-6 h-6 text-teal-600" />
+                <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                  <Settings className="w-6 h-6 text-orange-600" />
                 </div>
-                <h3 className="text-3xl font-bold">4. Building Model</h3>
+                <h3 className="text-3xl font-bold">4. Optuna Tuning</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Bidirectional LSTM architecture with automated hyperparameter optimization using Optuna.
+                Automated hyperparameter search across 5 trials using Tree-structured Parzen Estimator.
               </p>
               <ul className="space-y-2 text-muted-foreground">
-                <li>• Embedding layer learns app relationships</li>
-                <li>• Bi-LSTM reads sequences forward and backward</li>
-                <li>• Dense layers process context for final prediction</li>
-                <li>• Optuna runs 5 trials to find optimal parameters</li>
+                <li>• Embedding: 64-128 dimensions</li>
+                <li>• LSTM units: 64-256 (bidirectional)</li>
+                <li>• Dense layers: 64-256 units</li>
+                <li>• Dropout: 0.2-0.5 (prevent overfitting)</li>
+                <li>• Learning rate: 1e-4 to 1e-2 (log scale)</li>
+                <li>• Batch size: 128-256 samples</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Step 5: Evaluation */}
+        {/* Step 5: Final Model Training */}
         <div className="scroll-reveal">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                  <Target className="w-6 h-6 text-green-600" />
+                  <TrendingUp className="w-6 h-6 text-green-600" />
                 </div>
-                <h3 className="text-3xl font-bold">5. Final Evaluation</h3>
+                <h3 className="text-3xl font-bold">5. Final Training</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Model performance on unseen future data demonstrates real-world prediction capability.
+                Retrain with best parameters on combined train+validation data, evaluate on held-out test set.
               </p>
               <ul className="space-y-2 text-muted-foreground">
-                <li>• Retrained on combined train + validation sets</li>
-                <li>• Tested on completely unseen future sequences</li>
-                <li>• Achieved 74.17% overall accuracy</li>
-                <li>• 72% macro precision across all app categories</li>
+                <li>• Best trial: emb=128, lstm=256, dense=256</li>
+                <li>• Combined train+validation for final training</li>
+                <li>• Early stopping on test loss (patience=5)</li>
+                <li>• Cosine decay learning rate schedule</li>
+                <li>• Final test accuracy: 74.17%</li>
               </ul>
             </div>
             <Card className="data-card">
               <CardHeader>
-                <CardTitle>Performance Metrics</CardTitle>
+                <CardTitle>Training Progress</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium">Overall Accuracy</span>
-                    <span className="text-lg font-bold text-primary">74.17%</span>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <AreaChart data={trainingProgress}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="epoch" stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <Area 
+                        type="monotone" 
+                        dataKey="accuracy" 
+                        stroke="hsl(var(--primary))" 
+                        fill="hsl(var(--primary))" 
+                        fillOpacity={0.2}
+                        strokeWidth={2}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="text-center p-3 bg-primary/10 rounded-lg">
+                      <div className="text-2xl font-bold text-primary">74.17%</div>
+                      <div className="text-xs text-muted-foreground">Test Accuracy</div>
+                    </div>
+                    <div className="text-center p-3 bg-secondary/10 rounded-lg">
+                      <div className="text-2xl font-bold text-secondary">0.75</div>
+                      <div className="text-xs text-muted-foreground">Final Loss</div>
+                    </div>
+                    <div className="text-center p-3 bg-accent/10 rounded-lg">
+                      <div className="text-2xl font-bold text-accent">30</div>
+                      <div className="text-xs text-muted-foreground">Epochs</div>
+                    </div>
                   </div>
-                  <Progress value={74.17} className="h-3" />
-                  
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium">Macro Precision</span>
-                    <span className="text-lg font-bold text-secondary">72%</span>
-                  </div>
-                  <Progress value={72} className="h-3" />
-                  
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium">Macro Recall</span>
-                    <span className="text-lg font-bold text-accent">68%</span>
-                  </div>
-                  <Progress value={68} className="h-3" />
                 </div>
               </CardContent>
             </Card>
