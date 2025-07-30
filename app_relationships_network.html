@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Relationships Network</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .control-group input {
+            width: 120px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        #network {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            margin: 20px 0;
+        }
+
+        .node {
+            cursor: pointer;
+            stroke: #fff;
+            stroke-width: 3px;
+            transition: stroke-width 0.2s ease;
+        }
+
+        .node:hover {
+            stroke: #667eea;
+            stroke-width: 4px;
+        }
+
+        .link {
+            stroke-opacity: 0.6;
+            cursor: pointer;
+            transition: stroke-opacity 0.2s ease, stroke-width 0.2s ease;
+        }
+
+        .link:hover {
+            stroke-opacity: 1;
+            stroke-width: 4px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        .info-panel {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 350px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        .info-panel h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .info-panel p {
+            margin: 8px 0;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .filter-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .filter-btn.active {
+            background: #5a6fd8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔗 App Relationships Network</h1>
+        <p class="subtitle">Visualizing which apps are used together by the same users</p>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="node-count">-</div>
+                <div class="stat-label">Apps</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="edge-count">-</div>
+                <div class="stat-label">Relationships</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="max-weight">-</div>
+                <div class="stat-label">Max Similarity</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="min-weight">-</div>
+                <div class="stat-label">Min Similarity</div>
+            </div>
+        </div>
+
+        <div class="filter-controls">
+            <button class="filter-btn active" onclick="filterEdges('all')">All Relationships</button>
+            <button class="filter-btn" onclick="filterEdges('strong')">Strong Relationships</button>
+            <button class="filter-btn" onclick="filterEdges('weak')">Weak Relationships</button>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="node-size">Node Size</label>
+                <input type="range" id="node-size" min="0.5" max="3" step="0.1" value="1">
+            </div>
+            <div class="control-group">
+                <label for="link-opacity">Link Opacity</label>
+                <input type="range" id="link-opacity" min="0.1" max="2" step="0.1" value="1">
+            </div>
+            <div class="control-group">
+                <label for="link-width">Link Width</label>
+                <input type="range" id="link-width" min="0.5" max="3" step="0.1" value="1">
+            </div>
+            <div class="control-group">
+                <label for="charge">Repulsion</label>
+                <input type="range" id="charge" min="-1000" max="-100" step="50" value="-300">
+            </div>
+        </div>
+
+        <svg id="network" width="100%" height="700"></svg>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #fde725; width: 40px; height: 6px;"></div>
+                <span>High Similarity (Thick, Opaque)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #21918c; width: 25px; height: 3px;"></div>
+                <span>Medium Similarity</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #440154; width: 15px; height: 1px; opacity: 0.3;"></div>
+                <span>Low Similarity (Thin, Transparent)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <h3>How to Use</h3>
+        <p><strong>Drag:</strong> Move apps around</p>
+        <p><strong>Scroll:</strong> Zoom in/out</p>
+        <p><strong>Hover:</strong> See app details</p>
+        <p><strong>Click:</strong> Focus on app</p>
+        <p><strong>Double-click:</strong> Reset view</p>
+        <p><strong>Filter:</strong> Show different relationship strengths</p>
+    </div>
+
+    <div class="tooltip" id="tooltip" style="display: none;"></div>
+
+    <script>
+        let networkData = null;
+        let currentFilter = 'all';
+        let link = null;
+        let node = null;
+        let label = null;
+        let simulation = null;
+
+        // Load the data
+        d3.json("app_relationships_network.json").then(function (data) {
+            networkData = data;
+            const nodes = data.nodes;
+            const links = data.edges;
+
+            // Update stats
+            document.getElementById('node-count').textContent = nodes.length;
+            document.getElementById('edge-count').textContent = links.length;
+
+            const weights = links.map(d => d.weight);
+            document.getElementById('max-weight').textContent = Math.max(...weights).toFixed(3);
+            document.getElementById('min-weight').textContent = Math.min(...weights).toFixed(3);
+
+            // Setup
+            const width = document.getElementById('network').clientWidth;
+            const height = 700;
+
+            const svg = d3.select("#network")
+                .attr("width", width)
+                .attr("height", height);
+
+            // Create zoom behavior
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 10])
+                .on("zoom", (event) => {
+                    container.attr("transform", event.transform);
+                });
+
+            svg.call(zoom);
+
+            // Double-click to reset
+            svg.on("dblclick", () => {
+                svg.transition().duration(750).call(
+                    zoom.transform,
+                    d3.zoomIdentity
+                );
+            });
+
+            const container = svg.append("g");
+
+            // Create color scale for links (yellow for high similarity, purple for low similarity)
+            const colorScale = d3.scaleSequential()
+                .domain([Math.max(...weights), Math.min(...weights)])
+                .interpolator(d3.interpolateViridis);
+
+            // Create opacity scale for links
+            const opacityScale = d3.scaleLinear()
+                .domain([Math.min(...weights), Math.max(...weights)])
+                .range([0.2, 0.9]);
+
+            // Create width scale for links
+            const widthScale = d3.scaleLinear()
+                .domain([Math.min(...weights), Math.max(...weights)])
+                .range([1, 6]);
+
+            // Create size scale for nodes
+            const sizeScale = d3.scaleSqrt()
+                .domain([0, d3.max(nodes, d => d.size)])
+                .range([8, 40]);
+
+            // Create simulation
+            simulation = d3.forceSimulation(nodes)
+                .force("link", d3.forceLink(links).id(d => d.id).distance(120))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(d => sizeScale(d.size) + 10));
+
+            // Create links
+            link = container.append("g")
+                .selectAll("line")
+                .data(links)
+                .join("line")
+                .attr("class", "link")
+                .style("stroke", d => colorScale(d.weight))
+                .style("stroke-width", d => widthScale(d.weight))
+                .style("stroke-opacity", d => opacityScale(d.weight));
+
+            // Create nodes
+            node = container.append("g")
+                .selectAll("circle")
+                .data(nodes)
+                .join("circle")
+                .attr("class", "node")
+                .attr("r", d => sizeScale(d.size))
+                .style("fill", "#69b3a2")
+                .call(drag(simulation));
+
+            // Add labels
+            label = container.append("g")
+                .selectAll("text")
+                .data(nodes)
+                .join("text")
+                .text(d => d.id)
+                .attr("font-size", "12px")
+                .attr("text-anchor", "middle")
+                .attr("dy", "0.35em")
+                .style("pointer-events", "none")
+                .style("fill", "#333");
+
+            // Tooltip
+            const tooltip = d3.select("#tooltip");
+
+            node.on("mouseover", function (event, d) {
+                // Find all connections for this app
+                const appConnections = links.filter(l => l.source.id === d.id || l.target.id === d.id);
+                const strongestConnection = appConnections.reduce((max, link) =>
+                    link.weight > max.weight ? link : max, appConnections[0]);
+
+                // Show tooltip
+                tooltip.style("display", "block")
+                    .html(`
+                        <strong>${d.id}</strong><br>
+                        Users: ${d.user_count.toLocaleString()}<br>
+                        Connections: ${appConnections.length}<br>
+                        <strong>Strongest Connection:</strong><br>
+                        → ${strongestConnection ? (strongestConnection.source.id === d.id ?
+                            strongestConnection.target.id : strongestConnection.source.id) : 'None'}<br>
+                        Similarity: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
+                    `)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 10) + "px");
+
+                // Focus on this node - highlight its connections and grey out others
+                link.style("stroke-opacity", function (l) {
+                    return (l.source.id === d.id || l.target.id === d.id) ?
+                        opacityScale(l.weight) : 0.1;
+                })
+                    .style("stroke", function (l) {
+                        return (l.source.id === d.id || l.target.id === d.id) ?
+                            colorScale(l.weight) : "#ccc";
+                    });
+
+                // Highlight connected nodes
+                node.style("opacity", function (n) {
+                    return (n.id === d.id ||
+                        links.some(l => (l.source.id === d.id && l.target.id === n.id) ||
+                            (l.target.id === d.id && l.source.id === n.id))) ? 1 : 0.3;
+                });
+
+                // Highlight connected node labels
+                label.style("opacity", function (n) {
+                    return (n.id === d.id ||
+                        links.some(l => (l.source.id === d.id && l.target.id === n.id) ||
+                            (l.target.id === d.id && l.source.id === n.id))) ? 1 : 0.3;
+                });
+            })
+                .on("mouseout", function () {
+                    tooltip.style("display", "none");
+
+                    // Reset all links to normal appearance
+                    link.style("stroke-opacity", d => opacityScale(d.weight))
+                        .style("stroke", d => colorScale(d.weight));
+
+                    // Reset all nodes to normal appearance
+                    node.style("opacity", 1);
+                    label.style("opacity", 1);
+                });
+
+            link.on("mouseover", function (event, d) {
+                tooltip.style("display", "block")
+                    .html(`
+                        <strong>${d.source.id} ↔ ${d.target.id}</strong><br>
+                        Similarity: ${d.weight.toFixed(3)}<br>
+                        Shared Users: ${d.shared_users.toLocaleString()}<br>
+                        Jaccard Index: ${d.weight.toFixed(3)}
+                    `)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 10) + "px");
+            })
+                .on("mouseout", function () {
+                    tooltip.style("display", "none");
+                });
+
+            // Update positions on simulation tick
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+
+                label
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y);
+            });
+
+            // Drag behavior
+            function drag(simulation) {
+                function dragstarted(event, d) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+
+                function dragged(event, d) {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                }
+
+                function dragended(event, d) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                }
+
+                return d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended);
+            }
+
+            // Control handlers
+            document.getElementById('node-size').addEventListener('input', function (e) {
+                const scale = parseFloat(e.target.value);
+                node.attr("r", d => sizeScale(d.size) * scale);
+                label.attr("font-size", (12 * scale) + "px");
+            });
+
+            document.getElementById('link-opacity').addEventListener('input', function (e) {
+                const opacity = parseFloat(e.target.value);
+                link.style("stroke-opacity", d => opacityScale(d.weight) * opacity);
+            });
+
+            document.getElementById('link-width').addEventListener('input', function (e) {
+                const width = parseFloat(e.target.value);
+                link.style("stroke-width", d => widthScale(d.weight) * width);
+            });
+
+            document.getElementById('charge').addEventListener('input', function (e) {
+                const charge = parseInt(e.target.value);
+                simulation.force("charge", d3.forceManyBody().strength(charge));
+                simulation.alpha(0.3).restart();
+            });
+
+            // Responsive resize
+            window.addEventListener('resize', function () {
+                const newWidth = document.getElementById('network').clientWidth;
+                svg.attr("width", newWidth);
+                simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
+                simulation.alpha(0.3).restart();
+            });
+        }).catch(function (error) {
+            console.error("Error loading data:", error);
+            document.body.innerHTML = "<div style='text-align: center; padding: 50px;'><h2>Error loading data</h2><p>Make sure the JSON file exists at data/app_relationships_network.json</p></div>";
+        });
+
+        function filterEdges(filterType) {
+            currentFilter = filterType;
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            if (!networkData) return;
+
+            const weights = networkData.edges.map(d => d.weight);
+            const medianWeight = d3.median(weights);
+            const strongThreshold = d3.quantile(weights, 0.75);
+            const weakThreshold = d3.quantile(weights, 0.25);
+
+            let filteredEdges;
+            switch (filterType) {
+                case 'strong':
+                    filteredEdges = networkData.edges.filter(d => d.weight >= strongThreshold);
+                    break;
+                case 'weak':
+                    filteredEdges = networkData.edges.filter(d => d.weight <= weakThreshold);
+                    break;
+                default:
+                    filteredEdges = networkData.edges;
+            }
+
+            // Update the simulation with new data
+            simulation.nodes(networkData.nodes);
+            simulation.force("link", d3.forceLink(filteredEdges).id(d => d.id).distance(120));
+            simulation.alpha(0.3).restart();
+
+            // Update links
+            link.data(filteredEdges)
+                .join("line")
+                .attr("class", "link")
+                .style("stroke", d => d3.scaleSequential()
+                    .domain([Math.max(...filteredEdges.map(e => e.weight)), Math.min(...filteredEdges.map(e => e.weight))])
+                    .interpolator(d3.interpolateViridis)(d.weight))
+                .style("stroke-width", d => d3.scaleLinear()
+                    .domain([Math.min(...filteredEdges.map(e => e.weight)), Math.max(...filteredEdges.map(e => e.weight))])
+                    .range([1, 6])(d.weight))
+                .style("stroke-opacity", d => d3.scaleLinear()
+                    .domain([Math.min(...filteredEdges.map(e => e.weight)), Math.max(...filteredEdges.map(e => e.weight))])
+                    .range([0.2, 0.9])(d.weight));
+
+            // Update stats
+            document.getElementById('edge-count').textContent = filteredEdges.length;
+            if (filteredEdges.length > 0) {
+                const filteredWeights = filteredEdges.map(d => d.weight);
+                document.getElementById('max-weight').textContent = Math.max(...filteredWeights).toFixed(3);
+                document.getElementById('min-weight').textContent = Math.min(...filteredWeights).toFixed(3);
+            }
+        }
+    </script>
+</body>
+
+</html>

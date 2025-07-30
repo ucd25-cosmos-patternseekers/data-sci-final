@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User App Usage Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+
+        .stat-card p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 8px;
+            width: 100%;
+            max-width: 100vw;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .chart-card {
+            background: transparent;
+            border-radius: 8px;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1;
+            max-width: 100%;
+            min-width: 70px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .global-legend {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .legend-title {
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .dropdown-button {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            font-size: 1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-button:hover {
+            background: #5a6fd8;
+        }
+
+        .dropdown-button.active {
+            background: #5a6fd8;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 100%;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-radius: 0 0 8px 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9em;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .legend-item:last-child {
+            border-bottom: none;
+        }
+
+        .legend-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .legend-item.selected {
+            background-color: #e3f2fd;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            margin-top: 50px;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>📱 User App Usage Dashboard</h1>
+        <p>Interactive visualization of app usage patterns across users</p>
+    </div>
+
+    <div class="stats" id="stats">
+        <div class="stat-card">
+            <h3 id="totalUsers">-</h3>
+            <p>Total Users</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="totalApps">-</h3>
+            <p>Total Apps</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="totalTime">-</h3>
+            <p>Total Hours</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="filter-btn active" onclick="filterCharts('top200')">Top 200 Users</button>
+        <button class="filter-btn" onclick="filterCharts('top100')">Top 100 Users</button>
+        <button class="filter-btn" onclick="filterCharts('top50')">Top 50 Users</button>
+    </div>
+
+    <div class="loading" id="loading">Loading user data...</div>
+
+    <div class="global-legend" id="globalLegend" style="display: none;">
+        <div class="legend-title">App Color Legend</div>
+        <div class="dropdown-container">
+            <button class="dropdown-button" onclick="toggleDropdown()">
+                <span>Select App</span>
+                <span class="dropdown-arrow" id="dropdownArrow">&#9660;</span>
+            </button>
+            <div class="dropdown-content" id="dropdownContent">
+                <div class="legend-items" id="legendItems"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="charts-container" id="chartsContainer"></div>
+
+    <script>
+        let userData = {};
+        let currentFilter = 'top100';
+        let charts = {};
+        let appColorMap = {};
+        let highlightedApp = null;
+
+        // Color palette for apps
+        const colors = [
+            '#FF6B6B', '#FF5252', '#FF1744', '#D50000', '#B71C1C',
+            '#E91E63', '#C2185B', '#AD1457', '#880E4F', '#FF4081',
+            '#9C27B0', '#7B1FA2', '#6A1B9A', '#4A148C', '#E1BEE7',
+            '#673AB7', '#5E35B1', '#512DA8', '#4527A0', '#D1C4E9',
+            '#3F51B5', '#3949AB', '#303F9F', '#283593', '#C5CAE9',
+            '#2196F3', '#1E88E5', '#1976D2', '#1565C0', '#BBDEFB',
+            '#03A9F4', '#039BE5', '#0288D1', '#0277BD', '#B3E5FC',
+            '#00BCD4', '#00ACC1', '#0097A7', '#00838F', '#B2EBF2',
+            '#009688', '#00897B', '#00796B', '#00695C', '#B2DFDB',
+            '#4CAF50', '#43A047', '#388E3C', '#2E7D32', '#C8E6C9',
+            '#8BC34A', '#7CB342', '#689F38', '#558B2F', '#DCEDC8',
+            '#CDDC39', '#C0CA33', '#AFB42B', '#9E9D24', '#F0F4C3',
+            '#FFEB3B', '#FDD835', '#FBC02D', '#F9A825', '#FFF9C4',
+            '#FFC107', '#FFB300', '#FFA000', '#FF8F00', '#FFECB3',
+            '#FF9800', '#FB8C00', '#F57C00', '#EF6C00', '#FFE0B2',
+            '#FF5722', '#F4511E', '#E64A19', '#D84315', '#FFCCBC'
+        ];
+
+        async function loadData() {
+            try {
+                const response = await fetch('user_app_usage.json');
+                userData = await response.json();
+
+                // Calculate global stats and create app color mapping
+                const totalUsers = Object.keys(userData).length;
+                const allApps = new Set();
+                let totalMinutes = 0;
+
+                Object.values(userData).forEach(userApps => {
+                    Object.keys(userApps).forEach(app => {
+                        if (app !== '_total_time') {
+                            allApps.add(app);
+                        }
+                    });
+                    totalMinutes += userApps._total_time || 0;
+                });
+
+                // Create standardized color mapping for apps
+                const sortedApps = Array.from(allApps).sort();
+                sortedApps.forEach((app, index) => {
+                    appColorMap[app] = colors[index % colors.length];
+                });
+
+                // Create global legend
+                createGlobalLegend(sortedApps);
+
+                document.getElementById('totalUsers').textContent = totalUsers;
+                document.getElementById('totalApps').textContent = allApps.size;
+                document.getElementById('totalTime').textContent = Math.round(totalMinutes / 60);
+
+                document.getElementById('loading').style.display = 'none';
+                createCharts();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('loading').textContent = 'Error loading data. Please check if the JSON file exists.';
+            }
+        }
+
+        function createGlobalLegend(apps) {
+            const legendContainer = document.getElementById('legendItems');
+            legendContainer.innerHTML = '';
+
+            apps.forEach(app => {
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.onclick = () => highlightApp(app);
+
+                const colorDot = document.createElement('div');
+                colorDot.className = 'legend-color';
+                colorDot.style.backgroundColor = appColorMap[app];
+
+                const appName = document.createElement('span');
+                appName.textContent = app;
+
+                legendItem.appendChild(colorDot);
+                legendItem.appendChild(appName);
+                legendContainer.appendChild(legendItem);
+            });
+
+            document.getElementById('globalLegend').style.display = 'block';
+        }
+
+        function highlightApp(appName) {
+            console.log('Highlighting app:', appName); // Debug log
+            highlightedApp = highlightedApp === appName ? null : appName;
+            updateAllCharts();
+        }
+
+        function updateAllCharts() {
+            Object.values(charts).forEach(chart => {
+                updateChartColors(chart);
+            });
+        }
+
+        function updateChartColors(chart) {
+            const dataset = chart.data.datasets[0];
+            const labels = chart.data.labels;
+
+            console.log('Updating chart colors. Highlighted app:', highlightedApp); // Debug log
+            console.log('Labels:', labels); // Debug log
+
+            dataset.backgroundColor = labels.map(label => {
+                const appName = label.split(' (')[0]; // Extract app name from label
+                console.log('Processing label:', label, 'App name:', appName); // Debug log
+                if (highlightedApp === null) {
+                    return appColorMap[appName] || '#CCCCCC';
+                } else if (appName === highlightedApp) {
+                    return appColorMap[appName] || '#CCCCCC';
+                } else {
+                    return '#E0E0E0'; // Grey out other apps
+                }
+            });
+
+            console.log('New background colors:', dataset.backgroundColor); // Debug log
+            chart.update('none'); // Update without animation for better performance
+        }
+
+        function filterCharts(filter) {
+            currentFilter = filter;
+
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Destroy existing charts
+            Object.values(charts).forEach(chart => {
+                chart.destroy();
+            });
+            charts = {};
+
+            // Recreate charts
+            createCharts();
+        }
+
+        function createCharts() {
+            const container = document.getElementById('chartsContainer');
+            container.innerHTML = '';
+
+            // Sort users by total usage time and take top users based on current filter
+            const sortedUsers = Object.entries(userData)
+                .sort(([, a], [, b]) => (b._total_time || 0) - (a._total_time || 0));
+
+            // Apply filter based on currentFilter
+            let userLimit;
+            switch (currentFilter) {
+                case 'top50':
+                    userLimit = 50;
+                    break;
+                case 'top100':
+                    userLimit = 100;
+                    break;
+                case 'top200':
+                default:
+                    userLimit = 200;
+                    break;
+            }
+
+            const filteredUsers = sortedUsers.slice(0, userLimit);
+
+            // Find the maximum total time for scaling
+            const maxTotalTime = Math.max(...filteredUsers.map(([, userApps]) => userApps._total_time || 0));
+
+            filteredUsers.forEach(([userId, userApps], index) => {
+                const totalTime = userApps._total_time || 0;
+
+                const chartCard = document.createElement('div');
+                chartCard.className = 'chart-card';
+
+                const chartContainer = document.createElement('div');
+                chartContainer.className = 'chart-container';
+
+                // Create canvas element for the chart
+                const canvas = document.createElement('canvas');
+                canvas.id = `chart-${userId}`;
+                canvas.width = 200;
+                canvas.height = 200;
+
+                chartContainer.appendChild(canvas);
+                chartCard.appendChild(chartContainer);
+                container.appendChild(chartCard);
+
+                // Create chart data
+                const appData = Object.entries(userApps)
+                    .filter(([app, time]) => app !== '_total_time' && time > 0)
+                    .sort(([, a], [, b]) => b - a)
+                    .slice(0, 8); // Show top 8 apps
+
+                if (appData.length > 0) {
+                    const ctx = canvas.getContext('2d');
+                    const chart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: appData.map(([app, time]) => `${app} (${Math.round(time)}m)`),
+                            datasets: [{
+                                data: appData.map(([, time]) => time),
+                                backgroundColor: appData.map(([app]) => appColorMap[app]),
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function (context) {
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                            return `${context.label} (${percentage}%)`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // Add hover event listeners to the chart
+                    chart.canvas.addEventListener('mousemove', (event) => {
+                        const elements = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+                        console.log('Hover elements:', elements); // Debug log
+                        if (elements.length > 0) {
+                            const elementIndex = elements[0].index;
+                            const appName = chart.data.labels[elementIndex].split(' (')[0];
+                            console.log('Detected app:', appName); // Debug log
+                            if (highlightedApp !== appName) {
+                                highlightApp(appName);
+                            }
+                        } else {
+                            if (highlightedApp !== null) {
+                                highlightApp(null);
+                            }
+                        }
+                    });
+
+                    chart.canvas.addEventListener('mouseleave', () => {
+                        if (highlightedApp !== null) {
+                            highlightApp(null);
+                        }
+                    });
+
+                    charts[userId] = chart;
+                }
+            });
+        }
+
+        function toggleDropdown() {
+            const dropdownContent = document.getElementById('dropdownContent');
+            const dropdownArrow = document.getElementById('dropdownArrow');
+            dropdownContent.classList.toggle('show');
+            dropdownArrow.classList.toggle('rotated');
+        }
+
+        // Load data when page loads
+        window.addEventListener('load', loadData);
+    </script>
+</body>
+
+</html>
