@@ -252,57 +252,6 @@ const ResultsSection = () => {
           </Card>
         </div>
 
-        {/* App Performance Analysis */}
-        <div className="scroll-reveal">
-          <Card className="data-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
-                <Eye className="w-6 h-6 text-primary" />
-                Complete Performance Rankings
-              </CardTitle>
-              <CardDescription>
-                All 43 apps ranked by prediction performance (higher = more predictable)
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {(showAllApps ? allApps : topApps).map((app, index) => (
-                  <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors">
-                    <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                        {index + 1}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">{app.name}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Prediction performance score
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-primary">
-                        {app.f1Score}%
-                      </div>
-                      <div className="text-xs text-muted-foreground">Performance</div>
-                      <Progress value={app.f1Score} className="w-24 h-2 mt-1" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="mt-6 pt-6 border-t border-border/50">
-                <Button 
-                  className="w-full" 
-                  variant="outline"
-                  onClick={() => setShowAllApps(!showAllApps)}
-                >
-                  {showAllApps ? 'Show Less' : 'View All'}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Training Summary */}
         <div className="mt-12 text-center text-sm text-muted-foreground">
           <p>Trained on 72,854 app transitions across 43 different applications • Model converged with early stopping</p>
