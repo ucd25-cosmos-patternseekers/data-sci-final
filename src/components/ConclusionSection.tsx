@@ -27,28 +27,10 @@ const ConclusionSection = () => {
       impact: "Higher Ad Engagement"
     },
     {
-      icon: <Lightbulb className="w-5 h-5" />,
-      title: "Security & Fraud Detection",
-      description: "Flag unusual app switching patterns as potentially suspicious behavior or compromised devices.",
-      impact: "Enhanced Security"
-    },
-    {
       icon: <CheckCircle className="w-5 h-5" />,
       title: "System Optimization",
       description: "Pre-load predicted apps in background memory and optimize resource allocation for faster performance.",
       impact: "Better Performance"
-    },
-    {
-      icon: <FileText className="w-5 h-5" />,
-      title: "Digital Wellness",
-      description: "Provide insights into usage patterns to help users understand habits and improve productivity.",
-      impact: "Improved Wellness"
-    },
-    {
-      icon: <AlertCircle className="w-5 h-5" />,
-      title: "Personalized Interfaces",
-      description: "Dynamically reorganize home screens and widgets based on predicted usage throughout the day.",
-      impact: "Dynamic UX"
     }
   ];
 
