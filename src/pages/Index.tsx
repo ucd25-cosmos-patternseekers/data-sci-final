@@ -16,6 +16,23 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection />
 
+      {/* Introduction Section */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-6">Understanding Smartphone App Usage Patterns</h2>
+          </div>
+          <div className="prose prose-lg mx-auto text-muted-foreground">
+            <p className="mb-6">
+              As smartphones become more deeply integrated into daily life, understanding and anticipating user behavior offers powerful opportunities for personalization, efficiency, and user experience design. This project tackles the task of predicting the next app a user will open, using real-world behavioral data from the LSAPP dataset.
+            </p>
+            <p>
+              The LSAPP (Life-logging Smartphone App Prediction) dataset contains detailed, time-stamped records of app launches collected from Android users over several months. For each user, it captures a sequential log of which apps were opened and when, providing a rich source of temporal and behavioral patterns. The dataset is anonymized, yet preserves enough structure to support meaningful analysis of user habits.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* User App Usage Dashboard */}
       <section className="py-16 px-6 bg-muted/5">
         <div className="container mx-auto">
