@@ -112,7 +112,7 @@ const UserAppDashboard = () => {
                 });
         }
 
-        const userLimit = isExtended ? 200 : 50;
+        const userLimit = isExtended ? 100 : 50;
         return sortedUsers.slice(0, userLimit);
     };
 
@@ -126,6 +126,16 @@ const UserAppDashboard = () => {
             });
         });
         return Array.from(allApps).sort();
+    };
+
+    const handleAppFilterChange = (value: string) => {
+        setSelectedAppFilter(value);
+        // Automatically highlight the selected app, or clear highlighting if "all" is selected
+        if (value === 'all') {
+            setHighlightedApp(null);
+        } else {
+            setHighlightedApp(value);
+        }
     };
 
     const createChartData = (userApps: UserAppData) => {
@@ -179,13 +189,7 @@ const UserAppDashboard = () => {
                 display: false
             },
             tooltip: {
-                callbacks: {
-                    label: function (context: any) {
-                        const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
-                        const percentage = ((context.parsed / total) * 100).toFixed(1);
-                        return `${context.label} (${percentage}%)`;
-                    }
-                }
+                enabled: false  // Disable Chart.js tooltip since we're using HTML title attribute
             }
         },
         onHover: (event: any, elements: any[]) => {
@@ -252,7 +256,7 @@ const UserAppDashboard = () => {
                     <div className="mb-6">
                         <div className="flex items-center gap-4 justify-center">
                             <label className="text-sm font-medium">Filter by App:</label>
-                            <Select value={selectedAppFilter} onValueChange={setSelectedAppFilter}>
+                            <Select value={selectedAppFilter} onValueChange={handleAppFilterChange}>
                                 <SelectTrigger className="w-64">
                                     <SelectValue placeholder="Select an app to filter by" />
                                 </SelectTrigger>
@@ -273,6 +277,21 @@ const UserAppDashboard = () => {
                         )}
                     </div>
 
+                    {/* Focused App Display */}
+                    <div className="mb-4 py-2 px-4 bg-muted/30 rounded-lg border">
+                        <div className="text-center">
+                            {highlightedApp ? (
+                                <p className="text-sm font-medium">
+                                    Currently focusing on: <span className="font-bold text-primary">{highlightedApp}</span>
+                                </p>
+                            ) : (
+                                <p className="text-sm text-muted-foreground">
+                                    Hover over pie charts or select an app to focus
+                                </p>
+                            )}
+                        </div>
+                    </div>
+
                     {/* Pie Charts Container */}
                     <div className="w-full border rounded-lg p-4 transition-all duration-500">
                         <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 lg:grid-cols-16 xl:grid-cols-20 gap-x-2 gap-y-2">
@@ -289,6 +308,7 @@ const UserAppDashboard = () => {
                                         key={userId}
                                         className="aspect-square w-full relative overflow-hidden"
                                         onMouseLeave={() => setHighlightedApp(null)}
+                                        title={`User ${userId}`}
                                     >
                                         <Pie
                                             data={createChartData(userApps)}
@@ -315,7 +335,7 @@ const UserAppDashboard = () => {
                             ) : (
                                 <>
                                     <ChevronDown className="h-4 w-4" />
-                                    Show More (200 Users)
+                                    Show More (100 Users)
                                 </>
                             )}
                         </Button>
@@ -328,14 +348,10 @@ const UserAppDashboard = () => {
                             Hover over charts to highlight apps across all visualizations.
                             {!isExtended && ' Click "Show More" to see additional users.'}
                         </p>
-                        {highlightedApp && (
-                            <p className="text-sm mt-2 font-medium text-primary">
-                                Currently highlighting: <span className="font-bold">{highlightedApp}</span>
-                            </p>
-                        )}
                         <p className="text-xs mt-1 text-muted-foreground">
                             Currently showing: <span className="font-medium">{getFilteredUsers().length}</span> users
                             {selectedAppFilter !== 'all' && ` with ${selectedAppFilter} usage`}
+                            {isExtended ? ' (extended view)' : ''}
                         </p>
                     </div>
                 </CardContent>
