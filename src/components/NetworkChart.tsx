@@ -134,43 +134,43 @@ const NetworkChart = ({
             // Get weights from processed links
             const weights = processedLinks.map((d: any) => d.weight);
 
-            // Create professional color scale for links using theme colors
+            // Create color scale for links using logarithmic scale
             const colorScale = d3.scaleSequential()
                 .domain([Math.min(...weights), Math.max(...weights)])
-                .interpolator(d3.interpolateRgb("hsl(220, 13%, 91%)", "hsl(220, 14%, 11%)"));
+                .interpolator(d3.interpolateViridis);
 
             // Create opacity scale for links using power scale
             let opacityExponent = nodeCount === 20 ? 0.8 : 1.6;
             const opacityScale = d3.scalePow()
                 .exponent(opacityExponent)
                 .domain([Math.min(...weights), Math.max(...weights)])
-                .range([0.1, 0.8]);
+                .range([0.01, 1]);
 
             // Create width scale for links
             const widthScale = d3.scaleLinear()
                 .domain([Math.min(...weights), Math.max(...weights)])
-                .range([1, 4]);
+                .range([1, 6]);
 
             // Create size scale for nodes
             const sizeScale = d3.scaleSqrt()
                 .domain([0, d3.max(nodes, (d: any) => d.size)])
                 .range([8, 40]);
 
-            // Create professional color scale for genres using theme colors
+            // Create color scale for genres
             const genreColors = {
-                "Social Media": "hsl(0, 70%, 55%)",
-                "Communication": "hsl(200, 65%, 50%)", 
-                "Entertainment": "hsl(260, 60%, 55%)",
-                "System": "hsl(120, 50%, 60%)",
-                "Productivity": "hsl(35, 65%, 55%)",
-                "Media & News": "hsl(280, 55%, 65%)",
-                "Lifestyle": "hsl(180, 55%, 55%)",
-                "Gaming": "hsl(45, 70%, 60%)",
-                "Finance": "hsl(270, 55%, 65%)",
-                "Shopping": "hsl(210, 65%, 65%)",
-                "Navigation": "hsl(25, 70%, 60%)",
-                "Health & Fitness": "hsl(140, 50%, 60%)",
-                "unknown": "hsl(220, 13%, 69%)"
+                "Social Media": "#E53E3E",
+                "Communication": "#319795",
+                "Entertainment": "#3182CE",
+                "System": "#68D391",
+                "Productivity": "#D69E2E",
+                "Media & News": "#B794F6",
+                "Lifestyle": "#4FD1C7",
+                "Gaming": "#F6E05E",
+                "Finance": "#9F7AEA",
+                "Shopping": "#63B3ED",
+                "Navigation": "#F6AD55",
+                "Health & Fitness": "#68D391",
+                "unknown": "#A0AEC0"
             };
 
             // Create simulation
@@ -200,113 +200,33 @@ const NetworkChart = ({
                 .style("fill", (d: any) => genreColors[d.genre] || "#CCCCCC")
                 .call(drag(simulation) as any);
 
-            // Function to fit text within circles
-            const fitText = (text: any) => {
-                text.each(function(d: any) {
-                    const textElement = d3.select(this);
-                    const radius = sizeScale(d.size);
-                    const maxWidth = radius * 1.4; // 70% of diameter for text
-                    
-                    // Start with base font size
-                    let fontSize = Math.max(8, Math.min(11, radius / 4));
-                    textElement.style("font-size", fontSize + "px");
-                    
-                    // Set initial text
-                    let text = d.id;
-                    textElement.text(text);
-                    
-                    // If text is too long, try to wrap it
-                    let textLength = textElement.node()!.getComputedTextLength();
-                    if (textLength > maxWidth) {
-                        const words = text.split(/\s+/);
-                        if (words.length > 1) {
-                            // Try to split into multiple lines
-                            textElement.text(null);
-                            
-                            const lineHeight = 1.1;
-                            let currentLine = [];
-                            let lineNumber = 0;
-                            
-                            for (let i = 0; i < words.length; i++) {
-                                currentLine.push(words[i]);
-                                const testLine = currentLine.join(" ");
-                                
-                                const testElement = textElement.append("tspan")
-                                    .attr("x", 0)
-                                    .attr("dy", lineNumber === 0 ? "0em" : `${lineHeight}em`)
-                                    .text(testLine);
-                                
-                                if (testElement.node()!.getComputedTextLength() > maxWidth && currentLine.length > 1) {
-                                    testElement.remove();
-                                    currentLine.pop();
-                                    
-                                    textElement.append("tspan")
-                                        .attr("x", 0)
-                                        .attr("dy", lineNumber === 0 ? "0em" : `${lineHeight}em`)
-                                        .text(currentLine.join(" "));
-                                    
-                                    currentLine = [words[i]];
-                                    lineNumber++;
-                                }
-                            }
-                            
-                            // Add the last line
-                            if (currentLine.length > 0) {
-                                textElement.append("tspan")
-                                    .attr("x", 0)
-                                    .attr("dy", lineNumber === 0 ? "0em" : `${lineHeight}em`)
-                                    .text(currentLine.join(" "));
-                            }
-                        } else {
-                            // Single word - reduce font size to fit
-                            while (textLength > maxWidth && fontSize > 6) {
-                                fontSize *= 0.9;
-                                textElement.style("font-size", fontSize + "px");
-                                textLength = textElement.node()!.getComputedTextLength();
-                            }
-                        }
-                    }
-                    
-                    // Center vertically by adjusting dy
-                    const bbox = textElement.node()!.getBBox();
-                    const yOffset = -bbox.height / 4;
-                    textElement.selectAll("tspan").attr("dy", function(d, i) {
-                        return i === 0 ? `${yOffset}px` : "1.1em";
-                    });
-                });
-            };
-
-            // Add labels with improved text fitting
+            // Add labels
             const label = container.append("g")
                 .selectAll("text")
                 .data(connectedNodes)
                 .join("text")
+                .text((d: any) => d.id)
+                .attr("font-size", "12px")
                 .attr("text-anchor", "middle")
+                .attr("dy", "0.35em")
                 .style("pointer-events", "none")
-                .style("fill", "white")
-                .style("font-weight", "500")
-                .style("text-shadow", "1px 1px 2px rgba(0,0,0,0.8)")
-                .call(fitText);
+                .style("fill", "white");
 
-            // Create professional tooltip
+            // Create tooltip
             const tooltip = d3.select(containerRef.current).append("div")
                 .attr("class", "tooltip")
                 .style("position", "absolute")
                 .style("top", "20px")
                 .style("left", "20px")
-                .style("background", "hsl(var(--background))")
-                .style("color", "hsl(var(--foreground))")
-                .style("border", "1px solid hsl(var(--border))")
+                .style("background", "rgba(0, 0, 0, 0.9)")
+                .style("color", "white")
                 .style("padding", "12px 16px")
                 .style("border-radius", "8px")
-                .style("font-size", "13px")
-                .style("font-weight", "500")
+                .style("font-size", "14px")
                 .style("pointer-events", "none")
                 .style("z-index", "1000")
                 .style("display", "none")
-                .style("max-width", "280px")
-                .style("box-shadow", "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)")
-                .style("backdrop-filter", "blur(8px)");
+                .style("max-width", "300px");
 
             // Node interactions
             node.on("mouseover", function (event: any, d: any) {
@@ -572,18 +492,18 @@ const NetworkChart = ({
                     <h4 className="text-center font-semibold mb-4">App Genres</h4>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
                         {[
-                            { name: "Social Media", color: "hsl(0, 70%, 55%)" },
-                            { name: "Communication", color: "hsl(200, 65%, 50%)" },
-                            { name: "Entertainment", color: "hsl(260, 60%, 55%)" },
-                            { name: "System", color: "hsl(120, 50%, 60%)" },
-                            { name: "Productivity", color: "hsl(35, 65%, 55%)" },
-                            { name: "Media & News", color: "hsl(280, 55%, 65%)" },
-                            { name: "Lifestyle", color: "hsl(180, 55%, 55%)" },
-                            { name: "Gaming", color: "hsl(45, 70%, 60%)" },
-                            { name: "Finance", color: "hsl(270, 55%, 65%)" },
-                            { name: "Shopping", color: "hsl(210, 65%, 65%)" },
-                            { name: "Navigation", color: "hsl(25, 70%, 60%)" },
-                            { name: "Health & Fitness", color: "hsl(140, 50%, 60%)" }
+                            { name: "Social Media", color: "#E53E3E" },
+                            { name: "Communication", color: "#319795" },
+                            { name: "Entertainment", color: "#3182CE" },
+                            { name: "System", color: "#68D391" },
+                            { name: "Productivity", color: "#D69E2E" },
+                            { name: "Media & News", color: "#B794F6" },
+                            { name: "Lifestyle", color: "#4FD1C7" },
+                            { name: "Gaming", color: "#F6E05E" },
+                            { name: "Finance", color: "#9F7AEA" },
+                            { name: "Shopping", color: "#63B3ED" },
+                            { name: "Navigation", color: "#F6AD55" },
+                            { name: "Health & Fitness", color: "#68D391" }
                         ].map((genre) => (
                             <div key={genre.name} className="flex items-center gap-2">
                                 <div
