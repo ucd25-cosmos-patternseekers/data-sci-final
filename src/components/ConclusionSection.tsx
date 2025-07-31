@@ -100,15 +100,15 @@ const ConclusionSection = () => {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Top 20 apps account for 80% of all usage
+                  Just 20 popular apps make up 80% of what people use daily
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  Morning routine apps predict 85% accuracy
+                  People follow predictable morning routines 85% of the time
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent rounded-full"></div>
-                  LSTM captures 3-app sequence dependencies
+                  The model learns patterns from your last 3 apps used
                 </li>
               </ul>
             </CardContent>
