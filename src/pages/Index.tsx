@@ -1,4 +1,5 @@
 import HeroSection from "@/components/HeroSection";
+import ResearchQuestionSection from "@/components/ResearchQuestionSection";
 import MethodologySection from "@/components/MethodologySection";
 import ResultsSection from "@/components/ResultsSection";
 import ConclusionSection from "@/components/ConclusionSection";
@@ -15,6 +16,9 @@ const Index = () => {
 
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Research Question Section */}
+      <ResearchQuestionSection />
 
       {/* Introduction Section */}
       <section className="py-16 px-6">
