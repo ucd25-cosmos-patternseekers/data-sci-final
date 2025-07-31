@@ -138,6 +138,56 @@ const UserAppDashboard = () => {
         }
     };
 
+    const getAppStats = (appName: string) => {
+        if (!appName || appName === 'all') return null;
+
+        let totalMinutes = 0;
+        let userCount = 0;
+        let maxUsage = 0;
+        let maxUsageUser = '';
+        let maxPercentage = 0;
+        let maxPercentageUser = '';
+        let totalAppTime = 0;
+
+        Object.entries(userData).forEach(([userId, userApps]) => {
+            const appTime = userApps[appName] || 0;
+            const userTotal = userApps._total_time || 0;
+
+            if (appTime > 0) {
+                totalMinutes += appTime;
+                userCount++;
+                totalAppTime += appTime;
+
+                if (appTime > maxUsage) {
+                    maxUsage = appTime;
+                    maxUsageUser = userId;
+                }
+
+                if (userTotal > 0) {
+                    const percentage = (appTime / userTotal) * 100;
+                    if (percentage > maxPercentage) {
+                        maxPercentage = percentage;
+                        maxPercentageUser = userId;
+                    }
+                }
+            }
+        });
+
+        const totalHours = Math.round((totalMinutes / 60) * 10) / 10;
+        const avgMinutesPerUser = userCount > 0 ? Math.round(totalMinutes / userCount) : 0;
+
+        return {
+            totalHours,
+            totalMinutes: Math.round(totalMinutes),
+            userCount,
+            avgMinutesPerUser,
+            maxUsage: Math.round(maxUsage),
+            maxUsageUser,
+            maxPercentage: Math.round(maxPercentage * 10) / 10,
+            maxPercentageUser
+        };
+    };
+
     const createChartData = (userApps: UserAppData) => {
         const appData = Object.entries(userApps)
             .filter(([app, time]) => app !== '_total_time' && time > 0)
@@ -278,18 +328,46 @@ const UserAppDashboard = () => {
                     </div>
 
                     {/* Focused App Display */}
-                    <div className="mb-4 py-2 px-4 bg-muted/30 rounded-lg border">
-                        <div className="text-center">
-                            {highlightedApp ? (
-                                <p className="text-sm font-medium">
-                                    Currently focusing on: <span className="font-bold text-primary">{highlightedApp}</span>
-                                </p>
-                            ) : (
+                    <div className="mb-4 py-3 px-4 bg-muted/30 rounded-lg border h-24 flex flex-col justify-center">
+                        {highlightedApp ? (
+                            <div className="space-y-2">
+                                <div className="text-center">
+                                    <p className="text-sm font-medium">
+                                        Currently focusing on: <span className="font-bold text-primary">{highlightedApp}</span>
+                                    </p>
+                                </div>
+                                {(() => {
+                                    const stats = getAppStats(highlightedApp);
+                                    if (!stats) return null;
+                                    return (
+                                        <div className="grid grid-cols-4 gap-4 mt-2">
+                                            <div className="text-center">
+                                                <div className="text-sm font-bold text-primary">{stats.totalHours}h</div>
+                                                <div className="text-xs text-muted-foreground">Total Hours</div>
+                                            </div>
+                                            <div className="text-center">
+                                                <div className="text-sm font-bold text-blue-600">{stats.userCount}</div>
+                                                <div className="text-xs text-muted-foreground">Users</div>
+                                            </div>
+                                            <div className="text-center">
+                                                <div className="text-sm font-bold text-green-600">{stats.avgMinutesPerUser}m</div>
+                                                <div className="text-xs text-muted-foreground">Avg/User</div>
+                                            </div>
+                                            <div className="text-center">
+                                                <div className="text-sm font-bold text-purple-600">{stats.maxPercentage}%</div>
+                                                <div className="text-xs text-muted-foreground">Max %</div>
+                                            </div>
+                                        </div>
+                                    );
+                                })()}
+                            </div>
+                        ) : (
+                            <div className="text-center">
                                 <p className="text-sm text-muted-foreground">
                                     Hover over pie charts or select an app to focus
                                 </p>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Pie Charts Container */}
