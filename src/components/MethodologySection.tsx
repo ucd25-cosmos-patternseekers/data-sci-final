@@ -85,7 +85,6 @@ const MethodologySection = () => {
   ];
 
   const trainingProgress = [
-    { epoch: 0, trainAcc: 0, testAcc: 0 },
     { epoch: 1, trainAcc: 45.2, testAcc: 42.1 },
     { epoch: 5, trainAcc: 62.1, testAcc: 58.3 },
     { epoch: 10, trainAcc: 68.5, testAcc: 65.2 },
@@ -114,7 +113,8 @@ const MethodologySection = () => {
 
   // Get data up to current epoch for animation
   const getCurrentTrainingData = () => {
-    return trainingProgress.slice(0, currentEpoch + 1);
+    if (currentEpoch === 0) return []; // Start with empty graph
+    return trainingProgress.slice(0, currentEpoch);
   };
 
   return (
@@ -543,14 +543,20 @@ const MethodologySection = () => {
               <CardContent>
                 <div className="space-y-4">
                   <div className="text-center text-sm text-muted-foreground">
-                    Epoch {currentEpoch + 1}/{trainingProgress.length} 
+                    Epoch {currentEpoch}/{trainingProgress.length} 
                     {isTrainingPlaying && <span className="ml-2 animate-pulse">● Training...</span>}
                   </div>
                   
                   <ResponsiveContainer width="100%" height={250}>
                     <LineChart data={getCurrentTrainingData()}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis dataKey="epoch" stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <XAxis 
+                        dataKey="epoch" 
+                        stroke="hsl(var(--muted-foreground))" 
+                        fontSize={10}
+                        domain={[0, 30]}
+                        type="number"
+                      />
                       <YAxis 
                         stroke="hsl(var(--muted-foreground))" 
                         fontSize={10}
@@ -579,15 +585,15 @@ const MethodologySection = () => {
                   <div className="flex justify-center gap-6 text-sm">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-0.5 bg-primary rounded"></div>
-                      <span>Train Accuracy: {getCurrentTrainingData()[currentEpoch]?.trainAcc.toFixed(1)}%</span>
+                      <span>Train Accuracy: {currentEpoch > 0 ? getCurrentTrainingData()[currentEpoch - 1]?.trainAcc.toFixed(1) : '0.0'}%</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-0.5 bg-secondary rounded" style={{ borderTop: "2px dashed hsl(var(--secondary))" }}></div>
-                      <span>Test Accuracy: {getCurrentTrainingData()[currentEpoch]?.testAcc.toFixed(1)}%</span>
+                      <span>Test Accuracy: {currentEpoch > 0 ? getCurrentTrainingData()[currentEpoch - 1]?.testAcc.toFixed(1) : '0.0'}%</span>
                     </div>
                   </div>
 
-                  <Progress value={(currentEpoch + 1) / trainingProgress.length * 100} className="h-2" />
+                  <Progress value={currentEpoch / trainingProgress.length * 100} className="h-2" />
                 </div>
               </CardContent>
             </Card>
