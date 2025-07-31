@@ -5,6 +5,8 @@ import ConclusionSection from "@/components/ConclusionSection";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import AdvancedChart from "@/components/AdvancedChart";
 import NetworkChart from "@/components/NetworkChart";
+import TransitionChart from "@/components/TransitionChart";
+import UserAppDashboard from "@/components/UserAppDashboard";
 
 const Index = () => {
   return (
@@ -13,6 +15,22 @@ const Index = () => {
 
       {/* Hero Section */}
       <HeroSection />
+
+      {/* User App Usage Dashboard */}
+      <section className="py-16 px-6 bg-muted/5">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">User App Usage Patterns</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Interactive visualization of individual user app usage patterns. Each pie chart represents
+              a user's app distribution, with filtering and highlighting capabilities to explore usage behaviors.
+            </p>
+          </div>
+          <div className="max-w-6xl mx-auto">
+            <UserAppDashboard />
+          </div>
+        </div>
+      </section>
 
       {/* Network Visualization Section */}
       <section className="py-16 px-6">
@@ -26,6 +44,22 @@ const Index = () => {
           </div>
           <div className="max-w-6xl mx-auto">
             <NetworkChart />
+          </div>
+        </div>
+      </section>
+
+      {/* App Transition Network Section */}
+      <section className="py-16 px-6 bg-muted/5">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">App Transition Network</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Visualizing app switching patterns between users. This network shows the flow and transitions
+              from one app to another, revealing behavioral sequences and usage pathways.
+            </p>
+          </div>
+          <div className="max-w-6xl mx-auto">
+            <TransitionChart />
           </div>
         </div>
       </section>

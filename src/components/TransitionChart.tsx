@@ -1,21 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Network } from 'lucide-react';
 
-interface NetworkChartProps {
+interface TransitionChartProps {
     title?: string;
     description?: string;
 }
 
-const NetworkChart = ({
-    title = "App Relationships Network",
-    description = "Interactive network visualization showing which apps are used together by the same users"
-}: NetworkChartProps) => {
+const TransitionChart = ({
+    title = "App Transition Network",
+    description = "Visualizing app switching patterns between users"
+}: TransitionChartProps) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [nodeCount, setNodeCount] = useState(20);
+    const [showArrows, setShowArrows] = useState(true);
 
     useEffect(() => {
         // Load D3.js dynamically
@@ -37,7 +39,7 @@ const NetworkChart = ({
         };
 
         loadD3();
-    }, [nodeCount]);
+    }, [nodeCount, showArrows]);
 
     const initializeNetwork = async () => {
         if (typeof window === 'undefined' || !window.d3) return;
@@ -46,9 +48,9 @@ const NetworkChart = ({
         setIsLoading(true);
 
         try {
-            // Load both network data and genre mapping
+            // Load both transition network data and genre mapping
             const [networkResponse, genreResponse] = await Promise.all([
-                fetch('/app_relationships_network.json'),
+                fetch('/app_transition_network.json'),
                 fetch('/app_genre_mapping.json')
             ]);
 
@@ -64,7 +66,11 @@ const NetworkChart = ({
 
             // Add genre information to nodes
             nodes.forEach((node: any) => {
-                node.genre = genreMapping[node.id] || "unknown";
+                // Try exact match first, then case-insensitive match
+                node.genre = genreMapping[node.id] ||
+                    genreMapping[Object.keys(genreMapping).find((key: string) =>
+                        key.toLowerCase() === node.id.toLowerCase()
+                    ) || ''] || "unknown";
             });
 
             // Sort nodes by size (total duration) and take top N initially
@@ -78,11 +84,85 @@ const NetworkChart = ({
             );
 
             // Convert string references to object references for D3
-            const processedLinks = filteredLinks.map((l: any) => ({
-                ...l,
-                source: topNodes.find((n: any) => n.id === l.source),
-                target: topNodes.find((n: any) => n.id === l.target)
-            }));
+            const processedLinks: any[] = [];
+            const linkMap = new Map();
+
+            if (showArrows) {
+                // Create bidirectional links for arrows
+                filteredLinks.forEach((l: any) => {
+                    const sourceNode = topNodes.find((n: any) => n.id === l.source);
+                    const targetNode = topNodes.find((n: any) => n.id === l.target);
+
+                    if (sourceNode && targetNode) {
+                        // Create a unique key for each pair (regardless of direction)
+                        const key1 = `${l.source}-${l.target}`;
+                        const key2 = `${l.target}-${l.source}`;
+
+                        // Check if we've already seen this pair
+                        if (!linkMap.has(key1) && !linkMap.has(key2)) {
+                            // First direction
+                            processedLinks.push({
+                                ...l,
+                                source: sourceNode,
+                                target: targetNode,
+                                id: key1
+                            });
+
+                            // Reverse direction (with potentially different weight)
+                            const reverseLink = filteredLinks.find((rl: any) =>
+                                rl.source === l.target && rl.target === l.source
+                            );
+
+                            processedLinks.push({
+                                source: targetNode,
+                                target: sourceNode,
+                                weight: reverseLink ? reverseLink.weight : l.weight * 0.5, // Use reverse weight or half weight
+                                raw_freq: reverseLink ? reverseLink.raw_freq : Math.floor(l.raw_freq * 0.5),
+                                id: key2
+                            });
+
+                            linkMap.set(key1, true);
+                            linkMap.set(key2, true);
+                        }
+                    }
+                });
+            } else {
+                // Create single undirected links 
+                filteredLinks.forEach((l: any) => {
+                    const sourceNode = topNodes.find((n: any) => n.id === l.source);
+                    const targetNode = topNodes.find((n: any) => n.id === l.target);
+
+                    if (sourceNode && targetNode) {
+                        // Create a unique key for each pair (use consistent ordering)
+                        const key1 = `${l.source}-${l.target}`;
+                        const key2 = `${l.target}-${l.source}`;
+                        const uniqueKey = l.source < l.target ? key1 : key2;
+
+                        // Check if we've already seen this pair
+                        if (!linkMap.has(key1) && !linkMap.has(key2)) {
+                            // Find the reverse link to combine weights
+                            const reverseLink = filteredLinks.find((rl: any) =>
+                                rl.source === l.target && rl.target === l.source
+                            );
+
+                            // Use the stronger connection weight
+                            const combinedWeight = reverseLink ? Math.max(l.weight, reverseLink.weight) : l.weight;
+                            const combinedFreq = reverseLink ? Math.max(l.raw_freq, reverseLink.raw_freq) : l.raw_freq;
+
+                            processedLinks.push({
+                                source: sourceNode,
+                                target: targetNode,
+                                weight: combinedWeight,
+                                raw_freq: combinedFreq,
+                                id: uniqueKey
+                            });
+
+                            linkMap.set(key1, true);
+                            linkMap.set(key2, true);
+                        }
+                    }
+                });
+            }
 
             // Get nodes that actually have connections
             const connectedNodeIds = new Set();
@@ -134,13 +214,44 @@ const NetworkChart = ({
             // Get weights from processed links
             const weights = processedLinks.map((d: any) => d.weight);
 
+            // Define arrow markers for different colors
+            const defs = svg.append("defs");
+
+            // Create arrow markers for the color range (viridis colors)
+            const viridisColors = [
+                "#440154", "#482777", "#3f4a8a", "#31678e", "#26838f",
+                "#1f9d8a", "#6cce5a", "#b6de2b", "#fee825"
+            ];
+
+            // Create arrow markers for each color and opacity combination
+            viridisColors.forEach((color, colorIndex) => {
+                // Create multiple opacity levels for each color
+                const opacityLevels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+                opacityLevels.forEach((opacity, opacityIndex) => {
+                    defs.append("marker")
+                        .attr("id", `arrow-${colorIndex}-${opacityIndex}`)
+                        .attr("viewBox", "0 -3 12 6")
+                        .attr("refX", 10)
+                        .attr("refY", 0)
+                        .attr("markerWidth", 8)
+                        .attr("markerHeight", 6)
+                        .attr("orient", "auto")
+                        .attr("markerUnits", "strokeWidth")
+                        .append("path")
+                        .attr("d", "M0,-2L12,0L0,2L3,0Z") // More pointed, skinny arrow
+                        .attr("fill", color)
+                        .attr("fill-opacity", opacity)
+                        .attr("stroke", "none");
+                });
+            });
+
             // Create color scale for links using logarithmic scale
             const colorScale = d3.scaleSequential()
                 .domain([Math.min(...weights), Math.max(...weights)])
                 .interpolator(d3.interpolateViridis);
 
             // Create opacity scale for links using power scale
-            let opacityExponent = nodeCount === 20 ? 0.8 : 1.6;
+            let opacityExponent = nodeCount === 20 ? 0.4 : 0.4;
             const opacityScale = d3.scalePow()
                 .exponent(opacityExponent)
                 .domain([Math.min(...weights), Math.max(...weights)])
@@ -154,7 +265,7 @@ const NetworkChart = ({
             // Create size scale for nodes
             const sizeScale = d3.scaleSqrt()
                 .domain([0, d3.max(nodes, (d: any) => d.size)])
-                .range([8, 40]);
+                .range([6, 30]);
 
             // Create color scale for genres
             const genreColors = {
@@ -180,15 +291,29 @@ const NetworkChart = ({
                 .force("center", d3.forceCenter(width / 2, height / 2))
                 .force("collision", d3.forceCollide().radius((d: any) => sizeScale(d.size) + 10));
 
-            // Create links
+            // Create links - use paths for curves (arrows) or straight lines (no arrows)
             const link = container.append("g")
-                .selectAll("line")
+                .selectAll("path")
                 .data(processedLinks)
-                .join("line")
+                .join("path")
                 .attr("class", "link")
                 .style("stroke", (d: any) => colorScale(d.weight))
                 .style("stroke-width", (d: any) => widthScale(d.weight))
-                .style("stroke-opacity", (d: any) => opacityScale(d.weight));
+                .style("stroke-opacity", (d: any) => opacityScale(d.weight))
+                .style("fill", "none")
+                .attr("marker-end", (d: any) => {
+                    if (!showArrows) return "none";
+
+                    // Map the weight to a color index
+                    const normalizedWeight = (d.weight - Math.min(...weights)) / (Math.max(...weights) - Math.min(...weights));
+                    const colorIndex = Math.floor(normalizedWeight * (viridisColors.length - 1));
+
+                    // Map the opacity to an opacity index
+                    const linkOpacity = opacityScale(d.weight);
+                    const opacityIndex = Math.floor(linkOpacity * 9); // 0-9 for 10 opacity levels
+
+                    return `url(#arrow-${colorIndex}-${opacityIndex})`;
+                });
 
             // Create nodes
             const node = container.append("g")
@@ -197,7 +322,7 @@ const NetworkChart = ({
                 .join("circle")
                 .attr("class", "node")
                 .attr("r", (d: any) => sizeScale(d.size))
-                .style("fill", (d: any) => genreColors[d.genre] || "#CCCCCC")
+                .style("fill", (d: any) => genreColors[d.genre] || "#A0AEC0")
                 .call(drag(simulation) as any);
 
             // Add labels
@@ -240,12 +365,13 @@ const NetworkChart = ({
                     .html(`
               <strong>${d.id}</strong><br>
               Genre: ${d.genre}<br>
-              Users: ${d.user_count.toLocaleString()}<br>
+              Size: ${d.size.toFixed(1)}<br>
+              Raw Count: ${d.raw_count.toLocaleString()}<br>
               Connections: ${appConnections.length}<br>
               <strong>Strongest Connection:</strong><br>
               → ${strongestConnection ? (strongestConnection.source.id === d.id ?
                             strongestConnection.target.id : strongestConnection.source.id) : 'N/A'}<br>
-              Similarity: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
+              Weight: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
             `);
 
                 // Create color scale based on the connections of this specific node
@@ -268,6 +394,24 @@ const NetworkChart = ({
                     .style("stroke", function (l: any) {
                         return (l.source.id === d.id || l.target.id === d.id) ?
                             nodeColorScale(l.weight) : "#ccc";
+                    })
+                    .attr("marker-end", function (l: any) {
+                        if (!showArrows) return "none";
+
+                        if (l.source.id === d.id || l.target.id === d.id) {
+                            // Recalculate color and opacity for focused connections
+                            const connectionWeights = appConnections.map((link: any) => link.weight);
+                            const normalizedWeight = (l.weight - Math.min(...connectionWeights)) / (Math.max(...connectionWeights) - Math.min(...connectionWeights));
+                            const colorIndex = Math.floor(normalizedWeight * (viridisColors.length - 1));
+
+                            const linkOpacity = nodeOpacityScale(l.weight);
+                            const opacityIndex = Math.floor(linkOpacity * 9);
+
+                            return `url(#arrow-${colorIndex}-${opacityIndex})`;
+                        } else {
+                            // Hide arrows for non-connected links
+                            return "none";
+                        }
                     });
 
                 // Highlight connected nodes with opacity based on connection strength
@@ -287,7 +431,7 @@ const NetworkChart = ({
                     return 0.6; // Increased minimum opacity for unconnected nodes
                 })
                     .style("fill", function (n: any) {
-                        if (n.id === d.id) return genreColors[n.genre] || "#CCCCCC";
+                        if (n.id === d.id) return genreColors[n.genre] || "#A0AEC0";
 
                         // Find the connection between this node and the hovered node
                         const connection = processedLinks.find((l: any) =>
@@ -296,7 +440,7 @@ const NetworkChart = ({
                         );
 
                         if (connection) {
-                            return genreColors[n.genre] || "#CCCCCC";
+                            return genreColors[n.genre] || "#A0AEC0";
                         }
 
                         return "#CCCCCC"; // Grey for unconnected nodes
@@ -329,11 +473,23 @@ const NetworkChart = ({
                         .range([0.01, 1]);
 
                     link.style("stroke-opacity", (d: any) => currentOpacityScale(d.weight))
-                        .style("stroke", (d: any) => colorScale(d.weight));
+                        .style("stroke", (d: any) => colorScale(d.weight))
+                        .attr("marker-end", (d: any) => {
+                            if (!showArrows) return "none";
+
+                            // Restore original arrow markers
+                            const normalizedWeight = (d.weight - Math.min(...weights)) / (Math.max(...weights) - Math.min(...weights));
+                            const colorIndex = Math.floor(normalizedWeight * (viridisColors.length - 1));
+
+                            const linkOpacity = currentOpacityScale(d.weight);
+                            const opacityIndex = Math.floor(linkOpacity * 9);
+
+                            return `url(#arrow-${colorIndex}-${opacityIndex})`;
+                        });
 
                     // Reset all nodes to normal appearance
                     node.style("opacity", 1)
-                        .style("fill", (d: any) => genreColors[d.genre] || "#CCCCCC");
+                        .style("fill", (d: any) => genreColors[d.genre] || "#A0AEC0");
                     label.style("opacity", 1);
                 });
 
@@ -341,10 +497,9 @@ const NetworkChart = ({
             link.on("mouseover", function (event: any, d: any) {
                 tooltip.style("display", "block")
                     .html(`
-              <strong>${d.source.id} ↔ ${d.target.id}</strong><br>
-              Similarity: ${d.weight.toFixed(3)}<br>
-              Shared Users: ${d.shared_users.toLocaleString()}<br>
-              Jaccard Index: ${d.weight.toFixed(3)}
+              <strong>${d.source.id} → ${d.target.id}</strong><br>
+              Weight: ${d.weight.toFixed(3)}<br>
+              Raw Frequency: ${d.raw_freq.toLocaleString()}
             `);
             })
                 .on("mouseout", function () {
@@ -353,11 +508,47 @@ const NetworkChart = ({
 
             // Update positions on simulation tick
             simulation.on("tick", () => {
-                link
-                    .attr("x1", (d: any) => d.source.x)
-                    .attr("y1", (d: any) => d.source.y)
-                    .attr("x2", (d: any) => d.target.x)
-                    .attr("y2", (d: any) => d.target.y);
+                link.attr("d", (d: any) => {
+                    const dx = d.target.x - d.source.x;
+                    const dy = d.target.y - d.source.y;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+
+                    if (length === 0) return "M0,0L0,0";
+
+                    // Calculate start and end points accounting for node radius
+                    const sourceRadius = sizeScale(d.source.size) + 2;
+                    const targetRadius = sizeScale(d.target.size) + (showArrows ? 8 : 2); // Extra space for arrows
+
+                    const startX = d.source.x + (dx * sourceRadius) / length;
+                    const startY = d.source.y + (dy * sourceRadius) / length;
+                    const endX = d.target.x - (dx * targetRadius) / length;
+                    const endY = d.target.y - (dy * targetRadius) / length;
+
+                    if (showArrows) {
+                        // Create curved paths for arrows to avoid overlap
+                        const midX = (startX + endX) / 2;
+                        const midY = (startY + endY) / 2;
+
+                        // Determine curve direction based on link direction to avoid overlap
+                        const sourceId = d.source.id;
+                        const targetId = d.target.id;
+                        const isFirstDirection = d.id && d.id.startsWith(sourceId);
+                        const curveOffset = isFirstDirection ? 20 : -20; // Curve opposite directions
+
+                        // Calculate perpendicular offset
+                        const perpX = -dy / length * curveOffset;
+                        const perpY = dx / length * curveOffset;
+
+                        const controlX = midX + perpX;
+                        const controlY = midY + perpY;
+
+                        // Create quadratic curve path
+                        return `M${startX},${startY}Q${controlX},${controlY} ${endX},${endY}`;
+                    } else {
+                        // Create straight line path for simple connections
+                        return `M${startX},${startY}L${endX},${endY}`;
+                    }
+                });
 
                 node
                     .attr("cx", (d: any) => d.x)
@@ -396,7 +587,7 @@ const NetworkChart = ({
             setIsLoading(false);
 
         } catch (error) {
-            console.error("Error loading network data:", error);
+            console.error("Error loading transition network data:", error);
             setIsLoading(false);
         }
     };
@@ -417,23 +608,37 @@ const NetworkChart = ({
             <CardContent>
                 {/* Controls */}
                 <div className="flex justify-center mb-6">
-                    <div className="flex flex-col items-center gap-2">
-                        <label className="text-sm font-medium">Number of Apps</label>
-                        <div className="flex gap-2">
-                            <Button
-                                variant={nodeCount === 20 ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => handleNodeCountChange(20)}
-                            >
-                                20 Apps
-                            </Button>
-                            <Button
-                                variant={nodeCount === 60 ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => handleNodeCountChange(60)}
-                            >
-                                60 Apps
-                            </Button>
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="flex flex-col items-center gap-2">
+                            <label className="text-sm font-medium">Number of Apps</label>
+                            <div className="flex gap-2">
+                                <Button
+                                    variant={nodeCount === 20 ? 'default' : 'outline'}
+                                    size="sm"
+                                    onClick={() => handleNodeCountChange(20)}
+                                >
+                                    20 Apps
+                                </Button>
+                                <Button
+                                    variant={nodeCount === 60 ? 'default' : 'outline'}
+                                    size="sm"
+                                    onClick={() => handleNodeCountChange(60)}
+                                >
+                                    60 Apps
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <label className="text-sm font-medium">Connection Style</label>
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-muted-foreground">Lines</span>
+                                <Switch
+                                    checked={showArrows}
+                                    onCheckedChange={setShowArrows}
+                                />
+                                <span className="text-xs text-muted-foreground">Arrows</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -448,7 +653,7 @@ const NetworkChart = ({
                         <div className="flex items-center justify-center h-full absolute inset-0 z-10 bg-background">
                             <div className="text-center">
                                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                                <p className="text-muted-foreground">Loading network visualization...</p>
+                                <p className="text-muted-foreground">Loading transition network visualization...</p>
                             </div>
                         </div>
                     )}
@@ -522,4 +727,4 @@ const NetworkChart = ({
     );
 };
 
-export default NetworkChart; 
+export default TransitionChart;

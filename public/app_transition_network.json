@@ -1,0 +1,7964 @@
+{
+  "nodes": [
+    {
+      "id": "google",
+      "size": 5237.68,
+      "raw_count": 74824
+    },
+    {
+      "id": "google chrome",
+      "size": 5188.820000000001,
+      "raw_count": 74126
+    },
+    {
+      "id": "facebook messenger",
+      "size": 3166.1700000000005,
+      "raw_count": 45231
+    },
+    {
+      "id": "facebook",
+      "size": 3107.7900000000004,
+      "raw_count": 44397
+    },
+    {
+      "id": "gmail",
+      "size": 2068.2900000000004,
+      "raw_count": 29547
+    },
+    {
+      "id": "messages",
+      "size": 2053.17,
+      "raw_count": 29331
+    },
+    {
+      "id": "instagram",
+      "size": 1643.3200000000002,
+      "raw_count": 23476
+    },
+    {
+      "id": "contacts",
+      "size": 1203.3700000000001,
+      "raw_count": 17191
+    },
+    {
+      "id": "telegram",
+      "size": 1188.5300000000002,
+      "raw_count": 16979
+    },
+    {
+      "id": "slidejoy",
+      "size": 951.0900000000001,
+      "raw_count": 13587
+    },
+    {
+      "id": "whatsapp messenger",
+      "size": 845.6000000000001,
+      "raw_count": 12080
+    },
+    {
+      "id": "youtube",
+      "size": 819.7700000000001,
+      "raw_count": 11711
+    },
+    {
+      "id": "verizon messages",
+      "size": 806.47,
+      "raw_count": 11521
+    },
+    {
+      "id": "phone",
+      "size": 793.8700000000001,
+      "raw_count": 11341
+    },
+    {
+      "id": "settings",
+      "size": 740.6700000000001,
+      "raw_count": 10581
+    },
+    {
+      "id": "twitter",
+      "size": 731.7800000000001,
+      "raw_count": 10454
+    },
+    {
+      "id": "google play store",
+      "size": 708.19,
+      "raw_count": 10117
+    },
+    {
+      "id": "messaging",
+      "size": 635.32,
+      "raw_count": 9076
+    },
+    {
+      "id": "maps",
+      "size": 635.1800000000001,
+      "raw_count": 9074
+    },
+    {
+      "id": "android in call ui",
+      "size": 626.0100000000001,
+      "raw_count": 8943
+    },
+    {
+      "id": "telegram x",
+      "size": 610.12,
+      "raw_count": 8716
+    },
+    {
+      "id": "samsung internet browser",
+      "size": 505.68000000000006,
+      "raw_count": 7224
+    },
+    {
+      "id": "samsung gallery",
+      "size": 474.81000000000006,
+      "raw_count": 6783
+    },
+    {
+      "id": "camera",
+      "size": 430.92,
+      "raw_count": 6156
+    },
+    {
+      "id": "samsung email",
+      "size": 425.53000000000003,
+      "raw_count": 6079
+    },
+    {
+      "id": "max cleaner",
+      "size": 413.07000000000005,
+      "raw_count": 5901
+    },
+    {
+      "id": "reddit",
+      "size": 400.19000000000005,
+      "raw_count": 5717
+    },
+    {
+      "id": "hangouts",
+      "size": 347.69000000000005,
+      "raw_count": 4967
+    },
+    {
+      "id": "snapchat",
+      "size": 269.99,
+      "raw_count": 3857
+    },
+    {
+      "id": "yahoo mail",
+      "size": 254.73000000000002,
+      "raw_count": 3639
+    },
+    {
+      "id": "aol",
+      "size": 249.27,
+      "raw_count": 3561
+    },
+    {
+      "id": "s\u2019more",
+      "size": 236.25000000000003,
+      "raw_count": 3375
+    },
+    {
+      "id": "calendar",
+      "size": 199.71,
+      "raw_count": 2853
+    },
+    {
+      "id": "google drive",
+      "size": 192.29000000000002,
+      "raw_count": 2747
+    },
+    {
+      "id": "spotify music",
+      "size": 185.99,
+      "raw_count": 2657
+    },
+    {
+      "id": "microsoft outlook",
+      "size": 185.15,
+      "raw_count": 2645
+    },
+    {
+      "id": "clock",
+      "size": 179.62,
+      "raw_count": 2566
+    },
+    {
+      "id": "samsung pay",
+      "size": 173.39000000000001,
+      "raw_count": 2477
+    },
+    {
+      "id": "reward stash",
+      "size": 173.32000000000002,
+      "raw_count": 2476
+    },
+    {
+      "id": "metrozone",
+      "size": 171.78000000000003,
+      "raw_count": 2454
+    }
+  ],
+  "edges": [
+    {
+      "source": "google",
+      "target": "google chrome",
+      "weight": 23.547,
+      "raw_freq": 23547
+    },
+    {
+      "source": "google",
+      "target": "facebook messenger",
+      "weight": 6.231,
+      "raw_freq": 6231
+    },
+    {
+      "source": "google",
+      "target": "facebook",
+      "weight": 5.2620000000000005,
+      "raw_freq": 5262
+    },
+    {
+      "source": "google",
+      "target": "gmail",
+      "weight": 2.7520000000000002,
+      "raw_freq": 2752
+    },
+    {
+      "source": "google",
+      "target": "messages",
+      "weight": 1.722,
+      "raw_freq": 1722
+    },
+    {
+      "source": "google",
+      "target": "instagram",
+      "weight": 6.663,
+      "raw_freq": 6663
+    },
+    {
+      "source": "google",
+      "target": "contacts",
+      "weight": 0.291,
+      "raw_freq": 291
+    },
+    {
+      "source": "google",
+      "target": "telegram",
+      "weight": 3.1550000000000002,
+      "raw_freq": 3155
+    },
+    {
+      "source": "google",
+      "target": "slidejoy",
+      "weight": 0.199,
+      "raw_freq": 199
+    },
+    {
+      "source": "google",
+      "target": "whatsapp messenger",
+      "weight": 3.456,
+      "raw_freq": 3456
+    },
+    {
+      "source": "google",
+      "target": "youtube",
+      "weight": 1.678,
+      "raw_freq": 1678
+    },
+    {
+      "source": "google",
+      "target": "verizon messages",
+      "weight": 0.34900000000000003,
+      "raw_freq": 349
+    },
+    {
+      "source": "google",
+      "target": "phone",
+      "weight": 0.744,
+      "raw_freq": 744
+    },
+    {
+      "source": "google",
+      "target": "settings",
+      "weight": 1.733,
+      "raw_freq": 1733
+    },
+    {
+      "source": "google",
+      "target": "twitter",
+      "weight": 1.108,
+      "raw_freq": 1108
+    },
+    {
+      "source": "google",
+      "target": "google play store",
+      "weight": 1.454,
+      "raw_freq": 1454
+    },
+    {
+      "source": "google",
+      "target": "messaging",
+      "weight": 0.294,
+      "raw_freq": 294
+    },
+    {
+      "source": "google",
+      "target": "maps",
+      "weight": 1.297,
+      "raw_freq": 1297
+    },
+    {
+      "source": "google",
+      "target": "android in call ui",
+      "weight": 0.20500000000000002,
+      "raw_freq": 205
+    },
+    {
+      "source": "google",
+      "target": "telegram x",
+      "weight": 1.873,
+      "raw_freq": 1873
+    },
+    {
+      "source": "google",
+      "target": "samsung internet browser",
+      "weight": 0.155,
+      "raw_freq": 155
+    },
+    {
+      "source": "google",
+      "target": "samsung gallery",
+      "weight": 0.078,
+      "raw_freq": 78
+    },
+    {
+      "source": "google",
+      "target": "camera",
+      "weight": 0.07200000000000001,
+      "raw_freq": 72
+    },
+    {
+      "source": "google",
+      "target": "samsung email",
+      "weight": 0.091,
+      "raw_freq": 91
+    },
+    {
+      "source": "google",
+      "target": "max cleaner",
+      "weight": 0.148,
+      "raw_freq": 148
+    },
+    {
+      "source": "google",
+      "target": "reddit",
+      "weight": 0.382,
+      "raw_freq": 382
+    },
+    {
+      "source": "google",
+      "target": "hangouts",
+      "weight": 1.062,
+      "raw_freq": 1062
+    },
+    {
+      "source": "google",
+      "target": "snapchat",
+      "weight": 0.41500000000000004,
+      "raw_freq": 415
+    },
+    {
+      "source": "google",
+      "target": "yahoo mail",
+      "weight": 0.23800000000000002,
+      "raw_freq": 238
+    },
+    {
+      "source": "google",
+      "target": "aol",
+      "weight": 0.05,
+      "raw_freq": 50
+    },
+    {
+      "source": "google",
+      "target": "s\u2019more",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "google",
+      "target": "calendar",
+      "weight": 0.428,
+      "raw_freq": 428
+    },
+    {
+      "source": "google",
+      "target": "google drive",
+      "weight": 0.20400000000000001,
+      "raw_freq": 204
+    },
+    {
+      "source": "google",
+      "target": "spotify music",
+      "weight": 0.394,
+      "raw_freq": 394
+    },
+    {
+      "source": "google",
+      "target": "microsoft outlook",
+      "weight": 0.684,
+      "raw_freq": 684
+    },
+    {
+      "source": "google",
+      "target": "clock",
+      "weight": 0.501,
+      "raw_freq": 501
+    },
+    {
+      "source": "google",
+      "target": "samsung pay",
+      "weight": 0.043000000000000003,
+      "raw_freq": 43
+    },
+    {
+      "source": "google",
+      "target": "reward stash",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "google",
+      "target": "metrozone",
+      "weight": 0.062,
+      "raw_freq": 62
+    },
+    {
+      "source": "google chrome",
+      "target": "google",
+      "weight": 22.129,
+      "raw_freq": 22129
+    },
+    {
+      "source": "google chrome",
+      "target": "facebook messenger",
+      "weight": 5.019,
+      "raw_freq": 5019
+    },
+    {
+      "source": "google chrome",
+      "target": "facebook",
+      "weight": 2.977,
+      "raw_freq": 2977
+    },
+    {
+      "source": "google chrome",
+      "target": "gmail",
+      "weight": 7.728,
+      "raw_freq": 7728
+    },
+    {
+      "source": "google chrome",
+      "target": "messages",
+      "weight": 3.367,
+      "raw_freq": 3367
+    },
+    {
+      "source": "google chrome",
+      "target": "instagram",
+      "weight": 0.999,
+      "raw_freq": 999
+    },
+    {
+      "source": "google chrome",
+      "target": "contacts",
+      "weight": 1.01,
+      "raw_freq": 1010
+    },
+    {
+      "source": "google chrome",
+      "target": "telegram",
+      "weight": 0.927,
+      "raw_freq": 927
+    },
+    {
+      "source": "google chrome",
+      "target": "slidejoy",
+      "weight": 0.632,
+      "raw_freq": 632
+    },
+    {
+      "source": "google chrome",
+      "target": "whatsapp messenger",
+      "weight": 1.099,
+      "raw_freq": 1099
+    },
+    {
+      "source": "google chrome",
+      "target": "youtube",
+      "weight": 1.6440000000000001,
+      "raw_freq": 1644
+    },
+    {
+      "source": "google chrome",
+      "target": "verizon messages",
+      "weight": 1.5150000000000001,
+      "raw_freq": 1515
+    },
+    {
+      "source": "google chrome",
+      "target": "phone",
+      "weight": 0.867,
+      "raw_freq": 867
+    },
+    {
+      "source": "google chrome",
+      "target": "settings",
+      "weight": 1.242,
+      "raw_freq": 1242
+    },
+    {
+      "source": "google chrome",
+      "target": "twitter",
+      "weight": 1.543,
+      "raw_freq": 1543
+    },
+    {
+      "source": "google chrome",
+      "target": "google play store",
+      "weight": 2.277,
+      "raw_freq": 2277
+    },
+    {
+      "source": "google chrome",
+      "target": "messaging",
+      "weight": 0.533,
+      "raw_freq": 533
+    },
+    {
+      "source": "google chrome",
+      "target": "maps",
+      "weight": 0.75,
+      "raw_freq": 750
+    },
+    {
+      "source": "google chrome",
+      "target": "android in call ui",
+      "weight": 0.40800000000000003,
+      "raw_freq": 408
+    },
+    {
+      "source": "google chrome",
+      "target": "telegram x",
+      "weight": 0.129,
+      "raw_freq": 129
+    },
+    {
+      "source": "google chrome",
+      "target": "samsung internet browser",
+      "weight": 0.17500000000000002,
+      "raw_freq": 175
+    },
+    {
+      "source": "google chrome",
+      "target": "samsung gallery",
+      "weight": 0.489,
+      "raw_freq": 489
+    },
+    {
+      "source": "google chrome",
+      "target": "camera",
+      "weight": 0.41200000000000003,
+      "raw_freq": 412
+    },
+    {
+      "source": "google chrome",
+      "target": "samsung email",
+      "weight": 1.573,
+      "raw_freq": 1573
+    },
+    {
+      "source": "google chrome",
+      "target": "max cleaner",
+      "weight": 0.127,
+      "raw_freq": 127
+    },
+    {
+      "source": "google chrome",
+      "target": "reddit",
+      "weight": 1.29,
+      "raw_freq": 1290
+    },
+    {
+      "source": "google chrome",
+      "target": "hangouts",
+      "weight": 0.304,
+      "raw_freq": 304
+    },
+    {
+      "source": "google chrome",
+      "target": "snapchat",
+      "weight": 0.145,
+      "raw_freq": 145
+    },
+    {
+      "source": "google chrome",
+      "target": "yahoo mail",
+      "weight": 1.169,
+      "raw_freq": 1169
+    },
+    {
+      "source": "google chrome",
+      "target": "aol",
+      "weight": 0.393,
+      "raw_freq": 393
+    },
+    {
+      "source": "google chrome",
+      "target": "s\u2019more",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "google chrome",
+      "target": "calendar",
+      "weight": 0.17300000000000001,
+      "raw_freq": 173
+    },
+    {
+      "source": "google chrome",
+      "target": "google drive",
+      "weight": 1.226,
+      "raw_freq": 1226
+    },
+    {
+      "source": "google chrome",
+      "target": "spotify music",
+      "weight": 0.127,
+      "raw_freq": 127
+    },
+    {
+      "source": "google chrome",
+      "target": "microsoft outlook",
+      "weight": 0.28800000000000003,
+      "raw_freq": 288
+    },
+    {
+      "source": "google chrome",
+      "target": "clock",
+      "weight": 0.106,
+      "raw_freq": 106
+    },
+    {
+      "source": "google chrome",
+      "target": "samsung pay",
+      "weight": 0.233,
+      "raw_freq": 233
+    },
+    {
+      "source": "google chrome",
+      "target": "reward stash",
+      "weight": 0.22,
+      "raw_freq": 220
+    },
+    {
+      "source": "google chrome",
+      "target": "metrozone",
+      "weight": 0.137,
+      "raw_freq": 137
+    },
+    {
+      "source": "facebook messenger",
+      "target": "google",
+      "weight": 6.523000000000001,
+      "raw_freq": 6523
+    },
+    {
+      "source": "facebook messenger",
+      "target": "google chrome",
+      "weight": 4.782,
+      "raw_freq": 4782
+    },
+    {
+      "source": "facebook messenger",
+      "target": "facebook",
+      "weight": 12.097,
+      "raw_freq": 12097
+    },
+    {
+      "source": "facebook messenger",
+      "target": "gmail",
+      "weight": 2.184,
+      "raw_freq": 2184
+    },
+    {
+      "source": "facebook messenger",
+      "target": "messages",
+      "weight": 2.766,
+      "raw_freq": 2766
+    },
+    {
+      "source": "facebook messenger",
+      "target": "instagram",
+      "weight": 0.849,
+      "raw_freq": 849
+    },
+    {
+      "source": "facebook messenger",
+      "target": "contacts",
+      "weight": 0.681,
+      "raw_freq": 681
+    },
+    {
+      "source": "facebook messenger",
+      "target": "telegram",
+      "weight": 0.356,
+      "raw_freq": 356
+    },
+    {
+      "source": "facebook messenger",
+      "target": "slidejoy",
+      "weight": 0.34500000000000003,
+      "raw_freq": 345
+    },
+    {
+      "source": "facebook messenger",
+      "target": "whatsapp messenger",
+      "weight": 0.5680000000000001,
+      "raw_freq": 568
+    },
+    {
+      "source": "facebook messenger",
+      "target": "youtube",
+      "weight": 1.231,
+      "raw_freq": 1231
+    },
+    {
+      "source": "facebook messenger",
+      "target": "verizon messages",
+      "weight": 1.258,
+      "raw_freq": 1258
+    },
+    {
+      "source": "facebook messenger",
+      "target": "phone",
+      "weight": 0.166,
+      "raw_freq": 166
+    },
+    {
+      "source": "facebook messenger",
+      "target": "settings",
+      "weight": 0.602,
+      "raw_freq": 602
+    },
+    {
+      "source": "facebook messenger",
+      "target": "twitter",
+      "weight": 0.362,
+      "raw_freq": 362
+    },
+    {
+      "source": "facebook messenger",
+      "target": "google play store",
+      "weight": 0.352,
+      "raw_freq": 352
+    },
+    {
+      "source": "facebook messenger",
+      "target": "messaging",
+      "weight": 0.441,
+      "raw_freq": 441
+    },
+    {
+      "source": "facebook messenger",
+      "target": "maps",
+      "weight": 0.554,
+      "raw_freq": 554
+    },
+    {
+      "source": "facebook messenger",
+      "target": "android in call ui",
+      "weight": 0.356,
+      "raw_freq": 356
+    },
+    {
+      "source": "facebook messenger",
+      "target": "telegram x",
+      "weight": 0.34400000000000003,
+      "raw_freq": 344
+    },
+    {
+      "source": "facebook messenger",
+      "target": "samsung internet browser",
+      "weight": 0.136,
+      "raw_freq": 136
+    },
+    {
+      "source": "facebook messenger",
+      "target": "samsung gallery",
+      "weight": 0.277,
+      "raw_freq": 277
+    },
+    {
+      "source": "facebook messenger",
+      "target": "camera",
+      "weight": 0.245,
+      "raw_freq": 245
+    },
+    {
+      "source": "facebook messenger",
+      "target": "samsung email",
+      "weight": 0.429,
+      "raw_freq": 429
+    },
+    {
+      "source": "facebook messenger",
+      "target": "max cleaner",
+      "weight": 0.081,
+      "raw_freq": 81
+    },
+    {
+      "source": "facebook messenger",
+      "target": "reddit",
+      "weight": 0.129,
+      "raw_freq": 129
+    },
+    {
+      "source": "facebook messenger",
+      "target": "hangouts",
+      "weight": 0.092,
+      "raw_freq": 92
+    },
+    {
+      "source": "facebook messenger",
+      "target": "snapchat",
+      "weight": 0.193,
+      "raw_freq": 193
+    },
+    {
+      "source": "facebook messenger",
+      "target": "yahoo mail",
+      "weight": 0.296,
+      "raw_freq": 296
+    },
+    {
+      "source": "facebook messenger",
+      "target": "aol",
+      "weight": 0.796,
+      "raw_freq": 796
+    },
+    {
+      "source": "facebook messenger",
+      "target": "s\u2019more",
+      "weight": 0.11800000000000001,
+      "raw_freq": 118
+    },
+    {
+      "source": "facebook messenger",
+      "target": "calendar",
+      "weight": 0.159,
+      "raw_freq": 159
+    },
+    {
+      "source": "facebook messenger",
+      "target": "google drive",
+      "weight": 0.077,
+      "raw_freq": 77
+    },
+    {
+      "source": "facebook messenger",
+      "target": "spotify music",
+      "weight": 0.23,
+      "raw_freq": 230
+    },
+    {
+      "source": "facebook messenger",
+      "target": "microsoft outlook",
+      "weight": 0.068,
+      "raw_freq": 68
+    },
+    {
+      "source": "facebook messenger",
+      "target": "clock",
+      "weight": 0.035,
+      "raw_freq": 35
+    },
+    {
+      "source": "facebook messenger",
+      "target": "samsung pay",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "facebook messenger",
+      "target": "reward stash",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "facebook messenger",
+      "target": "metrozone",
+      "weight": 0.054,
+      "raw_freq": 54
+    },
+    {
+      "source": "facebook",
+      "target": "google",
+      "weight": 5.271,
+      "raw_freq": 5271
+    },
+    {
+      "source": "facebook",
+      "target": "google chrome",
+      "weight": 2.774,
+      "raw_freq": 2774
+    },
+    {
+      "source": "facebook",
+      "target": "facebook messenger",
+      "weight": 11.98,
+      "raw_freq": 11980
+    },
+    {
+      "source": "facebook",
+      "target": "gmail",
+      "weight": 2.047,
+      "raw_freq": 2047
+    },
+    {
+      "source": "facebook",
+      "target": "messages",
+      "weight": 2.476,
+      "raw_freq": 2476
+    },
+    {
+      "source": "facebook",
+      "target": "instagram",
+      "weight": 1.486,
+      "raw_freq": 1486
+    },
+    {
+      "source": "facebook",
+      "target": "contacts",
+      "weight": 0.375,
+      "raw_freq": 375
+    },
+    {
+      "source": "facebook",
+      "target": "telegram",
+      "weight": 0.40700000000000003,
+      "raw_freq": 407
+    },
+    {
+      "source": "facebook",
+      "target": "slidejoy",
+      "weight": 1.903,
+      "raw_freq": 1903
+    },
+    {
+      "source": "facebook",
+      "target": "whatsapp messenger",
+      "weight": 0.41300000000000003,
+      "raw_freq": 413
+    },
+    {
+      "source": "facebook",
+      "target": "youtube",
+      "weight": 0.639,
+      "raw_freq": 639
+    },
+    {
+      "source": "facebook",
+      "target": "verizon messages",
+      "weight": 1.366,
+      "raw_freq": 1366
+    },
+    {
+      "source": "facebook",
+      "target": "phone",
+      "weight": 0.17200000000000001,
+      "raw_freq": 172
+    },
+    {
+      "source": "facebook",
+      "target": "settings",
+      "weight": 0.316,
+      "raw_freq": 316
+    },
+    {
+      "source": "facebook",
+      "target": "twitter",
+      "weight": 0.251,
+      "raw_freq": 251
+    },
+    {
+      "source": "facebook",
+      "target": "google play store",
+      "weight": 0.592,
+      "raw_freq": 592
+    },
+    {
+      "source": "facebook",
+      "target": "messaging",
+      "weight": 0.493,
+      "raw_freq": 493
+    },
+    {
+      "source": "facebook",
+      "target": "maps",
+      "weight": 0.381,
+      "raw_freq": 381
+    },
+    {
+      "source": "facebook",
+      "target": "android in call ui",
+      "weight": 0.244,
+      "raw_freq": 244
+    },
+    {
+      "source": "facebook",
+      "target": "telegram x",
+      "weight": 0.505,
+      "raw_freq": 505
+    },
+    {
+      "source": "facebook",
+      "target": "samsung internet browser",
+      "weight": 0.169,
+      "raw_freq": 169
+    },
+    {
+      "source": "facebook",
+      "target": "samsung gallery",
+      "weight": 0.311,
+      "raw_freq": 311
+    },
+    {
+      "source": "facebook",
+      "target": "camera",
+      "weight": 0.244,
+      "raw_freq": 244
+    },
+    {
+      "source": "facebook",
+      "target": "samsung email",
+      "weight": 0.598,
+      "raw_freq": 598
+    },
+    {
+      "source": "facebook",
+      "target": "max cleaner",
+      "weight": 0.63,
+      "raw_freq": 630
+    },
+    {
+      "source": "facebook",
+      "target": "reddit",
+      "weight": 0.197,
+      "raw_freq": 197
+    },
+    {
+      "source": "facebook",
+      "target": "hangouts",
+      "weight": 0.599,
+      "raw_freq": 599
+    },
+    {
+      "source": "facebook",
+      "target": "snapchat",
+      "weight": 0.275,
+      "raw_freq": 275
+    },
+    {
+      "source": "facebook",
+      "target": "yahoo mail",
+      "weight": 0.375,
+      "raw_freq": 375
+    },
+    {
+      "source": "facebook",
+      "target": "aol",
+      "weight": 0.854,
+      "raw_freq": 854
+    },
+    {
+      "source": "facebook",
+      "target": "s\u2019more",
+      "weight": 0.16,
+      "raw_freq": 160
+    },
+    {
+      "source": "facebook",
+      "target": "calendar",
+      "weight": 0.188,
+      "raw_freq": 188
+    },
+    {
+      "source": "facebook",
+      "target": "google drive",
+      "weight": 0.098,
+      "raw_freq": 98
+    },
+    {
+      "source": "facebook",
+      "target": "spotify music",
+      "weight": 0.093,
+      "raw_freq": 93
+    },
+    {
+      "source": "facebook",
+      "target": "microsoft outlook",
+      "weight": 0.081,
+      "raw_freq": 81
+    },
+    {
+      "source": "facebook",
+      "target": "clock",
+      "weight": 0.094,
+      "raw_freq": 94
+    },
+    {
+      "source": "facebook",
+      "target": "samsung pay",
+      "weight": 0.28400000000000003,
+      "raw_freq": 284
+    },
+    {
+      "source": "facebook",
+      "target": "metrozone",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "gmail",
+      "target": "google",
+      "weight": 2.9330000000000003,
+      "raw_freq": 2933
+    },
+    {
+      "source": "gmail",
+      "target": "google chrome",
+      "weight": 7.8870000000000005,
+      "raw_freq": 7887
+    },
+    {
+      "source": "gmail",
+      "target": "facebook messenger",
+      "weight": 2.105,
+      "raw_freq": 2105
+    },
+    {
+      "source": "gmail",
+      "target": "facebook",
+      "weight": 2.02,
+      "raw_freq": 2020
+    },
+    {
+      "source": "gmail",
+      "target": "messages",
+      "weight": 0.976,
+      "raw_freq": 976
+    },
+    {
+      "source": "gmail",
+      "target": "instagram",
+      "weight": 0.866,
+      "raw_freq": 866
+    },
+    {
+      "source": "gmail",
+      "target": "contacts",
+      "weight": 0.447,
+      "raw_freq": 447
+    },
+    {
+      "source": "gmail",
+      "target": "telegram",
+      "weight": 0.637,
+      "raw_freq": 637
+    },
+    {
+      "source": "gmail",
+      "target": "slidejoy",
+      "weight": 0.318,
+      "raw_freq": 318
+    },
+    {
+      "source": "gmail",
+      "target": "whatsapp messenger",
+      "weight": 0.41300000000000003,
+      "raw_freq": 413
+    },
+    {
+      "source": "gmail",
+      "target": "youtube",
+      "weight": 0.453,
+      "raw_freq": 453
+    },
+    {
+      "source": "gmail",
+      "target": "verizon messages",
+      "weight": 0.504,
+      "raw_freq": 504
+    },
+    {
+      "source": "gmail",
+      "target": "phone",
+      "weight": 0.862,
+      "raw_freq": 862
+    },
+    {
+      "source": "gmail",
+      "target": "settings",
+      "weight": 0.43,
+      "raw_freq": 430
+    },
+    {
+      "source": "gmail",
+      "target": "twitter",
+      "weight": 0.494,
+      "raw_freq": 494
+    },
+    {
+      "source": "gmail",
+      "target": "google play store",
+      "weight": 0.397,
+      "raw_freq": 397
+    },
+    {
+      "source": "gmail",
+      "target": "messaging",
+      "weight": 0.5640000000000001,
+      "raw_freq": 564
+    },
+    {
+      "source": "gmail",
+      "target": "maps",
+      "weight": 0.5760000000000001,
+      "raw_freq": 576
+    },
+    {
+      "source": "gmail",
+      "target": "android in call ui",
+      "weight": 0.166,
+      "raw_freq": 166
+    },
+    {
+      "source": "gmail",
+      "target": "telegram x",
+      "weight": 0.194,
+      "raw_freq": 194
+    },
+    {
+      "source": "gmail",
+      "target": "samsung internet browser",
+      "weight": 0.124,
+      "raw_freq": 124
+    },
+    {
+      "source": "gmail",
+      "target": "samsung gallery",
+      "weight": 0.108,
+      "raw_freq": 108
+    },
+    {
+      "source": "gmail",
+      "target": "camera",
+      "weight": 0.116,
+      "raw_freq": 116
+    },
+    {
+      "source": "gmail",
+      "target": "samsung email",
+      "weight": 0.112,
+      "raw_freq": 112
+    },
+    {
+      "source": "gmail",
+      "target": "max cleaner",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "gmail",
+      "target": "reddit",
+      "weight": 0.299,
+      "raw_freq": 299
+    },
+    {
+      "source": "gmail",
+      "target": "hangouts",
+      "weight": 0.171,
+      "raw_freq": 171
+    },
+    {
+      "source": "gmail",
+      "target": "snapchat",
+      "weight": 0.254,
+      "raw_freq": 254
+    },
+    {
+      "source": "gmail",
+      "target": "yahoo mail",
+      "weight": 0.21,
+      "raw_freq": 210
+    },
+    {
+      "source": "gmail",
+      "target": "aol",
+      "weight": 0.114,
+      "raw_freq": 114
+    },
+    {
+      "source": "gmail",
+      "target": "s\u2019more",
+      "weight": 0.157,
+      "raw_freq": 157
+    },
+    {
+      "source": "gmail",
+      "target": "calendar",
+      "weight": 0.138,
+      "raw_freq": 138
+    },
+    {
+      "source": "gmail",
+      "target": "google drive",
+      "weight": 0.281,
+      "raw_freq": 281
+    },
+    {
+      "source": "gmail",
+      "target": "spotify music",
+      "weight": 0.162,
+      "raw_freq": 162
+    },
+    {
+      "source": "gmail",
+      "target": "microsoft outlook",
+      "weight": 0.188,
+      "raw_freq": 188
+    },
+    {
+      "source": "gmail",
+      "target": "clock",
+      "weight": 0.12,
+      "raw_freq": 120
+    },
+    {
+      "source": "gmail",
+      "target": "samsung pay",
+      "weight": 0.055,
+      "raw_freq": 55
+    },
+    {
+      "source": "gmail",
+      "target": "reward stash",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "gmail",
+      "target": "metrozone",
+      "weight": 0.329,
+      "raw_freq": 329
+    },
+    {
+      "source": "messages",
+      "target": "google",
+      "weight": 1.752,
+      "raw_freq": 1752
+    },
+    {
+      "source": "messages",
+      "target": "google chrome",
+      "weight": 3.301,
+      "raw_freq": 3301
+    },
+    {
+      "source": "messages",
+      "target": "facebook messenger",
+      "weight": 2.84,
+      "raw_freq": 2840
+    },
+    {
+      "source": "messages",
+      "target": "facebook",
+      "weight": 2.539,
+      "raw_freq": 2539
+    },
+    {
+      "source": "messages",
+      "target": "gmail",
+      "weight": 1.079,
+      "raw_freq": 1079
+    },
+    {
+      "source": "messages",
+      "target": "instagram",
+      "weight": 1.361,
+      "raw_freq": 1361
+    },
+    {
+      "source": "messages",
+      "target": "contacts",
+      "weight": 2.081,
+      "raw_freq": 2081
+    },
+    {
+      "source": "messages",
+      "target": "telegram",
+      "weight": 0.421,
+      "raw_freq": 421
+    },
+    {
+      "source": "messages",
+      "target": "slidejoy",
+      "weight": 2.249,
+      "raw_freq": 2249
+    },
+    {
+      "source": "messages",
+      "target": "whatsapp messenger",
+      "weight": 0.196,
+      "raw_freq": 196
+    },
+    {
+      "source": "messages",
+      "target": "youtube",
+      "weight": 0.646,
+      "raw_freq": 646
+    },
+    {
+      "source": "messages",
+      "target": "verizon messages",
+      "weight": 0.006,
+      "raw_freq": 6
+    },
+    {
+      "source": "messages",
+      "target": "phone",
+      "weight": 0.125,
+      "raw_freq": 125
+    },
+    {
+      "source": "messages",
+      "target": "settings",
+      "weight": 0.251,
+      "raw_freq": 251
+    },
+    {
+      "source": "messages",
+      "target": "twitter",
+      "weight": 0.333,
+      "raw_freq": 333
+    },
+    {
+      "source": "messages",
+      "target": "google play store",
+      "weight": 0.23700000000000002,
+      "raw_freq": 237
+    },
+    {
+      "source": "messages",
+      "target": "maps",
+      "weight": 0.436,
+      "raw_freq": 436
+    },
+    {
+      "source": "messages",
+      "target": "android in call ui",
+      "weight": 0.17300000000000001,
+      "raw_freq": 173
+    },
+    {
+      "source": "messages",
+      "target": "telegram x",
+      "weight": 0.322,
+      "raw_freq": 322
+    },
+    {
+      "source": "messages",
+      "target": "samsung internet browser",
+      "weight": 0.833,
+      "raw_freq": 833
+    },
+    {
+      "source": "messages",
+      "target": "samsung gallery",
+      "weight": 0.439,
+      "raw_freq": 439
+    },
+    {
+      "source": "messages",
+      "target": "camera",
+      "weight": 0.176,
+      "raw_freq": 176
+    },
+    {
+      "source": "messages",
+      "target": "samsung email",
+      "weight": 0.48,
+      "raw_freq": 480
+    },
+    {
+      "source": "messages",
+      "target": "max cleaner",
+      "weight": 0.8130000000000001,
+      "raw_freq": 813
+    },
+    {
+      "source": "messages",
+      "target": "reddit",
+      "weight": 0.079,
+      "raw_freq": 79
+    },
+    {
+      "source": "messages",
+      "target": "hangouts",
+      "weight": 0.047,
+      "raw_freq": 47
+    },
+    {
+      "source": "messages",
+      "target": "snapchat",
+      "weight": 0.161,
+      "raw_freq": 161
+    },
+    {
+      "source": "messages",
+      "target": "yahoo mail",
+      "weight": 0.148,
+      "raw_freq": 148
+    },
+    {
+      "source": "messages",
+      "target": "s\u2019more",
+      "weight": 0.054,
+      "raw_freq": 54
+    },
+    {
+      "source": "messages",
+      "target": "calendar",
+      "weight": 0.14400000000000002,
+      "raw_freq": 144
+    },
+    {
+      "source": "messages",
+      "target": "google drive",
+      "weight": 0.094,
+      "raw_freq": 94
+    },
+    {
+      "source": "messages",
+      "target": "spotify music",
+      "weight": 0.06,
+      "raw_freq": 60
+    },
+    {
+      "source": "messages",
+      "target": "microsoft outlook",
+      "weight": 0.226,
+      "raw_freq": 226
+    },
+    {
+      "source": "messages",
+      "target": "clock",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "messages",
+      "target": "samsung pay",
+      "weight": 0.731,
+      "raw_freq": 731
+    },
+    {
+      "source": "instagram",
+      "target": "google",
+      "weight": 6.7010000000000005,
+      "raw_freq": 6701
+    },
+    {
+      "source": "instagram",
+      "target": "google chrome",
+      "weight": 0.9580000000000001,
+      "raw_freq": 958
+    },
+    {
+      "source": "instagram",
+      "target": "facebook messenger",
+      "weight": 0.806,
+      "raw_freq": 806
+    },
+    {
+      "source": "instagram",
+      "target": "facebook",
+      "weight": 1.5,
+      "raw_freq": 1500
+    },
+    {
+      "source": "instagram",
+      "target": "gmail",
+      "weight": 0.775,
+      "raw_freq": 775
+    },
+    {
+      "source": "instagram",
+      "target": "messages",
+      "weight": 1.324,
+      "raw_freq": 1324
+    },
+    {
+      "source": "instagram",
+      "target": "contacts",
+      "weight": 0.167,
+      "raw_freq": 167
+    },
+    {
+      "source": "instagram",
+      "target": "telegram",
+      "weight": 2.154,
+      "raw_freq": 2154
+    },
+    {
+      "source": "instagram",
+      "target": "slidejoy",
+      "weight": 0.23500000000000001,
+      "raw_freq": 235
+    },
+    {
+      "source": "instagram",
+      "target": "whatsapp messenger",
+      "weight": 0.809,
+      "raw_freq": 809
+    },
+    {
+      "source": "instagram",
+      "target": "youtube",
+      "weight": 0.195,
+      "raw_freq": 195
+    },
+    {
+      "source": "instagram",
+      "target": "verizon messages",
+      "weight": 0.362,
+      "raw_freq": 362
+    },
+    {
+      "source": "instagram",
+      "target": "phone",
+      "weight": 0.152,
+      "raw_freq": 152
+    },
+    {
+      "source": "instagram",
+      "target": "settings",
+      "weight": 0.14100000000000001,
+      "raw_freq": 141
+    },
+    {
+      "source": "instagram",
+      "target": "twitter",
+      "weight": 0.749,
+      "raw_freq": 749
+    },
+    {
+      "source": "instagram",
+      "target": "google play store",
+      "weight": 0.181,
+      "raw_freq": 181
+    },
+    {
+      "source": "instagram",
+      "target": "messaging",
+      "weight": 0.054,
+      "raw_freq": 54
+    },
+    {
+      "source": "instagram",
+      "target": "maps",
+      "weight": 0.41400000000000003,
+      "raw_freq": 414
+    },
+    {
+      "source": "instagram",
+      "target": "android in call ui",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "instagram",
+      "target": "telegram x",
+      "weight": 1.362,
+      "raw_freq": 1362
+    },
+    {
+      "source": "instagram",
+      "target": "samsung internet browser",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "instagram",
+      "target": "samsung gallery",
+      "weight": 0.2,
+      "raw_freq": 200
+    },
+    {
+      "source": "instagram",
+      "target": "camera",
+      "weight": 0.129,
+      "raw_freq": 129
+    },
+    {
+      "source": "instagram",
+      "target": "samsung email",
+      "weight": 0.135,
+      "raw_freq": 135
+    },
+    {
+      "source": "instagram",
+      "target": "max cleaner",
+      "weight": 0.23500000000000001,
+      "raw_freq": 235
+    },
+    {
+      "source": "instagram",
+      "target": "reddit",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "instagram",
+      "target": "hangouts",
+      "weight": 0.276,
+      "raw_freq": 276
+    },
+    {
+      "source": "instagram",
+      "target": "snapchat",
+      "weight": 0.121,
+      "raw_freq": 121
+    },
+    {
+      "source": "instagram",
+      "target": "yahoo mail",
+      "weight": 0.08,
+      "raw_freq": 80
+    },
+    {
+      "source": "instagram",
+      "target": "s\u2019more",
+      "weight": 0.051000000000000004,
+      "raw_freq": 51
+    },
+    {
+      "source": "instagram",
+      "target": "calendar",
+      "weight": 0.11900000000000001,
+      "raw_freq": 119
+    },
+    {
+      "source": "instagram",
+      "target": "google drive",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "instagram",
+      "target": "spotify music",
+      "weight": 0.10200000000000001,
+      "raw_freq": 102
+    },
+    {
+      "source": "instagram",
+      "target": "microsoft outlook",
+      "weight": 0.091,
+      "raw_freq": 91
+    },
+    {
+      "source": "instagram",
+      "target": "clock",
+      "weight": 0.161,
+      "raw_freq": 161
+    },
+    {
+      "source": "instagram",
+      "target": "samsung pay",
+      "weight": 0.064,
+      "raw_freq": 64
+    },
+    {
+      "source": "instagram",
+      "target": "metrozone",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "contacts",
+      "target": "google",
+      "weight": 0.363,
+      "raw_freq": 363
+    },
+    {
+      "source": "contacts",
+      "target": "google chrome",
+      "weight": 0.97,
+      "raw_freq": 970
+    },
+    {
+      "source": "contacts",
+      "target": "facebook messenger",
+      "weight": 0.704,
+      "raw_freq": 704
+    },
+    {
+      "source": "contacts",
+      "target": "facebook",
+      "weight": 0.364,
+      "raw_freq": 364
+    },
+    {
+      "source": "contacts",
+      "target": "gmail",
+      "weight": 0.519,
+      "raw_freq": 519
+    },
+    {
+      "source": "contacts",
+      "target": "messages",
+      "weight": 2.181,
+      "raw_freq": 2181
+    },
+    {
+      "source": "contacts",
+      "target": "instagram",
+      "weight": 0.167,
+      "raw_freq": 167
+    },
+    {
+      "source": "contacts",
+      "target": "telegram",
+      "weight": 0.427,
+      "raw_freq": 427
+    },
+    {
+      "source": "contacts",
+      "target": "slidejoy",
+      "weight": 0.107,
+      "raw_freq": 107
+    },
+    {
+      "source": "contacts",
+      "target": "whatsapp messenger",
+      "weight": 0.171,
+      "raw_freq": 171
+    },
+    {
+      "source": "contacts",
+      "target": "youtube",
+      "weight": 0.076,
+      "raw_freq": 76
+    },
+    {
+      "source": "contacts",
+      "target": "verizon messages",
+      "weight": 0.44,
+      "raw_freq": 440
+    },
+    {
+      "source": "contacts",
+      "target": "phone",
+      "weight": 1.7710000000000001,
+      "raw_freq": 1771
+    },
+    {
+      "source": "contacts",
+      "target": "settings",
+      "weight": 0.157,
+      "raw_freq": 157
+    },
+    {
+      "source": "contacts",
+      "target": "twitter",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "contacts",
+      "target": "google play store",
+      "weight": 0.05,
+      "raw_freq": 50
+    },
+    {
+      "source": "contacts",
+      "target": "messaging",
+      "weight": 0.933,
+      "raw_freq": 933
+    },
+    {
+      "source": "contacts",
+      "target": "maps",
+      "weight": 0.162,
+      "raw_freq": 162
+    },
+    {
+      "source": "contacts",
+      "target": "android in call ui",
+      "weight": 3.9210000000000003,
+      "raw_freq": 3921
+    },
+    {
+      "source": "contacts",
+      "target": "samsung internet browser",
+      "weight": 0.07,
+      "raw_freq": 70
+    },
+    {
+      "source": "contacts",
+      "target": "samsung gallery",
+      "weight": 0.083,
+      "raw_freq": 83
+    },
+    {
+      "source": "contacts",
+      "target": "camera",
+      "weight": 0.112,
+      "raw_freq": 112
+    },
+    {
+      "source": "contacts",
+      "target": "samsung email",
+      "weight": 0.304,
+      "raw_freq": 304
+    },
+    {
+      "source": "contacts",
+      "target": "max cleaner",
+      "weight": 0.084,
+      "raw_freq": 84
+    },
+    {
+      "source": "contacts",
+      "target": "reddit",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "contacts",
+      "target": "hangouts",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "contacts",
+      "target": "snapchat",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "contacts",
+      "target": "yahoo mail",
+      "weight": 0.042,
+      "raw_freq": 42
+    },
+    {
+      "source": "contacts",
+      "target": "aol",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "contacts",
+      "target": "s\u2019more",
+      "weight": 0.029,
+      "raw_freq": 29
+    },
+    {
+      "source": "contacts",
+      "target": "calendar",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "contacts",
+      "target": "google drive",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "contacts",
+      "target": "spotify music",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "contacts",
+      "target": "microsoft outlook",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "contacts",
+      "target": "samsung pay",
+      "weight": 0.07100000000000001,
+      "raw_freq": 71
+    },
+    {
+      "source": "contacts",
+      "target": "reward stash",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "contacts",
+      "target": "metrozone",
+      "weight": 0.046,
+      "raw_freq": 46
+    },
+    {
+      "source": "telegram",
+      "target": "google",
+      "weight": 3.162,
+      "raw_freq": 3162
+    },
+    {
+      "source": "telegram",
+      "target": "google chrome",
+      "weight": 0.84,
+      "raw_freq": 840
+    },
+    {
+      "source": "telegram",
+      "target": "facebook messenger",
+      "weight": 0.339,
+      "raw_freq": 339
+    },
+    {
+      "source": "telegram",
+      "target": "facebook",
+      "weight": 0.461,
+      "raw_freq": 461
+    },
+    {
+      "source": "telegram",
+      "target": "gmail",
+      "weight": 0.743,
+      "raw_freq": 743
+    },
+    {
+      "source": "telegram",
+      "target": "messages",
+      "weight": 0.41600000000000004,
+      "raw_freq": 416
+    },
+    {
+      "source": "telegram",
+      "target": "instagram",
+      "weight": 2.269,
+      "raw_freq": 2269
+    },
+    {
+      "source": "telegram",
+      "target": "contacts",
+      "weight": 0.393,
+      "raw_freq": 393
+    },
+    {
+      "source": "telegram",
+      "target": "slidejoy",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "telegram",
+      "target": "whatsapp messenger",
+      "weight": 0.581,
+      "raw_freq": 581
+    },
+    {
+      "source": "telegram",
+      "target": "youtube",
+      "weight": 0.705,
+      "raw_freq": 705
+    },
+    {
+      "source": "telegram",
+      "target": "verizon messages",
+      "weight": 0.115,
+      "raw_freq": 115
+    },
+    {
+      "source": "telegram",
+      "target": "phone",
+      "weight": 0.116,
+      "raw_freq": 116
+    },
+    {
+      "source": "telegram",
+      "target": "settings",
+      "weight": 0.462,
+      "raw_freq": 462
+    },
+    {
+      "source": "telegram",
+      "target": "twitter",
+      "weight": 0.919,
+      "raw_freq": 919
+    },
+    {
+      "source": "telegram",
+      "target": "google play store",
+      "weight": 0.132,
+      "raw_freq": 132
+    },
+    {
+      "source": "telegram",
+      "target": "messaging",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "telegram",
+      "target": "maps",
+      "weight": 0.398,
+      "raw_freq": 398
+    },
+    {
+      "source": "telegram",
+      "target": "android in call ui",
+      "weight": 0.04,
+      "raw_freq": 40
+    },
+    {
+      "source": "telegram",
+      "target": "telegram x",
+      "weight": 0.214,
+      "raw_freq": 214
+    },
+    {
+      "source": "telegram",
+      "target": "samsung internet browser",
+      "weight": 0.053,
+      "raw_freq": 53
+    },
+    {
+      "source": "telegram",
+      "target": "samsung gallery",
+      "weight": 0.131,
+      "raw_freq": 131
+    },
+    {
+      "source": "telegram",
+      "target": "camera",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "telegram",
+      "target": "samsung email",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "telegram",
+      "target": "reddit",
+      "weight": 0.73,
+      "raw_freq": 730
+    },
+    {
+      "source": "telegram",
+      "target": "hangouts",
+      "weight": 0.397,
+      "raw_freq": 397
+    },
+    {
+      "source": "telegram",
+      "target": "snapchat",
+      "weight": 0.075,
+      "raw_freq": 75
+    },
+    {
+      "source": "telegram",
+      "target": "yahoo mail",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "telegram",
+      "target": "calendar",
+      "weight": 0.15,
+      "raw_freq": 150
+    },
+    {
+      "source": "telegram",
+      "target": "google drive",
+      "weight": 0.043000000000000003,
+      "raw_freq": 43
+    },
+    {
+      "source": "telegram",
+      "target": "spotify music",
+      "weight": 0.069,
+      "raw_freq": 69
+    },
+    {
+      "source": "telegram",
+      "target": "microsoft outlook",
+      "weight": 0.155,
+      "raw_freq": 155
+    },
+    {
+      "source": "telegram",
+      "target": "clock",
+      "weight": 0.10300000000000001,
+      "raw_freq": 103
+    },
+    {
+      "source": "slidejoy",
+      "target": "google",
+      "weight": 0.20500000000000002,
+      "raw_freq": 205
+    },
+    {
+      "source": "slidejoy",
+      "target": "google chrome",
+      "weight": 0.607,
+      "raw_freq": 607
+    },
+    {
+      "source": "slidejoy",
+      "target": "facebook messenger",
+      "weight": 0.326,
+      "raw_freq": 326
+    },
+    {
+      "source": "slidejoy",
+      "target": "facebook",
+      "weight": 1.879,
+      "raw_freq": 1879
+    },
+    {
+      "source": "slidejoy",
+      "target": "gmail",
+      "weight": 0.328,
+      "raw_freq": 328
+    },
+    {
+      "source": "slidejoy",
+      "target": "messages",
+      "weight": 2.3810000000000002,
+      "raw_freq": 2381
+    },
+    {
+      "source": "slidejoy",
+      "target": "instagram",
+      "weight": 0.246,
+      "raw_freq": 246
+    },
+    {
+      "source": "slidejoy",
+      "target": "contacts",
+      "weight": 0.111,
+      "raw_freq": 111
+    },
+    {
+      "source": "slidejoy",
+      "target": "telegram",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "slidejoy",
+      "target": "whatsapp messenger",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "slidejoy",
+      "target": "youtube",
+      "weight": 0.065,
+      "raw_freq": 65
+    },
+    {
+      "source": "slidejoy",
+      "target": "phone",
+      "weight": 0.034,
+      "raw_freq": 34
+    },
+    {
+      "source": "slidejoy",
+      "target": "settings",
+      "weight": 0.05,
+      "raw_freq": 50
+    },
+    {
+      "source": "slidejoy",
+      "target": "twitter",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "slidejoy",
+      "target": "google play store",
+      "weight": 0.129,
+      "raw_freq": 129
+    },
+    {
+      "source": "slidejoy",
+      "target": "maps",
+      "weight": 0.154,
+      "raw_freq": 154
+    },
+    {
+      "source": "slidejoy",
+      "target": "android in call ui",
+      "weight": 0.105,
+      "raw_freq": 105
+    },
+    {
+      "source": "slidejoy",
+      "target": "samsung gallery",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "slidejoy",
+      "target": "camera",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "slidejoy",
+      "target": "max cleaner",
+      "weight": 2.568,
+      "raw_freq": 2568
+    },
+    {
+      "source": "slidejoy",
+      "target": "reddit",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "slidejoy",
+      "target": "hangouts",
+      "weight": 0.075,
+      "raw_freq": 75
+    },
+    {
+      "source": "slidejoy",
+      "target": "snapchat",
+      "weight": 0.10400000000000001,
+      "raw_freq": 104
+    },
+    {
+      "source": "slidejoy",
+      "target": "yahoo mail",
+      "weight": 0.067,
+      "raw_freq": 67
+    },
+    {
+      "source": "slidejoy",
+      "target": "s\u2019more",
+      "weight": 0.523,
+      "raw_freq": 523
+    },
+    {
+      "source": "slidejoy",
+      "target": "calendar",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "slidejoy",
+      "target": "google drive",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "slidejoy",
+      "target": "spotify music",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "slidejoy",
+      "target": "clock",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "google",
+      "weight": 3.5700000000000003,
+      "raw_freq": 3570
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "google chrome",
+      "weight": 1.018,
+      "raw_freq": 1018
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "facebook messenger",
+      "weight": 0.588,
+      "raw_freq": 588
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "facebook",
+      "weight": 0.444,
+      "raw_freq": 444
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "gmail",
+      "weight": 0.444,
+      "raw_freq": 444
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "messages",
+      "weight": 0.19,
+      "raw_freq": 190
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "instagram",
+      "weight": 0.799,
+      "raw_freq": 799
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "contacts",
+      "weight": 0.152,
+      "raw_freq": 152
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "telegram",
+      "weight": 0.58,
+      "raw_freq": 580
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "slidejoy",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "youtube",
+      "weight": 0.298,
+      "raw_freq": 298
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "verizon messages",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "phone",
+      "weight": 0.116,
+      "raw_freq": 116
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "settings",
+      "weight": 0.194,
+      "raw_freq": 194
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "twitter",
+      "weight": 0.28500000000000003,
+      "raw_freq": 285
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "google play store",
+      "weight": 0.154,
+      "raw_freq": 154
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "messaging",
+      "weight": 0.158,
+      "raw_freq": 158
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "maps",
+      "weight": 0.146,
+      "raw_freq": 146
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "android in call ui",
+      "weight": 0.084,
+      "raw_freq": 84
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "telegram x",
+      "weight": 0.7020000000000001,
+      "raw_freq": 702
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "samsung internet browser",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "samsung gallery",
+      "weight": 0.049,
+      "raw_freq": 49
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "camera",
+      "weight": 0.036000000000000004,
+      "raw_freq": 36
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "reddit",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "hangouts",
+      "weight": 0.107,
+      "raw_freq": 107
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "snapchat",
+      "weight": 0.041,
+      "raw_freq": 41
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "yahoo mail",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "calendar",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "google drive",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "spotify music",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "microsoft outlook",
+      "weight": 0.199,
+      "raw_freq": 199
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "clock",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "whatsapp messenger",
+      "target": "samsung pay",
+      "weight": 0.056,
+      "raw_freq": 56
+    },
+    {
+      "source": "youtube",
+      "target": "google",
+      "weight": 1.698,
+      "raw_freq": 1698
+    },
+    {
+      "source": "youtube",
+      "target": "google chrome",
+      "weight": 1.421,
+      "raw_freq": 1421
+    },
+    {
+      "source": "youtube",
+      "target": "facebook messenger",
+      "weight": 1.3,
+      "raw_freq": 1300
+    },
+    {
+      "source": "youtube",
+      "target": "facebook",
+      "weight": 0.613,
+      "raw_freq": 613
+    },
+    {
+      "source": "youtube",
+      "target": "gmail",
+      "weight": 0.47600000000000003,
+      "raw_freq": 476
+    },
+    {
+      "source": "youtube",
+      "target": "messages",
+      "weight": 0.686,
+      "raw_freq": 686
+    },
+    {
+      "source": "youtube",
+      "target": "instagram",
+      "weight": 0.17200000000000001,
+      "raw_freq": 172
+    },
+    {
+      "source": "youtube",
+      "target": "contacts",
+      "weight": 0.08700000000000001,
+      "raw_freq": 87
+    },
+    {
+      "source": "youtube",
+      "target": "telegram",
+      "weight": 0.721,
+      "raw_freq": 721
+    },
+    {
+      "source": "youtube",
+      "target": "slidejoy",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "youtube",
+      "target": "whatsapp messenger",
+      "weight": 0.331,
+      "raw_freq": 331
+    },
+    {
+      "source": "youtube",
+      "target": "verizon messages",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "youtube",
+      "target": "phone",
+      "weight": 0.151,
+      "raw_freq": 151
+    },
+    {
+      "source": "youtube",
+      "target": "settings",
+      "weight": 0.265,
+      "raw_freq": 265
+    },
+    {
+      "source": "youtube",
+      "target": "twitter",
+      "weight": 0.444,
+      "raw_freq": 444
+    },
+    {
+      "source": "youtube",
+      "target": "google play store",
+      "weight": 0.216,
+      "raw_freq": 216
+    },
+    {
+      "source": "youtube",
+      "target": "messaging",
+      "weight": 0.109,
+      "raw_freq": 109
+    },
+    {
+      "source": "youtube",
+      "target": "maps",
+      "weight": 0.14300000000000002,
+      "raw_freq": 143
+    },
+    {
+      "source": "youtube",
+      "target": "android in call ui",
+      "weight": 0.084,
+      "raw_freq": 84
+    },
+    {
+      "source": "youtube",
+      "target": "telegram x",
+      "weight": 0.067,
+      "raw_freq": 67
+    },
+    {
+      "source": "youtube",
+      "target": "samsung internet browser",
+      "weight": 0.194,
+      "raw_freq": 194
+    },
+    {
+      "source": "youtube",
+      "target": "samsung gallery",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "youtube",
+      "target": "camera",
+      "weight": 0.041,
+      "raw_freq": 41
+    },
+    {
+      "source": "youtube",
+      "target": "samsung email",
+      "weight": 0.117,
+      "raw_freq": 117
+    },
+    {
+      "source": "youtube",
+      "target": "max cleaner",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "youtube",
+      "target": "reddit",
+      "weight": 0.11800000000000001,
+      "raw_freq": 118
+    },
+    {
+      "source": "youtube",
+      "target": "hangouts",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "youtube",
+      "target": "snapchat",
+      "weight": 0.107,
+      "raw_freq": 107
+    },
+    {
+      "source": "youtube",
+      "target": "yahoo mail",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "youtube",
+      "target": "aol",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "youtube",
+      "target": "s\u2019more",
+      "weight": 0.07,
+      "raw_freq": 70
+    },
+    {
+      "source": "youtube",
+      "target": "calendar",
+      "weight": 0.034,
+      "raw_freq": 34
+    },
+    {
+      "source": "youtube",
+      "target": "google drive",
+      "weight": 0.042,
+      "raw_freq": 42
+    },
+    {
+      "source": "youtube",
+      "target": "spotify music",
+      "weight": 0.035,
+      "raw_freq": 35
+    },
+    {
+      "source": "youtube",
+      "target": "microsoft outlook",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "youtube",
+      "target": "clock",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "youtube",
+      "target": "samsung pay",
+      "weight": 0.046,
+      "raw_freq": 46
+    },
+    {
+      "source": "youtube",
+      "target": "reward stash",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "youtube",
+      "target": "metrozone",
+      "weight": 0.036000000000000004,
+      "raw_freq": 36
+    },
+    {
+      "source": "verizon messages",
+      "target": "google",
+      "weight": 0.377,
+      "raw_freq": 377
+    },
+    {
+      "source": "verizon messages",
+      "target": "google chrome",
+      "weight": 1.5110000000000001,
+      "raw_freq": 1511
+    },
+    {
+      "source": "verizon messages",
+      "target": "facebook messenger",
+      "weight": 1.272,
+      "raw_freq": 1272
+    },
+    {
+      "source": "verizon messages",
+      "target": "facebook",
+      "weight": 1.395,
+      "raw_freq": 1395
+    },
+    {
+      "source": "verizon messages",
+      "target": "gmail",
+      "weight": 0.599,
+      "raw_freq": 599
+    },
+    {
+      "source": "verizon messages",
+      "target": "messages",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "verizon messages",
+      "target": "instagram",
+      "weight": 0.378,
+      "raw_freq": 378
+    },
+    {
+      "source": "verizon messages",
+      "target": "contacts",
+      "weight": 0.419,
+      "raw_freq": 419
+    },
+    {
+      "source": "verizon messages",
+      "target": "telegram",
+      "weight": 0.138,
+      "raw_freq": 138
+    },
+    {
+      "source": "verizon messages",
+      "target": "whatsapp messenger",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "verizon messages",
+      "target": "youtube",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "verizon messages",
+      "target": "phone",
+      "weight": 0.126,
+      "raw_freq": 126
+    },
+    {
+      "source": "verizon messages",
+      "target": "settings",
+      "weight": 0.28400000000000003,
+      "raw_freq": 284
+    },
+    {
+      "source": "verizon messages",
+      "target": "google play store",
+      "weight": 0.10300000000000001,
+      "raw_freq": 103
+    },
+    {
+      "source": "verizon messages",
+      "target": "messaging",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "verizon messages",
+      "target": "maps",
+      "weight": 0.25,
+      "raw_freq": 250
+    },
+    {
+      "source": "verizon messages",
+      "target": "android in call ui",
+      "weight": 0.553,
+      "raw_freq": 553
+    },
+    {
+      "source": "verizon messages",
+      "target": "samsung gallery",
+      "weight": 0.068,
+      "raw_freq": 68
+    },
+    {
+      "source": "verizon messages",
+      "target": "camera",
+      "weight": 0.11800000000000001,
+      "raw_freq": 118
+    },
+    {
+      "source": "verizon messages",
+      "target": "samsung email",
+      "weight": 0.249,
+      "raw_freq": 249
+    },
+    {
+      "source": "verizon messages",
+      "target": "reddit",
+      "weight": 0.135,
+      "raw_freq": 135
+    },
+    {
+      "source": "verizon messages",
+      "target": "hangouts",
+      "weight": 0.37,
+      "raw_freq": 370
+    },
+    {
+      "source": "verizon messages",
+      "target": "snapchat",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "verizon messages",
+      "target": "yahoo mail",
+      "weight": 0.09,
+      "raw_freq": 90
+    },
+    {
+      "source": "verizon messages",
+      "target": "aol",
+      "weight": 0.399,
+      "raw_freq": 399
+    },
+    {
+      "source": "verizon messages",
+      "target": "calendar",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "verizon messages",
+      "target": "google drive",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "verizon messages",
+      "target": "spotify music",
+      "weight": 0.242,
+      "raw_freq": 242
+    },
+    {
+      "source": "verizon messages",
+      "target": "clock",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "verizon messages",
+      "target": "samsung pay",
+      "weight": 0.052000000000000005,
+      "raw_freq": 52
+    },
+    {
+      "source": "phone",
+      "target": "google",
+      "weight": 0.737,
+      "raw_freq": 737
+    },
+    {
+      "source": "phone",
+      "target": "google chrome",
+      "weight": 0.836,
+      "raw_freq": 836
+    },
+    {
+      "source": "phone",
+      "target": "facebook messenger",
+      "weight": 0.164,
+      "raw_freq": 164
+    },
+    {
+      "source": "phone",
+      "target": "facebook",
+      "weight": 0.176,
+      "raw_freq": 176
+    },
+    {
+      "source": "phone",
+      "target": "gmail",
+      "weight": 0.9490000000000001,
+      "raw_freq": 949
+    },
+    {
+      "source": "phone",
+      "target": "messages",
+      "weight": 0.155,
+      "raw_freq": 155
+    },
+    {
+      "source": "phone",
+      "target": "instagram",
+      "weight": 0.177,
+      "raw_freq": 177
+    },
+    {
+      "source": "phone",
+      "target": "contacts",
+      "weight": 2.024,
+      "raw_freq": 2024
+    },
+    {
+      "source": "phone",
+      "target": "telegram",
+      "weight": 0.13,
+      "raw_freq": 130
+    },
+    {
+      "source": "phone",
+      "target": "slidejoy",
+      "weight": 0.034,
+      "raw_freq": 34
+    },
+    {
+      "source": "phone",
+      "target": "whatsapp messenger",
+      "weight": 0.147,
+      "raw_freq": 147
+    },
+    {
+      "source": "phone",
+      "target": "youtube",
+      "weight": 0.157,
+      "raw_freq": 157
+    },
+    {
+      "source": "phone",
+      "target": "verizon messages",
+      "weight": 0.13,
+      "raw_freq": 130
+    },
+    {
+      "source": "phone",
+      "target": "settings",
+      "weight": 0.242,
+      "raw_freq": 242
+    },
+    {
+      "source": "phone",
+      "target": "twitter",
+      "weight": 0.058,
+      "raw_freq": 58
+    },
+    {
+      "source": "phone",
+      "target": "google play store",
+      "weight": 0.047,
+      "raw_freq": 47
+    },
+    {
+      "source": "phone",
+      "target": "messaging",
+      "weight": 2.525,
+      "raw_freq": 2525
+    },
+    {
+      "source": "phone",
+      "target": "maps",
+      "weight": 0.178,
+      "raw_freq": 178
+    },
+    {
+      "source": "phone",
+      "target": "android in call ui",
+      "weight": 0.355,
+      "raw_freq": 355
+    },
+    {
+      "source": "phone",
+      "target": "telegram x",
+      "weight": 0.213,
+      "raw_freq": 213
+    },
+    {
+      "source": "phone",
+      "target": "max cleaner",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "phone",
+      "target": "reddit",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "phone",
+      "target": "hangouts",
+      "weight": 0.046,
+      "raw_freq": 46
+    },
+    {
+      "source": "phone",
+      "target": "snapchat",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "phone",
+      "target": "yahoo mail",
+      "weight": 0.066,
+      "raw_freq": 66
+    },
+    {
+      "source": "phone",
+      "target": "calendar",
+      "weight": 0.04,
+      "raw_freq": 40
+    },
+    {
+      "source": "phone",
+      "target": "google drive",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "phone",
+      "target": "spotify music",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "phone",
+      "target": "microsoft outlook",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "phone",
+      "target": "clock",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "phone",
+      "target": "metrozone",
+      "weight": 0.392,
+      "raw_freq": 392
+    },
+    {
+      "source": "settings",
+      "target": "google",
+      "weight": 1.852,
+      "raw_freq": 1852
+    },
+    {
+      "source": "settings",
+      "target": "google chrome",
+      "weight": 1.317,
+      "raw_freq": 1317
+    },
+    {
+      "source": "settings",
+      "target": "facebook messenger",
+      "weight": 0.64,
+      "raw_freq": 640
+    },
+    {
+      "source": "settings",
+      "target": "facebook",
+      "weight": 0.339,
+      "raw_freq": 339
+    },
+    {
+      "source": "settings",
+      "target": "gmail",
+      "weight": 0.486,
+      "raw_freq": 486
+    },
+    {
+      "source": "settings",
+      "target": "messages",
+      "weight": 0.326,
+      "raw_freq": 326
+    },
+    {
+      "source": "settings",
+      "target": "instagram",
+      "weight": 0.148,
+      "raw_freq": 148
+    },
+    {
+      "source": "settings",
+      "target": "contacts",
+      "weight": 0.156,
+      "raw_freq": 156
+    },
+    {
+      "source": "settings",
+      "target": "telegram",
+      "weight": 0.487,
+      "raw_freq": 487
+    },
+    {
+      "source": "settings",
+      "target": "slidejoy",
+      "weight": 0.048,
+      "raw_freq": 48
+    },
+    {
+      "source": "settings",
+      "target": "whatsapp messenger",
+      "weight": 0.219,
+      "raw_freq": 219
+    },
+    {
+      "source": "settings",
+      "target": "youtube",
+      "weight": 0.263,
+      "raw_freq": 263
+    },
+    {
+      "source": "settings",
+      "target": "verizon messages",
+      "weight": 0.28300000000000003,
+      "raw_freq": 283
+    },
+    {
+      "source": "settings",
+      "target": "phone",
+      "weight": 0.253,
+      "raw_freq": 253
+    },
+    {
+      "source": "settings",
+      "target": "twitter",
+      "weight": 0.068,
+      "raw_freq": 68
+    },
+    {
+      "source": "settings",
+      "target": "google play store",
+      "weight": 0.335,
+      "raw_freq": 335
+    },
+    {
+      "source": "settings",
+      "target": "messaging",
+      "weight": 0.126,
+      "raw_freq": 126
+    },
+    {
+      "source": "settings",
+      "target": "maps",
+      "weight": 0.125,
+      "raw_freq": 125
+    },
+    {
+      "source": "settings",
+      "target": "android in call ui",
+      "weight": 0.063,
+      "raw_freq": 63
+    },
+    {
+      "source": "settings",
+      "target": "telegram x",
+      "weight": 0.031,
+      "raw_freq": 31
+    },
+    {
+      "source": "settings",
+      "target": "samsung internet browser",
+      "weight": 0.23800000000000002,
+      "raw_freq": 238
+    },
+    {
+      "source": "settings",
+      "target": "samsung gallery",
+      "weight": 0.043000000000000003,
+      "raw_freq": 43
+    },
+    {
+      "source": "settings",
+      "target": "camera",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "settings",
+      "target": "samsung email",
+      "weight": 0.08,
+      "raw_freq": 80
+    },
+    {
+      "source": "settings",
+      "target": "max cleaner",
+      "weight": 0.20400000000000001,
+      "raw_freq": 204
+    },
+    {
+      "source": "settings",
+      "target": "reddit",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "settings",
+      "target": "hangouts",
+      "weight": 0.054,
+      "raw_freq": 54
+    },
+    {
+      "source": "settings",
+      "target": "snapchat",
+      "weight": 0.042,
+      "raw_freq": 42
+    },
+    {
+      "source": "settings",
+      "target": "yahoo mail",
+      "weight": 0.043000000000000003,
+      "raw_freq": 43
+    },
+    {
+      "source": "settings",
+      "target": "aol",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "settings",
+      "target": "s\u2019more",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "settings",
+      "target": "calendar",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "settings",
+      "target": "google drive",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "settings",
+      "target": "spotify music",
+      "weight": 0.095,
+      "raw_freq": 95
+    },
+    {
+      "source": "settings",
+      "target": "microsoft outlook",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "settings",
+      "target": "clock",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "settings",
+      "target": "samsung pay",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "settings",
+      "target": "reward stash",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "settings",
+      "target": "metrozone",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "twitter",
+      "target": "google",
+      "weight": 1.19,
+      "raw_freq": 1190
+    },
+    {
+      "source": "twitter",
+      "target": "google chrome",
+      "weight": 1.462,
+      "raw_freq": 1462
+    },
+    {
+      "source": "twitter",
+      "target": "facebook messenger",
+      "weight": 0.369,
+      "raw_freq": 369
+    },
+    {
+      "source": "twitter",
+      "target": "facebook",
+      "weight": 0.234,
+      "raw_freq": 234
+    },
+    {
+      "source": "twitter",
+      "target": "gmail",
+      "weight": 0.463,
+      "raw_freq": 463
+    },
+    {
+      "source": "twitter",
+      "target": "messages",
+      "weight": 0.343,
+      "raw_freq": 343
+    },
+    {
+      "source": "twitter",
+      "target": "instagram",
+      "weight": 0.732,
+      "raw_freq": 732
+    },
+    {
+      "source": "twitter",
+      "target": "contacts",
+      "weight": 0.031,
+      "raw_freq": 31
+    },
+    {
+      "source": "twitter",
+      "target": "telegram",
+      "weight": 0.88,
+      "raw_freq": 880
+    },
+    {
+      "source": "twitter",
+      "target": "slidejoy",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "twitter",
+      "target": "whatsapp messenger",
+      "weight": 0.28,
+      "raw_freq": 280
+    },
+    {
+      "source": "twitter",
+      "target": "youtube",
+      "weight": 0.453,
+      "raw_freq": 453
+    },
+    {
+      "source": "twitter",
+      "target": "verizon messages",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "twitter",
+      "target": "phone",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "twitter",
+      "target": "settings",
+      "weight": 0.073,
+      "raw_freq": 73
+    },
+    {
+      "source": "twitter",
+      "target": "google play store",
+      "weight": 0.069,
+      "raw_freq": 69
+    },
+    {
+      "source": "twitter",
+      "target": "messaging",
+      "weight": 0.07,
+      "raw_freq": 70
+    },
+    {
+      "source": "twitter",
+      "target": "maps",
+      "weight": 0.17,
+      "raw_freq": 170
+    },
+    {
+      "source": "twitter",
+      "target": "android in call ui",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "twitter",
+      "target": "telegram x",
+      "weight": 0.502,
+      "raw_freq": 502
+    },
+    {
+      "source": "twitter",
+      "target": "samsung internet browser",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "twitter",
+      "target": "samsung gallery",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "twitter",
+      "target": "camera",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "twitter",
+      "target": "samsung email",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "twitter",
+      "target": "max cleaner",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "twitter",
+      "target": "reddit",
+      "weight": 0.273,
+      "raw_freq": 273
+    },
+    {
+      "source": "twitter",
+      "target": "hangouts",
+      "weight": 0.047,
+      "raw_freq": 47
+    },
+    {
+      "source": "twitter",
+      "target": "snapchat",
+      "weight": 0.444,
+      "raw_freq": 444
+    },
+    {
+      "source": "twitter",
+      "target": "yahoo mail",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "twitter",
+      "target": "aol",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "twitter",
+      "target": "s\u2019more",
+      "weight": 0.481,
+      "raw_freq": 481
+    },
+    {
+      "source": "twitter",
+      "target": "calendar",
+      "weight": 0.054,
+      "raw_freq": 54
+    },
+    {
+      "source": "twitter",
+      "target": "google drive",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "twitter",
+      "target": "spotify music",
+      "weight": 0.258,
+      "raw_freq": 258
+    },
+    {
+      "source": "twitter",
+      "target": "microsoft outlook",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "twitter",
+      "target": "clock",
+      "weight": 0.147,
+      "raw_freq": 147
+    },
+    {
+      "source": "twitter",
+      "target": "samsung pay",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "google play store",
+      "target": "google",
+      "weight": 1.468,
+      "raw_freq": 1468
+    },
+    {
+      "source": "google play store",
+      "target": "google chrome",
+      "weight": 2.0100000000000002,
+      "raw_freq": 2010
+    },
+    {
+      "source": "google play store",
+      "target": "facebook messenger",
+      "weight": 0.361,
+      "raw_freq": 361
+    },
+    {
+      "source": "google play store",
+      "target": "facebook",
+      "weight": 0.604,
+      "raw_freq": 604
+    },
+    {
+      "source": "google play store",
+      "target": "gmail",
+      "weight": 0.369,
+      "raw_freq": 369
+    },
+    {
+      "source": "google play store",
+      "target": "messages",
+      "weight": 0.246,
+      "raw_freq": 246
+    },
+    {
+      "source": "google play store",
+      "target": "instagram",
+      "weight": 0.153,
+      "raw_freq": 153
+    },
+    {
+      "source": "google play store",
+      "target": "contacts",
+      "weight": 0.068,
+      "raw_freq": 68
+    },
+    {
+      "source": "google play store",
+      "target": "telegram",
+      "weight": 0.137,
+      "raw_freq": 137
+    },
+    {
+      "source": "google play store",
+      "target": "slidejoy",
+      "weight": 0.14,
+      "raw_freq": 140
+    },
+    {
+      "source": "google play store",
+      "target": "whatsapp messenger",
+      "weight": 0.159,
+      "raw_freq": 159
+    },
+    {
+      "source": "google play store",
+      "target": "youtube",
+      "weight": 0.189,
+      "raw_freq": 189
+    },
+    {
+      "source": "google play store",
+      "target": "verizon messages",
+      "weight": 0.116,
+      "raw_freq": 116
+    },
+    {
+      "source": "google play store",
+      "target": "phone",
+      "weight": 0.068,
+      "raw_freq": 68
+    },
+    {
+      "source": "google play store",
+      "target": "settings",
+      "weight": 0.528,
+      "raw_freq": 528
+    },
+    {
+      "source": "google play store",
+      "target": "twitter",
+      "weight": 0.069,
+      "raw_freq": 69
+    },
+    {
+      "source": "google play store",
+      "target": "messaging",
+      "weight": 0.055,
+      "raw_freq": 55
+    },
+    {
+      "source": "google play store",
+      "target": "maps",
+      "weight": 0.13,
+      "raw_freq": 130
+    },
+    {
+      "source": "google play store",
+      "target": "android in call ui",
+      "weight": 0.029,
+      "raw_freq": 29
+    },
+    {
+      "source": "google play store",
+      "target": "telegram x",
+      "weight": 0.047,
+      "raw_freq": 47
+    },
+    {
+      "source": "google play store",
+      "target": "samsung internet browser",
+      "weight": 0.453,
+      "raw_freq": 453
+    },
+    {
+      "source": "google play store",
+      "target": "samsung gallery",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "google play store",
+      "target": "camera",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "google play store",
+      "target": "samsung email",
+      "weight": 0.064,
+      "raw_freq": 64
+    },
+    {
+      "source": "google play store",
+      "target": "max cleaner",
+      "weight": 0.077,
+      "raw_freq": 77
+    },
+    {
+      "source": "google play store",
+      "target": "reddit",
+      "weight": 0.10300000000000001,
+      "raw_freq": 103
+    },
+    {
+      "source": "google play store",
+      "target": "hangouts",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "google play store",
+      "target": "snapchat",
+      "weight": 0.032,
+      "raw_freq": 32
+    },
+    {
+      "source": "google play store",
+      "target": "yahoo mail",
+      "weight": 0.05,
+      "raw_freq": 50
+    },
+    {
+      "source": "google play store",
+      "target": "aol",
+      "weight": 0.04,
+      "raw_freq": 40
+    },
+    {
+      "source": "google play store",
+      "target": "s\u2019more",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "google play store",
+      "target": "calendar",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "google play store",
+      "target": "google drive",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "google play store",
+      "target": "spotify music",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "google play store",
+      "target": "microsoft outlook",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "google play store",
+      "target": "clock",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "google play store",
+      "target": "samsung pay",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "google play store",
+      "target": "reward stash",
+      "weight": 0.10200000000000001,
+      "raw_freq": 102
+    },
+    {
+      "source": "google play store",
+      "target": "metrozone",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "messaging",
+      "target": "google",
+      "weight": 0.307,
+      "raw_freq": 307
+    },
+    {
+      "source": "messaging",
+      "target": "google chrome",
+      "weight": 0.544,
+      "raw_freq": 544
+    },
+    {
+      "source": "messaging",
+      "target": "facebook messenger",
+      "weight": 0.562,
+      "raw_freq": 562
+    },
+    {
+      "source": "messaging",
+      "target": "facebook",
+      "weight": 0.423,
+      "raw_freq": 423
+    },
+    {
+      "source": "messaging",
+      "target": "gmail",
+      "weight": 0.582,
+      "raw_freq": 582
+    },
+    {
+      "source": "messaging",
+      "target": "instagram",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "messaging",
+      "target": "contacts",
+      "weight": 0.736,
+      "raw_freq": 736
+    },
+    {
+      "source": "messaging",
+      "target": "telegram",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "messaging",
+      "target": "whatsapp messenger",
+      "weight": 0.152,
+      "raw_freq": 152
+    },
+    {
+      "source": "messaging",
+      "target": "youtube",
+      "weight": 0.088,
+      "raw_freq": 88
+    },
+    {
+      "source": "messaging",
+      "target": "phone",
+      "weight": 2.722,
+      "raw_freq": 2722
+    },
+    {
+      "source": "messaging",
+      "target": "settings",
+      "weight": 0.10200000000000001,
+      "raw_freq": 102
+    },
+    {
+      "source": "messaging",
+      "target": "twitter",
+      "weight": 0.067,
+      "raw_freq": 67
+    },
+    {
+      "source": "messaging",
+      "target": "google play store",
+      "weight": 0.056,
+      "raw_freq": 56
+    },
+    {
+      "source": "messaging",
+      "target": "maps",
+      "weight": 0.138,
+      "raw_freq": 138
+    },
+    {
+      "source": "messaging",
+      "target": "android in call ui",
+      "weight": 0.256,
+      "raw_freq": 256
+    },
+    {
+      "source": "messaging",
+      "target": "samsung internet browser",
+      "weight": 0.122,
+      "raw_freq": 122
+    },
+    {
+      "source": "messaging",
+      "target": "samsung gallery",
+      "weight": 0.40900000000000003,
+      "raw_freq": 409
+    },
+    {
+      "source": "messaging",
+      "target": "camera",
+      "weight": 0.081,
+      "raw_freq": 81
+    },
+    {
+      "source": "messaging",
+      "target": "samsung email",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "messaging",
+      "target": "reddit",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "messaging",
+      "target": "hangouts",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "messaging",
+      "target": "snapchat",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "messaging",
+      "target": "yahoo mail",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "messaging",
+      "target": "aol",
+      "weight": 0.146,
+      "raw_freq": 146
+    },
+    {
+      "source": "messaging",
+      "target": "calendar",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "messaging",
+      "target": "google drive",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "messaging",
+      "target": "spotify music",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "messaging",
+      "target": "microsoft outlook",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "messaging",
+      "target": "clock",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "messaging",
+      "target": "reward stash",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "messaging",
+      "target": "metrozone",
+      "weight": 0.186,
+      "raw_freq": 186
+    },
+    {
+      "source": "maps",
+      "target": "google",
+      "weight": 1.2750000000000001,
+      "raw_freq": 1275
+    },
+    {
+      "source": "maps",
+      "target": "google chrome",
+      "weight": 0.676,
+      "raw_freq": 676
+    },
+    {
+      "source": "maps",
+      "target": "facebook messenger",
+      "weight": 0.5680000000000001,
+      "raw_freq": 568
+    },
+    {
+      "source": "maps",
+      "target": "facebook",
+      "weight": 0.426,
+      "raw_freq": 426
+    },
+    {
+      "source": "maps",
+      "target": "gmail",
+      "weight": 0.455,
+      "raw_freq": 455
+    },
+    {
+      "source": "maps",
+      "target": "messages",
+      "weight": 0.47600000000000003,
+      "raw_freq": 476
+    },
+    {
+      "source": "maps",
+      "target": "instagram",
+      "weight": 0.376,
+      "raw_freq": 376
+    },
+    {
+      "source": "maps",
+      "target": "contacts",
+      "weight": 0.194,
+      "raw_freq": 194
+    },
+    {
+      "source": "maps",
+      "target": "telegram",
+      "weight": 0.418,
+      "raw_freq": 418
+    },
+    {
+      "source": "maps",
+      "target": "slidejoy",
+      "weight": 0.201,
+      "raw_freq": 201
+    },
+    {
+      "source": "maps",
+      "target": "whatsapp messenger",
+      "weight": 0.158,
+      "raw_freq": 158
+    },
+    {
+      "source": "maps",
+      "target": "youtube",
+      "weight": 0.137,
+      "raw_freq": 137
+    },
+    {
+      "source": "maps",
+      "target": "verizon messages",
+      "weight": 0.257,
+      "raw_freq": 257
+    },
+    {
+      "source": "maps",
+      "target": "phone",
+      "weight": 0.20600000000000002,
+      "raw_freq": 206
+    },
+    {
+      "source": "maps",
+      "target": "settings",
+      "weight": 0.11,
+      "raw_freq": 110
+    },
+    {
+      "source": "maps",
+      "target": "twitter",
+      "weight": 0.183,
+      "raw_freq": 183
+    },
+    {
+      "source": "maps",
+      "target": "google play store",
+      "weight": 0.092,
+      "raw_freq": 92
+    },
+    {
+      "source": "maps",
+      "target": "messaging",
+      "weight": 0.14,
+      "raw_freq": 140
+    },
+    {
+      "source": "maps",
+      "target": "android in call ui",
+      "weight": 0.14300000000000002,
+      "raw_freq": 143
+    },
+    {
+      "source": "maps",
+      "target": "telegram x",
+      "weight": 0.224,
+      "raw_freq": 224
+    },
+    {
+      "source": "maps",
+      "target": "samsung internet browser",
+      "weight": 0.121,
+      "raw_freq": 121
+    },
+    {
+      "source": "maps",
+      "target": "samsung gallery",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "maps",
+      "target": "camera",
+      "weight": 0.034,
+      "raw_freq": 34
+    },
+    {
+      "source": "maps",
+      "target": "samsung email",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "maps",
+      "target": "max cleaner",
+      "weight": 0.128,
+      "raw_freq": 128
+    },
+    {
+      "source": "maps",
+      "target": "reddit",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "maps",
+      "target": "hangouts",
+      "weight": 0.15,
+      "raw_freq": 150
+    },
+    {
+      "source": "maps",
+      "target": "snapchat",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "maps",
+      "target": "yahoo mail",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "maps",
+      "target": "aol",
+      "weight": 0.084,
+      "raw_freq": 84
+    },
+    {
+      "source": "maps",
+      "target": "s\u2019more",
+      "weight": 0.006,
+      "raw_freq": 6
+    },
+    {
+      "source": "maps",
+      "target": "calendar",
+      "weight": 0.08700000000000001,
+      "raw_freq": 87
+    },
+    {
+      "source": "maps",
+      "target": "google drive",
+      "weight": 0.029,
+      "raw_freq": 29
+    },
+    {
+      "source": "maps",
+      "target": "spotify music",
+      "weight": 0.074,
+      "raw_freq": 74
+    },
+    {
+      "source": "maps",
+      "target": "microsoft outlook",
+      "weight": 0.035,
+      "raw_freq": 35
+    },
+    {
+      "source": "maps",
+      "target": "clock",
+      "weight": 0.036000000000000004,
+      "raw_freq": 36
+    },
+    {
+      "source": "maps",
+      "target": "samsung pay",
+      "weight": 0.052000000000000005,
+      "raw_freq": 52
+    },
+    {
+      "source": "maps",
+      "target": "reward stash",
+      "weight": 0.073,
+      "raw_freq": 73
+    },
+    {
+      "source": "maps",
+      "target": "metrozone",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "android in call ui",
+      "target": "google",
+      "weight": 0.20400000000000001,
+      "raw_freq": 204
+    },
+    {
+      "source": "android in call ui",
+      "target": "google chrome",
+      "weight": 0.42,
+      "raw_freq": 420
+    },
+    {
+      "source": "android in call ui",
+      "target": "facebook messenger",
+      "weight": 0.366,
+      "raw_freq": 366
+    },
+    {
+      "source": "android in call ui",
+      "target": "facebook",
+      "weight": 0.269,
+      "raw_freq": 269
+    },
+    {
+      "source": "android in call ui",
+      "target": "gmail",
+      "weight": 0.232,
+      "raw_freq": 232
+    },
+    {
+      "source": "android in call ui",
+      "target": "messages",
+      "weight": 0.151,
+      "raw_freq": 151
+    },
+    {
+      "source": "android in call ui",
+      "target": "instagram",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "android in call ui",
+      "target": "contacts",
+      "weight": 3.7800000000000002,
+      "raw_freq": 3780
+    },
+    {
+      "source": "android in call ui",
+      "target": "telegram",
+      "weight": 0.042,
+      "raw_freq": 42
+    },
+    {
+      "source": "android in call ui",
+      "target": "slidejoy",
+      "weight": 0.112,
+      "raw_freq": 112
+    },
+    {
+      "source": "android in call ui",
+      "target": "whatsapp messenger",
+      "weight": 0.097,
+      "raw_freq": 97
+    },
+    {
+      "source": "android in call ui",
+      "target": "youtube",
+      "weight": 0.091,
+      "raw_freq": 91
+    },
+    {
+      "source": "android in call ui",
+      "target": "verizon messages",
+      "weight": 0.597,
+      "raw_freq": 597
+    },
+    {
+      "source": "android in call ui",
+      "target": "phone",
+      "weight": 0.359,
+      "raw_freq": 359
+    },
+    {
+      "source": "android in call ui",
+      "target": "settings",
+      "weight": 0.07200000000000001,
+      "raw_freq": 72
+    },
+    {
+      "source": "android in call ui",
+      "target": "twitter",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "android in call ui",
+      "target": "google play store",
+      "weight": 0.041,
+      "raw_freq": 41
+    },
+    {
+      "source": "android in call ui",
+      "target": "messaging",
+      "weight": 0.295,
+      "raw_freq": 295
+    },
+    {
+      "source": "android in call ui",
+      "target": "maps",
+      "weight": 0.138,
+      "raw_freq": 138
+    },
+    {
+      "source": "android in call ui",
+      "target": "samsung internet browser",
+      "weight": 0.051000000000000004,
+      "raw_freq": 51
+    },
+    {
+      "source": "android in call ui",
+      "target": "samsung gallery",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "android in call ui",
+      "target": "camera",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "android in call ui",
+      "target": "samsung email",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "android in call ui",
+      "target": "max cleaner",
+      "weight": 0.371,
+      "raw_freq": 371
+    },
+    {
+      "source": "android in call ui",
+      "target": "reddit",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "android in call ui",
+      "target": "hangouts",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "android in call ui",
+      "target": "snapchat",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "android in call ui",
+      "target": "yahoo mail",
+      "weight": 0.043000000000000003,
+      "raw_freq": 43
+    },
+    {
+      "source": "android in call ui",
+      "target": "aol",
+      "weight": 0.051000000000000004,
+      "raw_freq": 51
+    },
+    {
+      "source": "android in call ui",
+      "target": "calendar",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "android in call ui",
+      "target": "google drive",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "android in call ui",
+      "target": "spotify music",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "android in call ui",
+      "target": "microsoft outlook",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "android in call ui",
+      "target": "metrozone",
+      "weight": 0.08600000000000001,
+      "raw_freq": 86
+    },
+    {
+      "source": "telegram x",
+      "target": "google",
+      "weight": 1.883,
+      "raw_freq": 1883
+    },
+    {
+      "source": "telegram x",
+      "target": "google chrome",
+      "weight": 0.092,
+      "raw_freq": 92
+    },
+    {
+      "source": "telegram x",
+      "target": "facebook messenger",
+      "weight": 0.326,
+      "raw_freq": 326
+    },
+    {
+      "source": "telegram x",
+      "target": "facebook",
+      "weight": 0.513,
+      "raw_freq": 513
+    },
+    {
+      "source": "telegram x",
+      "target": "gmail",
+      "weight": 0.219,
+      "raw_freq": 219
+    },
+    {
+      "source": "telegram x",
+      "target": "messages",
+      "weight": 0.331,
+      "raw_freq": 331
+    },
+    {
+      "source": "telegram x",
+      "target": "instagram",
+      "weight": 1.3780000000000001,
+      "raw_freq": 1378
+    },
+    {
+      "source": "telegram x",
+      "target": "telegram",
+      "weight": 0.201,
+      "raw_freq": 201
+    },
+    {
+      "source": "telegram x",
+      "target": "whatsapp messenger",
+      "weight": 0.714,
+      "raw_freq": 714
+    },
+    {
+      "source": "telegram x",
+      "target": "youtube",
+      "weight": 0.062,
+      "raw_freq": 62
+    },
+    {
+      "source": "telegram x",
+      "target": "phone",
+      "weight": 0.197,
+      "raw_freq": 197
+    },
+    {
+      "source": "telegram x",
+      "target": "settings",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "telegram x",
+      "target": "twitter",
+      "weight": 0.541,
+      "raw_freq": 541
+    },
+    {
+      "source": "telegram x",
+      "target": "google play store",
+      "weight": 0.039,
+      "raw_freq": 39
+    },
+    {
+      "source": "telegram x",
+      "target": "maps",
+      "weight": 0.202,
+      "raw_freq": 202
+    },
+    {
+      "source": "telegram x",
+      "target": "hangouts",
+      "weight": 0.044,
+      "raw_freq": 44
+    },
+    {
+      "source": "telegram x",
+      "target": "snapchat",
+      "weight": 0.08600000000000001,
+      "raw_freq": 86
+    },
+    {
+      "source": "telegram x",
+      "target": "calendar",
+      "weight": 0.14400000000000002,
+      "raw_freq": 144
+    },
+    {
+      "source": "telegram x",
+      "target": "google drive",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "telegram x",
+      "target": "spotify music",
+      "weight": 0.075,
+      "raw_freq": 75
+    },
+    {
+      "source": "telegram x",
+      "target": "microsoft outlook",
+      "weight": 0.064,
+      "raw_freq": 64
+    },
+    {
+      "source": "telegram x",
+      "target": "clock",
+      "weight": 0.211,
+      "raw_freq": 211
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "google",
+      "weight": 0.154,
+      "raw_freq": 154
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "google chrome",
+      "weight": 0.189,
+      "raw_freq": 189
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "facebook messenger",
+      "weight": 0.178,
+      "raw_freq": 178
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "facebook",
+      "weight": 0.148,
+      "raw_freq": 148
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "gmail",
+      "weight": 0.133,
+      "raw_freq": 133
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "messages",
+      "weight": 0.8260000000000001,
+      "raw_freq": 826
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "instagram",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "contacts",
+      "weight": 0.084,
+      "raw_freq": 84
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "telegram",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "whatsapp messenger",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "youtube",
+      "weight": 0.20800000000000002,
+      "raw_freq": 208
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "settings",
+      "weight": 0.214,
+      "raw_freq": 214
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "twitter",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "google play store",
+      "weight": 0.47600000000000003,
+      "raw_freq": 476
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "messaging",
+      "weight": 0.137,
+      "raw_freq": 137
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "maps",
+      "weight": 0.135,
+      "raw_freq": 135
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "android in call ui",
+      "weight": 0.043000000000000003,
+      "raw_freq": 43
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "samsung gallery",
+      "weight": 0.055,
+      "raw_freq": 55
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "camera",
+      "weight": 0.16,
+      "raw_freq": 160
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "samsung email",
+      "weight": 0.707,
+      "raw_freq": 707
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "reddit",
+      "weight": 0.275,
+      "raw_freq": 275
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "snapchat",
+      "weight": 0.069,
+      "raw_freq": 69
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "yahoo mail",
+      "weight": 0.08,
+      "raw_freq": 80
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "aol",
+      "weight": 0.23900000000000002,
+      "raw_freq": 239
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "s\u2019more",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "calendar",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "google drive",
+      "weight": 0.074,
+      "raw_freq": 74
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "spotify music",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "microsoft outlook",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "samsung pay",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "samsung internet browser",
+      "target": "reward stash",
+      "weight": 1.191,
+      "raw_freq": 1191
+    },
+    {
+      "source": "samsung gallery",
+      "target": "google",
+      "weight": 0.115,
+      "raw_freq": 115
+    },
+    {
+      "source": "samsung gallery",
+      "target": "google chrome",
+      "weight": 0.495,
+      "raw_freq": 495
+    },
+    {
+      "source": "samsung gallery",
+      "target": "facebook messenger",
+      "weight": 0.331,
+      "raw_freq": 331
+    },
+    {
+      "source": "samsung gallery",
+      "target": "facebook",
+      "weight": 0.334,
+      "raw_freq": 334
+    },
+    {
+      "source": "samsung gallery",
+      "target": "gmail",
+      "weight": 0.124,
+      "raw_freq": 124
+    },
+    {
+      "source": "samsung gallery",
+      "target": "messages",
+      "weight": 0.482,
+      "raw_freq": 482
+    },
+    {
+      "source": "samsung gallery",
+      "target": "instagram",
+      "weight": 0.213,
+      "raw_freq": 213
+    },
+    {
+      "source": "samsung gallery",
+      "target": "contacts",
+      "weight": 0.085,
+      "raw_freq": 85
+    },
+    {
+      "source": "samsung gallery",
+      "target": "telegram",
+      "weight": 0.136,
+      "raw_freq": 136
+    },
+    {
+      "source": "samsung gallery",
+      "target": "slidejoy",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "samsung gallery",
+      "target": "whatsapp messenger",
+      "weight": 0.054,
+      "raw_freq": 54
+    },
+    {
+      "source": "samsung gallery",
+      "target": "youtube",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "samsung gallery",
+      "target": "verizon messages",
+      "weight": 0.105,
+      "raw_freq": 105
+    },
+    {
+      "source": "samsung gallery",
+      "target": "settings",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "samsung gallery",
+      "target": "twitter",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "samsung gallery",
+      "target": "google play store",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "samsung gallery",
+      "target": "messaging",
+      "weight": 0.41200000000000003,
+      "raw_freq": 412
+    },
+    {
+      "source": "samsung gallery",
+      "target": "maps",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "samsung gallery",
+      "target": "samsung internet browser",
+      "weight": 0.052000000000000005,
+      "raw_freq": 52
+    },
+    {
+      "source": "samsung gallery",
+      "target": "camera",
+      "weight": 3.065,
+      "raw_freq": 3065
+    },
+    {
+      "source": "samsung gallery",
+      "target": "samsung email",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "samsung gallery",
+      "target": "reddit",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "samsung gallery",
+      "target": "hangouts",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "samsung gallery",
+      "target": "snapchat",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "samsung gallery",
+      "target": "yahoo mail",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "samsung gallery",
+      "target": "aol",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "samsung gallery",
+      "target": "s\u2019more",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "samsung gallery",
+      "target": "calendar",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "samsung gallery",
+      "target": "google drive",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "samsung gallery",
+      "target": "spotify music",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "samsung gallery",
+      "target": "microsoft outlook",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "samsung gallery",
+      "target": "samsung pay",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "samsung gallery",
+      "target": "reward stash",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "camera",
+      "target": "google",
+      "weight": 0.096,
+      "raw_freq": 96
+    },
+    {
+      "source": "camera",
+      "target": "google chrome",
+      "weight": 0.357,
+      "raw_freq": 357
+    },
+    {
+      "source": "camera",
+      "target": "facebook messenger",
+      "weight": 0.247,
+      "raw_freq": 247
+    },
+    {
+      "source": "camera",
+      "target": "facebook",
+      "weight": 0.225,
+      "raw_freq": 225
+    },
+    {
+      "source": "camera",
+      "target": "gmail",
+      "weight": 0.115,
+      "raw_freq": 115
+    },
+    {
+      "source": "camera",
+      "target": "messages",
+      "weight": 0.193,
+      "raw_freq": 193
+    },
+    {
+      "source": "camera",
+      "target": "instagram",
+      "weight": 0.11900000000000001,
+      "raw_freq": 119
+    },
+    {
+      "source": "camera",
+      "target": "contacts",
+      "weight": 0.093,
+      "raw_freq": 93
+    },
+    {
+      "source": "camera",
+      "target": "telegram",
+      "weight": 0.051000000000000004,
+      "raw_freq": 51
+    },
+    {
+      "source": "camera",
+      "target": "slidejoy",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "camera",
+      "target": "whatsapp messenger",
+      "weight": 0.034,
+      "raw_freq": 34
+    },
+    {
+      "source": "camera",
+      "target": "youtube",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "camera",
+      "target": "verizon messages",
+      "weight": 0.117,
+      "raw_freq": 117
+    },
+    {
+      "source": "camera",
+      "target": "settings",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "camera",
+      "target": "twitter",
+      "weight": 0.031,
+      "raw_freq": 31
+    },
+    {
+      "source": "camera",
+      "target": "google play store",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "camera",
+      "target": "messaging",
+      "weight": 0.083,
+      "raw_freq": 83
+    },
+    {
+      "source": "camera",
+      "target": "maps",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "camera",
+      "target": "android in call ui",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "camera",
+      "target": "samsung internet browser",
+      "weight": 0.161,
+      "raw_freq": 161
+    },
+    {
+      "source": "camera",
+      "target": "samsung gallery",
+      "weight": 3.344,
+      "raw_freq": 3344
+    },
+    {
+      "source": "camera",
+      "target": "samsung email",
+      "weight": 0.046,
+      "raw_freq": 46
+    },
+    {
+      "source": "camera",
+      "target": "reddit",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "camera",
+      "target": "hangouts",
+      "weight": 0.038,
+      "raw_freq": 38
+    },
+    {
+      "source": "camera",
+      "target": "snapchat",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "camera",
+      "target": "yahoo mail",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "camera",
+      "target": "aol",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "camera",
+      "target": "s\u2019more",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "camera",
+      "target": "calendar",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "camera",
+      "target": "google drive",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "camera",
+      "target": "spotify music",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "camera",
+      "target": "microsoft outlook",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "camera",
+      "target": "samsung pay",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "camera",
+      "target": "reward stash",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "samsung email",
+      "target": "google",
+      "weight": 0.106,
+      "raw_freq": 106
+    },
+    {
+      "source": "samsung email",
+      "target": "google chrome",
+      "weight": 1.588,
+      "raw_freq": 1588
+    },
+    {
+      "source": "samsung email",
+      "target": "facebook messenger",
+      "weight": 0.43,
+      "raw_freq": 430
+    },
+    {
+      "source": "samsung email",
+      "target": "facebook",
+      "weight": 0.63,
+      "raw_freq": 630
+    },
+    {
+      "source": "samsung email",
+      "target": "gmail",
+      "weight": 0.113,
+      "raw_freq": 113
+    },
+    {
+      "source": "samsung email",
+      "target": "messages",
+      "weight": 0.435,
+      "raw_freq": 435
+    },
+    {
+      "source": "samsung email",
+      "target": "instagram",
+      "weight": 0.112,
+      "raw_freq": 112
+    },
+    {
+      "source": "samsung email",
+      "target": "contacts",
+      "weight": 0.281,
+      "raw_freq": 281
+    },
+    {
+      "source": "samsung email",
+      "target": "telegram",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "samsung email",
+      "target": "whatsapp messenger",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "samsung email",
+      "target": "youtube",
+      "weight": 0.117,
+      "raw_freq": 117
+    },
+    {
+      "source": "samsung email",
+      "target": "verizon messages",
+      "weight": 0.23700000000000002,
+      "raw_freq": 237
+    },
+    {
+      "source": "samsung email",
+      "target": "settings",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "samsung email",
+      "target": "twitter",
+      "weight": 0.029,
+      "raw_freq": 29
+    },
+    {
+      "source": "samsung email",
+      "target": "google play store",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "samsung email",
+      "target": "messaging",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "samsung email",
+      "target": "maps",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "samsung email",
+      "target": "android in call ui",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "samsung email",
+      "target": "samsung internet browser",
+      "weight": 0.742,
+      "raw_freq": 742
+    },
+    {
+      "source": "samsung email",
+      "target": "samsung gallery",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "samsung email",
+      "target": "camera",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "samsung email",
+      "target": "reddit",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "samsung email",
+      "target": "hangouts",
+      "weight": 0.051000000000000004,
+      "raw_freq": 51
+    },
+    {
+      "source": "samsung email",
+      "target": "snapchat",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "samsung email",
+      "target": "yahoo mail",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "samsung email",
+      "target": "aol",
+      "weight": 0.151,
+      "raw_freq": 151
+    },
+    {
+      "source": "samsung email",
+      "target": "calendar",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "samsung email",
+      "target": "google drive",
+      "weight": 0.095,
+      "raw_freq": 95
+    },
+    {
+      "source": "samsung email",
+      "target": "spotify music",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "samsung email",
+      "target": "samsung pay",
+      "weight": 0.07200000000000001,
+      "raw_freq": 72
+    },
+    {
+      "source": "max cleaner",
+      "target": "google",
+      "weight": 0.165,
+      "raw_freq": 165
+    },
+    {
+      "source": "max cleaner",
+      "target": "google chrome",
+      "weight": 0.134,
+      "raw_freq": 134
+    },
+    {
+      "source": "max cleaner",
+      "target": "facebook messenger",
+      "weight": 0.079,
+      "raw_freq": 79
+    },
+    {
+      "source": "max cleaner",
+      "target": "facebook",
+      "weight": 0.655,
+      "raw_freq": 655
+    },
+    {
+      "source": "max cleaner",
+      "target": "gmail",
+      "weight": 0.085,
+      "raw_freq": 85
+    },
+    {
+      "source": "max cleaner",
+      "target": "messages",
+      "weight": 0.769,
+      "raw_freq": 769
+    },
+    {
+      "source": "max cleaner",
+      "target": "instagram",
+      "weight": 0.191,
+      "raw_freq": 191
+    },
+    {
+      "source": "max cleaner",
+      "target": "contacts",
+      "weight": 0.137,
+      "raw_freq": 137
+    },
+    {
+      "source": "max cleaner",
+      "target": "slidejoy",
+      "weight": 2.565,
+      "raw_freq": 2565
+    },
+    {
+      "source": "max cleaner",
+      "target": "youtube",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "max cleaner",
+      "target": "phone",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "max cleaner",
+      "target": "settings",
+      "weight": 0.183,
+      "raw_freq": 183
+    },
+    {
+      "source": "max cleaner",
+      "target": "twitter",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "max cleaner",
+      "target": "google play store",
+      "weight": 0.117,
+      "raw_freq": 117
+    },
+    {
+      "source": "max cleaner",
+      "target": "maps",
+      "weight": 0.187,
+      "raw_freq": 187
+    },
+    {
+      "source": "max cleaner",
+      "target": "android in call ui",
+      "weight": 0.268,
+      "raw_freq": 268
+    },
+    {
+      "source": "max cleaner",
+      "target": "snapchat",
+      "weight": 0.031,
+      "raw_freq": 31
+    },
+    {
+      "source": "max cleaner",
+      "target": "yahoo mail",
+      "weight": 0.05,
+      "raw_freq": 50
+    },
+    {
+      "source": "max cleaner",
+      "target": "calendar",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "max cleaner",
+      "target": "spotify music",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "max cleaner",
+      "target": "clock",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "reddit",
+      "target": "google",
+      "weight": 0.381,
+      "raw_freq": 381
+    },
+    {
+      "source": "reddit",
+      "target": "google chrome",
+      "weight": 1.284,
+      "raw_freq": 1284
+    },
+    {
+      "source": "reddit",
+      "target": "facebook messenger",
+      "weight": 0.137,
+      "raw_freq": 137
+    },
+    {
+      "source": "reddit",
+      "target": "facebook",
+      "weight": 0.185,
+      "raw_freq": 185
+    },
+    {
+      "source": "reddit",
+      "target": "gmail",
+      "weight": 0.32,
+      "raw_freq": 320
+    },
+    {
+      "source": "reddit",
+      "target": "messages",
+      "weight": 0.089,
+      "raw_freq": 89
+    },
+    {
+      "source": "reddit",
+      "target": "instagram",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "reddit",
+      "target": "contacts",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "reddit",
+      "target": "telegram",
+      "weight": 0.724,
+      "raw_freq": 724
+    },
+    {
+      "source": "reddit",
+      "target": "slidejoy",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "reddit",
+      "target": "whatsapp messenger",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "reddit",
+      "target": "youtube",
+      "weight": 0.11900000000000001,
+      "raw_freq": 119
+    },
+    {
+      "source": "reddit",
+      "target": "verizon messages",
+      "weight": 0.128,
+      "raw_freq": 128
+    },
+    {
+      "source": "reddit",
+      "target": "phone",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "reddit",
+      "target": "settings",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "reddit",
+      "target": "twitter",
+      "weight": 0.276,
+      "raw_freq": 276
+    },
+    {
+      "source": "reddit",
+      "target": "google play store",
+      "weight": 0.109,
+      "raw_freq": 109
+    },
+    {
+      "source": "reddit",
+      "target": "messaging",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "reddit",
+      "target": "maps",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "reddit",
+      "target": "android in call ui",
+      "weight": 0.006,
+      "raw_freq": 6
+    },
+    {
+      "source": "reddit",
+      "target": "samsung internet browser",
+      "weight": 0.28700000000000003,
+      "raw_freq": 287
+    },
+    {
+      "source": "reddit",
+      "target": "samsung gallery",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "reddit",
+      "target": "camera",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "reddit",
+      "target": "samsung email",
+      "weight": 0.07200000000000001,
+      "raw_freq": 72
+    },
+    {
+      "source": "reddit",
+      "target": "hangouts",
+      "weight": 0.063,
+      "raw_freq": 63
+    },
+    {
+      "source": "reddit",
+      "target": "snapchat",
+      "weight": 0.379,
+      "raw_freq": 379
+    },
+    {
+      "source": "reddit",
+      "target": "yahoo mail",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "reddit",
+      "target": "s\u2019more",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "reddit",
+      "target": "calendar",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "reddit",
+      "target": "google drive",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "reddit",
+      "target": "spotify music",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "reddit",
+      "target": "microsoft outlook",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "reddit",
+      "target": "clock",
+      "weight": 0.006,
+      "raw_freq": 6
+    },
+    {
+      "source": "reddit",
+      "target": "samsung pay",
+      "weight": 0.075,
+      "raw_freq": 75
+    },
+    {
+      "source": "hangouts",
+      "target": "google",
+      "weight": 1.078,
+      "raw_freq": 1078
+    },
+    {
+      "source": "hangouts",
+      "target": "google chrome",
+      "weight": 0.264,
+      "raw_freq": 264
+    },
+    {
+      "source": "hangouts",
+      "target": "facebook messenger",
+      "weight": 0.08700000000000001,
+      "raw_freq": 87
+    },
+    {
+      "source": "hangouts",
+      "target": "facebook",
+      "weight": 0.5750000000000001,
+      "raw_freq": 575
+    },
+    {
+      "source": "hangouts",
+      "target": "gmail",
+      "weight": 0.229,
+      "raw_freq": 229
+    },
+    {
+      "source": "hangouts",
+      "target": "messages",
+      "weight": 0.055,
+      "raw_freq": 55
+    },
+    {
+      "source": "hangouts",
+      "target": "instagram",
+      "weight": 0.277,
+      "raw_freq": 277
+    },
+    {
+      "source": "hangouts",
+      "target": "contacts",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "hangouts",
+      "target": "telegram",
+      "weight": 0.362,
+      "raw_freq": 362
+    },
+    {
+      "source": "hangouts",
+      "target": "slidejoy",
+      "weight": 0.07200000000000001,
+      "raw_freq": 72
+    },
+    {
+      "source": "hangouts",
+      "target": "whatsapp messenger",
+      "weight": 0.10300000000000001,
+      "raw_freq": 103
+    },
+    {
+      "source": "hangouts",
+      "target": "youtube",
+      "weight": 0.036000000000000004,
+      "raw_freq": 36
+    },
+    {
+      "source": "hangouts",
+      "target": "verizon messages",
+      "weight": 0.342,
+      "raw_freq": 342
+    },
+    {
+      "source": "hangouts",
+      "target": "phone",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "hangouts",
+      "target": "settings",
+      "weight": 0.039,
+      "raw_freq": 39
+    },
+    {
+      "source": "hangouts",
+      "target": "twitter",
+      "weight": 0.046,
+      "raw_freq": 46
+    },
+    {
+      "source": "hangouts",
+      "target": "google play store",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "hangouts",
+      "target": "messaging",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "hangouts",
+      "target": "maps",
+      "weight": 0.15,
+      "raw_freq": 150
+    },
+    {
+      "source": "hangouts",
+      "target": "android in call ui",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "hangouts",
+      "target": "telegram x",
+      "weight": 0.05,
+      "raw_freq": 50
+    },
+    {
+      "source": "hangouts",
+      "target": "samsung gallery",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "hangouts",
+      "target": "camera",
+      "weight": 0.04,
+      "raw_freq": 40
+    },
+    {
+      "source": "hangouts",
+      "target": "samsung email",
+      "weight": 0.064,
+      "raw_freq": 64
+    },
+    {
+      "source": "hangouts",
+      "target": "reddit",
+      "weight": 0.064,
+      "raw_freq": 64
+    },
+    {
+      "source": "hangouts",
+      "target": "snapchat",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "hangouts",
+      "target": "yahoo mail",
+      "weight": 0.055,
+      "raw_freq": 55
+    },
+    {
+      "source": "hangouts",
+      "target": "calendar",
+      "weight": 0.058,
+      "raw_freq": 58
+    },
+    {
+      "source": "hangouts",
+      "target": "google drive",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "hangouts",
+      "target": "spotify music",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "hangouts",
+      "target": "microsoft outlook",
+      "weight": 0.068,
+      "raw_freq": 68
+    },
+    {
+      "source": "hangouts",
+      "target": "clock",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "hangouts",
+      "target": "samsung pay",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "snapchat",
+      "target": "google",
+      "weight": 0.431,
+      "raw_freq": 431
+    },
+    {
+      "source": "snapchat",
+      "target": "google chrome",
+      "weight": 0.126,
+      "raw_freq": 126
+    },
+    {
+      "source": "snapchat",
+      "target": "facebook messenger",
+      "weight": 0.20700000000000002,
+      "raw_freq": 207
+    },
+    {
+      "source": "snapchat",
+      "target": "facebook",
+      "weight": 0.28200000000000003,
+      "raw_freq": 282
+    },
+    {
+      "source": "snapchat",
+      "target": "gmail",
+      "weight": 0.25,
+      "raw_freq": 250
+    },
+    {
+      "source": "snapchat",
+      "target": "messages",
+      "weight": 0.14400000000000002,
+      "raw_freq": 144
+    },
+    {
+      "source": "snapchat",
+      "target": "instagram",
+      "weight": 0.122,
+      "raw_freq": 122
+    },
+    {
+      "source": "snapchat",
+      "target": "contacts",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "snapchat",
+      "target": "telegram",
+      "weight": 0.07,
+      "raw_freq": 70
+    },
+    {
+      "source": "snapchat",
+      "target": "slidejoy",
+      "weight": 0.115,
+      "raw_freq": 115
+    },
+    {
+      "source": "snapchat",
+      "target": "whatsapp messenger",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "snapchat",
+      "target": "youtube",
+      "weight": 0.099,
+      "raw_freq": 99
+    },
+    {
+      "source": "snapchat",
+      "target": "verizon messages",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "snapchat",
+      "target": "phone",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "snapchat",
+      "target": "settings",
+      "weight": 0.031,
+      "raw_freq": 31
+    },
+    {
+      "source": "snapchat",
+      "target": "twitter",
+      "weight": 0.436,
+      "raw_freq": 436
+    },
+    {
+      "source": "snapchat",
+      "target": "google play store",
+      "weight": 0.035,
+      "raw_freq": 35
+    },
+    {
+      "source": "snapchat",
+      "target": "messaging",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "snapchat",
+      "target": "maps",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "snapchat",
+      "target": "android in call ui",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "snapchat",
+      "target": "telegram x",
+      "weight": 0.083,
+      "raw_freq": 83
+    },
+    {
+      "source": "snapchat",
+      "target": "samsung internet browser",
+      "weight": 0.068,
+      "raw_freq": 68
+    },
+    {
+      "source": "snapchat",
+      "target": "samsung gallery",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "snapchat",
+      "target": "camera",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "snapchat",
+      "target": "samsung email",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "snapchat",
+      "target": "max cleaner",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "snapchat",
+      "target": "reddit",
+      "weight": 0.382,
+      "raw_freq": 382
+    },
+    {
+      "source": "snapchat",
+      "target": "hangouts",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "snapchat",
+      "target": "yahoo mail",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "snapchat",
+      "target": "s\u2019more",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "snapchat",
+      "target": "calendar",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "snapchat",
+      "target": "google drive",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "snapchat",
+      "target": "spotify music",
+      "weight": 0.096,
+      "raw_freq": 96
+    },
+    {
+      "source": "snapchat",
+      "target": "microsoft outlook",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "snapchat",
+      "target": "clock",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "snapchat",
+      "target": "samsung pay",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "yahoo mail",
+      "target": "google",
+      "weight": 0.259,
+      "raw_freq": 259
+    },
+    {
+      "source": "yahoo mail",
+      "target": "google chrome",
+      "weight": 1.199,
+      "raw_freq": 1199
+    },
+    {
+      "source": "yahoo mail",
+      "target": "facebook messenger",
+      "weight": 0.271,
+      "raw_freq": 271
+    },
+    {
+      "source": "yahoo mail",
+      "target": "facebook",
+      "weight": 0.339,
+      "raw_freq": 339
+    },
+    {
+      "source": "yahoo mail",
+      "target": "gmail",
+      "weight": 0.222,
+      "raw_freq": 222
+    },
+    {
+      "source": "yahoo mail",
+      "target": "messages",
+      "weight": 0.129,
+      "raw_freq": 129
+    },
+    {
+      "source": "yahoo mail",
+      "target": "instagram",
+      "weight": 0.07,
+      "raw_freq": 70
+    },
+    {
+      "source": "yahoo mail",
+      "target": "contacts",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "yahoo mail",
+      "target": "telegram",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "yahoo mail",
+      "target": "slidejoy",
+      "weight": 0.07100000000000001,
+      "raw_freq": 71
+    },
+    {
+      "source": "yahoo mail",
+      "target": "whatsapp messenger",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "yahoo mail",
+      "target": "youtube",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "yahoo mail",
+      "target": "verizon messages",
+      "weight": 0.073,
+      "raw_freq": 73
+    },
+    {
+      "source": "yahoo mail",
+      "target": "phone",
+      "weight": 0.065,
+      "raw_freq": 65
+    },
+    {
+      "source": "yahoo mail",
+      "target": "settings",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "yahoo mail",
+      "target": "twitter",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "yahoo mail",
+      "target": "google play store",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "yahoo mail",
+      "target": "messaging",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "yahoo mail",
+      "target": "maps",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "yahoo mail",
+      "target": "android in call ui",
+      "weight": 0.04,
+      "raw_freq": 40
+    },
+    {
+      "source": "yahoo mail",
+      "target": "samsung internet browser",
+      "weight": 0.09,
+      "raw_freq": 90
+    },
+    {
+      "source": "yahoo mail",
+      "target": "samsung gallery",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "yahoo mail",
+      "target": "camera",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "yahoo mail",
+      "target": "samsung email",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "yahoo mail",
+      "target": "max cleaner",
+      "weight": 0.074,
+      "raw_freq": 74
+    },
+    {
+      "source": "yahoo mail",
+      "target": "reddit",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "yahoo mail",
+      "target": "hangouts",
+      "weight": 0.038,
+      "raw_freq": 38
+    },
+    {
+      "source": "yahoo mail",
+      "target": "snapchat",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "yahoo mail",
+      "target": "calendar",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "yahoo mail",
+      "target": "google drive",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "yahoo mail",
+      "target": "spotify music",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "yahoo mail",
+      "target": "microsoft outlook",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "yahoo mail",
+      "target": "clock",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "yahoo mail",
+      "target": "samsung pay",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "yahoo mail",
+      "target": "metrozone",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "aol",
+      "target": "google",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "aol",
+      "target": "google chrome",
+      "weight": 0.418,
+      "raw_freq": 418
+    },
+    {
+      "source": "aol",
+      "target": "facebook messenger",
+      "weight": 0.833,
+      "raw_freq": 833
+    },
+    {
+      "source": "aol",
+      "target": "facebook",
+      "weight": 0.77,
+      "raw_freq": 770
+    },
+    {
+      "source": "aol",
+      "target": "gmail",
+      "weight": 0.148,
+      "raw_freq": 148
+    },
+    {
+      "source": "aol",
+      "target": "contacts",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "aol",
+      "target": "youtube",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "aol",
+      "target": "verizon messages",
+      "weight": 0.378,
+      "raw_freq": 378
+    },
+    {
+      "source": "aol",
+      "target": "settings",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "aol",
+      "target": "twitter",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "aol",
+      "target": "google play store",
+      "weight": 0.036000000000000004,
+      "raw_freq": 36
+    },
+    {
+      "source": "aol",
+      "target": "messaging",
+      "weight": 0.14400000000000002,
+      "raw_freq": 144
+    },
+    {
+      "source": "aol",
+      "target": "maps",
+      "weight": 0.083,
+      "raw_freq": 83
+    },
+    {
+      "source": "aol",
+      "target": "android in call ui",
+      "weight": 0.04,
+      "raw_freq": 40
+    },
+    {
+      "source": "aol",
+      "target": "samsung internet browser",
+      "weight": 0.246,
+      "raw_freq": 246
+    },
+    {
+      "source": "aol",
+      "target": "samsung gallery",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "aol",
+      "target": "camera",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "aol",
+      "target": "samsung email",
+      "weight": 0.14,
+      "raw_freq": 140
+    },
+    {
+      "source": "aol",
+      "target": "google drive",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "s\u2019more",
+      "target": "google",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "s\u2019more",
+      "target": "google chrome",
+      "weight": 0.08,
+      "raw_freq": 80
+    },
+    {
+      "source": "s\u2019more",
+      "target": "facebook messenger",
+      "weight": 0.194,
+      "raw_freq": 194
+    },
+    {
+      "source": "s\u2019more",
+      "target": "facebook",
+      "weight": 0.10400000000000001,
+      "raw_freq": 104
+    },
+    {
+      "source": "s\u2019more",
+      "target": "gmail",
+      "weight": 0.189,
+      "raw_freq": 189
+    },
+    {
+      "source": "s\u2019more",
+      "target": "messages",
+      "weight": 0.048,
+      "raw_freq": 48
+    },
+    {
+      "source": "s\u2019more",
+      "target": "instagram",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "s\u2019more",
+      "target": "contacts",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "s\u2019more",
+      "target": "slidejoy",
+      "weight": 0.524,
+      "raw_freq": 524
+    },
+    {
+      "source": "s\u2019more",
+      "target": "youtube",
+      "weight": 0.076,
+      "raw_freq": 76
+    },
+    {
+      "source": "s\u2019more",
+      "target": "settings",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "s\u2019more",
+      "target": "twitter",
+      "weight": 0.467,
+      "raw_freq": 467
+    },
+    {
+      "source": "s\u2019more",
+      "target": "google play store",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "s\u2019more",
+      "target": "maps",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "s\u2019more",
+      "target": "samsung internet browser",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "s\u2019more",
+      "target": "samsung gallery",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "s\u2019more",
+      "target": "camera",
+      "weight": 0.039,
+      "raw_freq": 39
+    },
+    {
+      "source": "s\u2019more",
+      "target": "reddit",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "s\u2019more",
+      "target": "snapchat",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "s\u2019more",
+      "target": "calendar",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "s\u2019more",
+      "target": "google drive",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "s\u2019more",
+      "target": "spotify music",
+      "weight": 0.029,
+      "raw_freq": 29
+    },
+    {
+      "source": "s\u2019more",
+      "target": "microsoft outlook",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "s\u2019more",
+      "target": "samsung pay",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "calendar",
+      "target": "google",
+      "weight": 0.457,
+      "raw_freq": 457
+    },
+    {
+      "source": "calendar",
+      "target": "google chrome",
+      "weight": 0.162,
+      "raw_freq": 162
+    },
+    {
+      "source": "calendar",
+      "target": "facebook messenger",
+      "weight": 0.162,
+      "raw_freq": 162
+    },
+    {
+      "source": "calendar",
+      "target": "facebook",
+      "weight": 0.171,
+      "raw_freq": 171
+    },
+    {
+      "source": "calendar",
+      "target": "gmail",
+      "weight": 0.161,
+      "raw_freq": 161
+    },
+    {
+      "source": "calendar",
+      "target": "messages",
+      "weight": 0.16,
+      "raw_freq": 160
+    },
+    {
+      "source": "calendar",
+      "target": "instagram",
+      "weight": 0.112,
+      "raw_freq": 112
+    },
+    {
+      "source": "calendar",
+      "target": "contacts",
+      "weight": 0.056,
+      "raw_freq": 56
+    },
+    {
+      "source": "calendar",
+      "target": "telegram",
+      "weight": 0.15,
+      "raw_freq": 150
+    },
+    {
+      "source": "calendar",
+      "target": "slidejoy",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "calendar",
+      "target": "whatsapp messenger",
+      "weight": 0.052000000000000005,
+      "raw_freq": 52
+    },
+    {
+      "source": "calendar",
+      "target": "youtube",
+      "weight": 0.042,
+      "raw_freq": 42
+    },
+    {
+      "source": "calendar",
+      "target": "verizon messages",
+      "weight": 0.058,
+      "raw_freq": 58
+    },
+    {
+      "source": "calendar",
+      "target": "phone",
+      "weight": 0.029,
+      "raw_freq": 29
+    },
+    {
+      "source": "calendar",
+      "target": "settings",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "calendar",
+      "target": "twitter",
+      "weight": 0.057,
+      "raw_freq": 57
+    },
+    {
+      "source": "calendar",
+      "target": "google play store",
+      "weight": 0.038,
+      "raw_freq": 38
+    },
+    {
+      "source": "calendar",
+      "target": "messaging",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "calendar",
+      "target": "maps",
+      "weight": 0.106,
+      "raw_freq": 106
+    },
+    {
+      "source": "calendar",
+      "target": "android in call ui",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "calendar",
+      "target": "telegram x",
+      "weight": 0.14400000000000002,
+      "raw_freq": 144
+    },
+    {
+      "source": "calendar",
+      "target": "samsung internet browser",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "calendar",
+      "target": "samsung gallery",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "calendar",
+      "target": "camera",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "calendar",
+      "target": "samsung email",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "calendar",
+      "target": "max cleaner",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "calendar",
+      "target": "reddit",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "calendar",
+      "target": "hangouts",
+      "weight": 0.047,
+      "raw_freq": 47
+    },
+    {
+      "source": "calendar",
+      "target": "snapchat",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "calendar",
+      "target": "yahoo mail",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "calendar",
+      "target": "s\u2019more",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "calendar",
+      "target": "google drive",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "calendar",
+      "target": "spotify music",
+      "weight": 0.028,
+      "raw_freq": 28
+    },
+    {
+      "source": "calendar",
+      "target": "microsoft outlook",
+      "weight": 0.019,
+      "raw_freq": 19
+    },
+    {
+      "source": "calendar",
+      "target": "clock",
+      "weight": 0.066,
+      "raw_freq": 66
+    },
+    {
+      "source": "calendar",
+      "target": "metrozone",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "google drive",
+      "target": "google",
+      "weight": 0.228,
+      "raw_freq": 228
+    },
+    {
+      "source": "google drive",
+      "target": "google chrome",
+      "weight": 1.18,
+      "raw_freq": 1180
+    },
+    {
+      "source": "google drive",
+      "target": "facebook messenger",
+      "weight": 0.099,
+      "raw_freq": 99
+    },
+    {
+      "source": "google drive",
+      "target": "facebook",
+      "weight": 0.11,
+      "raw_freq": 110
+    },
+    {
+      "source": "google drive",
+      "target": "gmail",
+      "weight": 0.277,
+      "raw_freq": 277
+    },
+    {
+      "source": "google drive",
+      "target": "messages",
+      "weight": 0.092,
+      "raw_freq": 92
+    },
+    {
+      "source": "google drive",
+      "target": "instagram",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "google drive",
+      "target": "contacts",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "google drive",
+      "target": "telegram",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "google drive",
+      "target": "slidejoy",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "google drive",
+      "target": "whatsapp messenger",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "google drive",
+      "target": "youtube",
+      "weight": 0.043000000000000003,
+      "raw_freq": 43
+    },
+    {
+      "source": "google drive",
+      "target": "verizon messages",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "google drive",
+      "target": "phone",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "google drive",
+      "target": "settings",
+      "weight": 0.051000000000000004,
+      "raw_freq": 51
+    },
+    {
+      "source": "google drive",
+      "target": "twitter",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "google drive",
+      "target": "google play store",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "google drive",
+      "target": "messaging",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "google drive",
+      "target": "maps",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "google drive",
+      "target": "android in call ui",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "google drive",
+      "target": "telegram x",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "google drive",
+      "target": "samsung internet browser",
+      "weight": 0.07100000000000001,
+      "raw_freq": 71
+    },
+    {
+      "source": "google drive",
+      "target": "samsung gallery",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "google drive",
+      "target": "camera",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "google drive",
+      "target": "samsung email",
+      "weight": 0.092,
+      "raw_freq": 92
+    },
+    {
+      "source": "google drive",
+      "target": "reddit",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "google drive",
+      "target": "hangouts",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "google drive",
+      "target": "snapchat",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "google drive",
+      "target": "yahoo mail",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "google drive",
+      "target": "aol",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "google drive",
+      "target": "s\u2019more",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "google drive",
+      "target": "calendar",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "google drive",
+      "target": "spotify music",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "google drive",
+      "target": "microsoft outlook",
+      "weight": 0.008,
+      "raw_freq": 8
+    },
+    {
+      "source": "google drive",
+      "target": "samsung pay",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "google drive",
+      "target": "metrozone",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "spotify music",
+      "target": "google",
+      "weight": 0.402,
+      "raw_freq": 402
+    },
+    {
+      "source": "spotify music",
+      "target": "google chrome",
+      "weight": 0.115,
+      "raw_freq": 115
+    },
+    {
+      "source": "spotify music",
+      "target": "facebook messenger",
+      "weight": 0.22,
+      "raw_freq": 220
+    },
+    {
+      "source": "spotify music",
+      "target": "facebook",
+      "weight": 0.106,
+      "raw_freq": 106
+    },
+    {
+      "source": "spotify music",
+      "target": "gmail",
+      "weight": 0.17,
+      "raw_freq": 170
+    },
+    {
+      "source": "spotify music",
+      "target": "messages",
+      "weight": 0.064,
+      "raw_freq": 64
+    },
+    {
+      "source": "spotify music",
+      "target": "instagram",
+      "weight": 0.098,
+      "raw_freq": 98
+    },
+    {
+      "source": "spotify music",
+      "target": "contacts",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "spotify music",
+      "target": "telegram",
+      "weight": 0.076,
+      "raw_freq": 76
+    },
+    {
+      "source": "spotify music",
+      "target": "slidejoy",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "spotify music",
+      "target": "whatsapp messenger",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "spotify music",
+      "target": "youtube",
+      "weight": 0.038,
+      "raw_freq": 38
+    },
+    {
+      "source": "spotify music",
+      "target": "verizon messages",
+      "weight": 0.251,
+      "raw_freq": 251
+    },
+    {
+      "source": "spotify music",
+      "target": "phone",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "spotify music",
+      "target": "settings",
+      "weight": 0.081,
+      "raw_freq": 81
+    },
+    {
+      "source": "spotify music",
+      "target": "twitter",
+      "weight": 0.23900000000000002,
+      "raw_freq": 239
+    },
+    {
+      "source": "spotify music",
+      "target": "google play store",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "spotify music",
+      "target": "messaging",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "spotify music",
+      "target": "maps",
+      "weight": 0.075,
+      "raw_freq": 75
+    },
+    {
+      "source": "spotify music",
+      "target": "android in call ui",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "spotify music",
+      "target": "telegram x",
+      "weight": 0.078,
+      "raw_freq": 78
+    },
+    {
+      "source": "spotify music",
+      "target": "samsung internet browser",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "spotify music",
+      "target": "samsung gallery",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "spotify music",
+      "target": "camera",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "spotify music",
+      "target": "samsung email",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "spotify music",
+      "target": "max cleaner",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "spotify music",
+      "target": "reddit",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "spotify music",
+      "target": "hangouts",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "spotify music",
+      "target": "snapchat",
+      "weight": 0.107,
+      "raw_freq": 107
+    },
+    {
+      "source": "spotify music",
+      "target": "yahoo mail",
+      "weight": 0.004,
+      "raw_freq": 4
+    },
+    {
+      "source": "spotify music",
+      "target": "s\u2019more",
+      "weight": 0.029,
+      "raw_freq": 29
+    },
+    {
+      "source": "spotify music",
+      "target": "calendar",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "spotify music",
+      "target": "microsoft outlook",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "spotify music",
+      "target": "clock",
+      "weight": 0.027,
+      "raw_freq": 27
+    },
+    {
+      "source": "spotify music",
+      "target": "samsung pay",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "google",
+      "weight": 0.636,
+      "raw_freq": 636
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "google chrome",
+      "weight": 0.302,
+      "raw_freq": 302
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "facebook messenger",
+      "weight": 0.083,
+      "raw_freq": 83
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "facebook",
+      "weight": 0.077,
+      "raw_freq": 77
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "gmail",
+      "weight": 0.188,
+      "raw_freq": 188
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "messages",
+      "weight": 0.194,
+      "raw_freq": 194
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "instagram",
+      "weight": 0.109,
+      "raw_freq": 109
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "contacts",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "telegram",
+      "weight": 0.134,
+      "raw_freq": 134
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "whatsapp messenger",
+      "weight": 0.192,
+      "raw_freq": 192
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "youtube",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "phone",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "settings",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "twitter",
+      "weight": 0.052000000000000005,
+      "raw_freq": 52
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "google play store",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "messaging",
+      "weight": 0.015,
+      "raw_freq": 15
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "maps",
+      "weight": 0.04,
+      "raw_freq": 40
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "android in call ui",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "telegram x",
+      "weight": 0.063,
+      "raw_freq": 63
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "samsung internet browser",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "samsung gallery",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "camera",
+      "weight": 0.007,
+      "raw_freq": 7
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "reddit",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "hangouts",
+      "weight": 0.061,
+      "raw_freq": 61
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "snapchat",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "yahoo mail",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "aol",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "s\u2019more",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "calendar",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "google drive",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "clock",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "samsung pay",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "microsoft outlook",
+      "target": "reward stash",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "clock",
+      "target": "google",
+      "weight": 0.528,
+      "raw_freq": 528
+    },
+    {
+      "source": "clock",
+      "target": "google chrome",
+      "weight": 0.124,
+      "raw_freq": 124
+    },
+    {
+      "source": "clock",
+      "target": "facebook messenger",
+      "weight": 0.047,
+      "raw_freq": 47
+    },
+    {
+      "source": "clock",
+      "target": "facebook",
+      "weight": 0.084,
+      "raw_freq": 84
+    },
+    {
+      "source": "clock",
+      "target": "gmail",
+      "weight": 0.14300000000000002,
+      "raw_freq": 143
+    },
+    {
+      "source": "clock",
+      "target": "messages",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "clock",
+      "target": "instagram",
+      "weight": 0.157,
+      "raw_freq": 157
+    },
+    {
+      "source": "clock",
+      "target": "telegram",
+      "weight": 0.117,
+      "raw_freq": 117
+    },
+    {
+      "source": "clock",
+      "target": "slidejoy",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "clock",
+      "target": "whatsapp messenger",
+      "weight": 0.021,
+      "raw_freq": 21
+    },
+    {
+      "source": "clock",
+      "target": "youtube",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "clock",
+      "target": "verizon messages",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "clock",
+      "target": "phone",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "clock",
+      "target": "settings",
+      "weight": 0.016,
+      "raw_freq": 16
+    },
+    {
+      "source": "clock",
+      "target": "twitter",
+      "weight": 0.17500000000000002,
+      "raw_freq": 175
+    },
+    {
+      "source": "clock",
+      "target": "google play store",
+      "weight": 0.011,
+      "raw_freq": 11
+    },
+    {
+      "source": "clock",
+      "target": "maps",
+      "weight": 0.053,
+      "raw_freq": 53
+    },
+    {
+      "source": "clock",
+      "target": "telegram x",
+      "weight": 0.252,
+      "raw_freq": 252
+    },
+    {
+      "source": "clock",
+      "target": "max cleaner",
+      "weight": 0.002,
+      "raw_freq": 2
+    },
+    {
+      "source": "clock",
+      "target": "reddit",
+      "weight": 0.01,
+      "raw_freq": 10
+    },
+    {
+      "source": "clock",
+      "target": "hangouts",
+      "weight": 0.005,
+      "raw_freq": 5
+    },
+    {
+      "source": "clock",
+      "target": "snapchat",
+      "weight": 0.006,
+      "raw_freq": 6
+    },
+    {
+      "source": "clock",
+      "target": "yahoo mail",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "clock",
+      "target": "calendar",
+      "weight": 0.092,
+      "raw_freq": 92
+    },
+    {
+      "source": "clock",
+      "target": "spotify music",
+      "weight": 0.03,
+      "raw_freq": 30
+    },
+    {
+      "source": "clock",
+      "target": "microsoft outlook",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "samsung pay",
+      "target": "google",
+      "weight": 0.052000000000000005,
+      "raw_freq": 52
+    },
+    {
+      "source": "samsung pay",
+      "target": "google chrome",
+      "weight": 0.201,
+      "raw_freq": 201
+    },
+    {
+      "source": "samsung pay",
+      "target": "facebook messenger",
+      "weight": 0.028,
+      "raw_freq": 28
+    },
+    {
+      "source": "samsung pay",
+      "target": "facebook",
+      "weight": 0.258,
+      "raw_freq": 258
+    },
+    {
+      "source": "samsung pay",
+      "target": "gmail",
+      "weight": 0.053,
+      "raw_freq": 53
+    },
+    {
+      "source": "samsung pay",
+      "target": "messages",
+      "weight": 0.729,
+      "raw_freq": 729
+    },
+    {
+      "source": "samsung pay",
+      "target": "instagram",
+      "weight": 0.053,
+      "raw_freq": 53
+    },
+    {
+      "source": "samsung pay",
+      "target": "contacts",
+      "weight": 0.059000000000000004,
+      "raw_freq": 59
+    },
+    {
+      "source": "samsung pay",
+      "target": "whatsapp messenger",
+      "weight": 0.069,
+      "raw_freq": 69
+    },
+    {
+      "source": "samsung pay",
+      "target": "youtube",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "samsung pay",
+      "target": "verizon messages",
+      "weight": 0.052000000000000005,
+      "raw_freq": 52
+    },
+    {
+      "source": "samsung pay",
+      "target": "settings",
+      "weight": 0.013000000000000001,
+      "raw_freq": 13
+    },
+    {
+      "source": "samsung pay",
+      "target": "twitter",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "samsung pay",
+      "target": "google play store",
+      "weight": 0.012,
+      "raw_freq": 12
+    },
+    {
+      "source": "samsung pay",
+      "target": "maps",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "samsung pay",
+      "target": "samsung internet browser",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "samsung pay",
+      "target": "samsung gallery",
+      "weight": 0.017,
+      "raw_freq": 17
+    },
+    {
+      "source": "samsung pay",
+      "target": "camera",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "samsung pay",
+      "target": "samsung email",
+      "weight": 0.074,
+      "raw_freq": 74
+    },
+    {
+      "source": "samsung pay",
+      "target": "reddit",
+      "weight": 0.069,
+      "raw_freq": 69
+    },
+    {
+      "source": "samsung pay",
+      "target": "hangouts",
+      "weight": 0.023,
+      "raw_freq": 23
+    },
+    {
+      "source": "samsung pay",
+      "target": "snapchat",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "samsung pay",
+      "target": "yahoo mail",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "samsung pay",
+      "target": "s\u2019more",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "samsung pay",
+      "target": "calendar",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "samsung pay",
+      "target": "google drive",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "samsung pay",
+      "target": "spotify music",
+      "weight": 0.02,
+      "raw_freq": 20
+    },
+    {
+      "source": "samsung pay",
+      "target": "microsoft outlook",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "reward stash",
+      "target": "google",
+      "weight": 0.026000000000000002,
+      "raw_freq": 26
+    },
+    {
+      "source": "reward stash",
+      "target": "google chrome",
+      "weight": 0.216,
+      "raw_freq": 216
+    },
+    {
+      "source": "reward stash",
+      "target": "facebook messenger",
+      "weight": 0.014,
+      "raw_freq": 14
+    },
+    {
+      "source": "reward stash",
+      "target": "messages",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "reward stash",
+      "target": "contacts",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "reward stash",
+      "target": "youtube",
+      "weight": 0.009000000000000001,
+      "raw_freq": 9
+    },
+    {
+      "source": "reward stash",
+      "target": "settings",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "reward stash",
+      "target": "google play store",
+      "weight": 0.099,
+      "raw_freq": 99
+    },
+    {
+      "source": "reward stash",
+      "target": "messaging",
+      "weight": 0.003,
+      "raw_freq": 3
+    },
+    {
+      "source": "reward stash",
+      "target": "maps",
+      "weight": 0.07,
+      "raw_freq": 70
+    },
+    {
+      "source": "reward stash",
+      "target": "samsung internet browser",
+      "weight": 1.17,
+      "raw_freq": 1170
+    },
+    {
+      "source": "reward stash",
+      "target": "camera",
+      "weight": 0.018000000000000002,
+      "raw_freq": 18
+    },
+    {
+      "source": "reward stash",
+      "target": "microsoft outlook",
+      "weight": 0.001,
+      "raw_freq": 1
+    },
+    {
+      "source": "metrozone",
+      "target": "google",
+      "weight": 0.07,
+      "raw_freq": 70
+    },
+    {
+      "source": "metrozone",
+      "target": "google chrome",
+      "weight": 0.145,
+      "raw_freq": 145
+    },
+    {
+      "source": "metrozone",
+      "target": "facebook messenger",
+      "weight": 0.058,
+      "raw_freq": 58
+    },
+    {
+      "source": "metrozone",
+      "target": "facebook",
+      "weight": 0.045,
+      "raw_freq": 45
+    },
+    {
+      "source": "metrozone",
+      "target": "gmail",
+      "weight": 0.424,
+      "raw_freq": 424
+    },
+    {
+      "source": "metrozone",
+      "target": "instagram",
+      "weight": 0.024,
+      "raw_freq": 24
+    },
+    {
+      "source": "metrozone",
+      "target": "contacts",
+      "weight": 0.065,
+      "raw_freq": 65
+    },
+    {
+      "source": "metrozone",
+      "target": "youtube",
+      "weight": 0.033,
+      "raw_freq": 33
+    },
+    {
+      "source": "metrozone",
+      "target": "phone",
+      "weight": 0.399,
+      "raw_freq": 399
+    },
+    {
+      "source": "metrozone",
+      "target": "settings",
+      "weight": 0.028,
+      "raw_freq": 28
+    },
+    {
+      "source": "metrozone",
+      "target": "google play store",
+      "weight": 0.037,
+      "raw_freq": 37
+    },
+    {
+      "source": "metrozone",
+      "target": "messaging",
+      "weight": 0.241,
+      "raw_freq": 241
+    },
+    {
+      "source": "metrozone",
+      "target": "maps",
+      "weight": 0.022,
+      "raw_freq": 22
+    },
+    {
+      "source": "metrozone",
+      "target": "android in call ui",
+      "weight": 0.066,
+      "raw_freq": 66
+    },
+    {
+      "source": "metrozone",
+      "target": "yahoo mail",
+      "weight": 0.025,
+      "raw_freq": 25
+    },
+    {
+      "source": "metrozone",
+      "target": "google drive",
+      "weight": 0.004,
+      "raw_freq": 4
+    }
+  ]
+}
