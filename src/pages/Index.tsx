@@ -18,14 +18,23 @@ const Index = () => {
 
       {/* Introduction Section */}
       <section className="py-16 px-6">
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-6">Understanding Smartphone App Usage Patterns</h2>
           </div>
-          <div className="prose prose-lg mx-auto text-muted-foreground">
-            <p className="mb-6">
-              As smartphones become more deeply integrated into daily life, understanding and anticipating user behavior offers powerful opportunities for personalization, efficiency, and user experience design. This project tackles the task of predicting the next app a user will open, using real-world behavioral data from the LSAPP dataset.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="prose prose-lg text-muted-foreground">
+              <p className="mb-6">
+                As smartphones become more deeply integrated into daily life, understanding and anticipating user behavior offers powerful opportunities for personalization, efficiency, and user experience design. This project tackles the task of predicting the next app a user will open, using real-world behavioral data from the LSAPP dataset.
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <img 
+                src="/lovable-uploads/7b285b1f-a4bb-4e84-8c6d-d781ed10132f.png" 
+                alt="Colorful 3D smartphone app icons including Spotify, Google, Starbucks and other popular applications"
+                className="rounded-lg shadow-lg max-w-full h-auto"
+              />
+            </div>
           </div>
         </div>
       </section>
