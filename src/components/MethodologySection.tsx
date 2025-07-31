@@ -102,11 +102,11 @@ const MethodologySection = () => {
         setCurrentEpoch(prev => {
           if (prev >= trainingProgress.length - 1) {
             setIsTrainingPlaying(false);
-            return 0;
+            return prev; // Don't reset to 0, stay at final state
           }
           return prev + 1;
         });
-      }, 800);
+      }, 1500); // Slower animation - 1.5 seconds per epoch
     }
     return () => clearInterval(interval);
   }, [isTrainingPlaying, trainingProgress.length]);
@@ -163,8 +163,8 @@ const MethodologySection = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ResponsiveContainer width="100%" height={280}>
-                  <BarChart data={filterApplied ? appData.filter(app => app.filtered) : appData.slice(0, 15)}>
+                <ResponsiveContainer width="100%" height={350}>
+                  <BarChart data={filterApplied ? appData.filter(app => app.filtered) : appData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis 
                       dataKey="name" 
@@ -176,7 +176,7 @@ const MethodologySection = () => {
                     />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
                     <Bar dataKey="count" radius={[2, 2, 0, 0]}>
-                      {(filterApplied ? appData.filter(app => app.filtered) : appData.slice(0, 15)).map((entry, index) => (
+                      {(filterApplied ? appData.filter(app => app.filtered) : appData).map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`} 
                           fill={entry.filtered ? "hsl(var(--primary))" : "hsl(var(--muted))"} 
@@ -185,29 +185,6 @@ const MethodologySection = () => {
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
-                <div className="mt-4 p-3 bg-muted/20 rounded-lg">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Hash className="w-4 h-4 text-secondary" />
-                    <span className="text-sm font-medium">Tokenizer Example</span>
-                  </div>
-                  <Input
-                    placeholder="Search app name..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="mb-2"
-                  />
-                  <div className="space-y-1 max-h-20 overflow-y-auto">
-                    {(searchTerm ? filteredTokens : tokenData).slice(0, 3).map((item, index) => (
-                      <div key={index} className="flex justify-between text-xs p-1 rounded bg-background/50">
-                        <span className="font-medium">{item.app}</span>
-                        <span className="text-primary bg-primary/10 px-2 py-0.5 rounded-full text-[10px]">Token: {item.token}</span>
-                      </div>
-                    ))}
-                    {searchTerm && filteredTokens.length === 0 && (
-                      <div className="text-xs text-muted-foreground text-center py-2">No matching apps found</div>
-                    )}
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </div>
@@ -225,17 +202,17 @@ const MethodologySection = () => {
                   {/* Random Split Diagram */}
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                      <span className="text-sm font-medium text-red-600">❌ Random Split (Data Leakage)</span>
+                      <div className="w-3 h-3 bg-destructive rounded-full"></div>
+                      <span className="text-sm font-medium text-destructive">❌ Random Split (Data Leakage)</span>
                     </div>
                     <div className="flex gap-1 h-8">
                       {Array.from({ length: 20 }, (_, i) => (
                         <div 
                           key={i} 
                           className={`flex-1 rounded ${
-                            [2, 5, 8, 11, 14, 17].includes(i) ? 'bg-red-200' : 
-                            [3, 6, 9, 12, 15, 18].includes(i) ? 'bg-yellow-200' : 
-                            'bg-blue-200'
+                            [2, 5, 8, 11, 14, 17].includes(i) ? 'bg-destructive/20 border border-destructive/30' : 
+                            [3, 6, 9, 12, 15, 18].includes(i) ? 'bg-accent/20 border border-accent/30' : 
+                            'bg-primary/20 border border-primary/30'
                           }`}
                           title={
                             [2, 5, 8, 11, 14, 17].includes(i) ? 'Test' : 
@@ -245,23 +222,23 @@ const MethodologySection = () => {
                         />
                       ))}
                     </div>
-                    <p className="text-xs text-red-600">Future data mixed with past data - model can "cheat"</p>
+                    <p className="text-xs text-destructive">Future data mixed with past data - model can "cheat"</p>
                   </div>
                   
                   {/* Chronological Split Diagram */}
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span className="text-sm font-medium text-green-600">✅ Chronological Split (Realistic)</span>
+                      <div className="w-3 h-3 bg-secondary rounded-full"></div>
+                      <span className="text-sm font-medium text-secondary">✅ Chronological Split (Realistic)</span>
                     </div>
                     <div className="flex gap-1 h-8">
                       {Array.from({ length: 20 }, (_, i) => (
                         <div 
                           key={i} 
                           className={`flex-1 rounded ${
-                            i < 14 ? 'bg-blue-200' : 
-                            i < 16 ? 'bg-yellow-200' : 
-                            'bg-red-200'
+                            i < 14 ? 'bg-primary/20 border border-primary/30' : 
+                            i < 16 ? 'bg-accent/20 border border-accent/30' : 
+                            'bg-destructive/20 border border-destructive/30'
                           }`}
                           title={
                             i < 14 ? 'Train (70%)' : 
@@ -271,17 +248,17 @@ const MethodologySection = () => {
                         />
                       ))}
                     </div>
-                    <p className="text-xs text-green-600">Time flows left to right - model only learns from past</p>
+                    <p className="text-xs text-secondary">Time flows left to right - model only learns from past</p>
                   </div>
 
-                  <div className="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                  <div className="bg-muted/10 border border-muted/30 rounded-lg p-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <Target className="w-4 h-4 text-blue-600" />
-                      <span className="text-sm font-medium text-blue-800 dark:text-blue-200">
+                      <Target className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-foreground">
                         Why Chronological Split Matters
                       </span>
                     </div>
-                    <p className="text-xs text-blue-700 dark:text-blue-300">
+                    <p className="text-xs text-muted-foreground">
                       Prevents data leakage by ensuring the model only learns from historical data to predict future behavior, 
                       just like in real-world deployment scenarios.
                     </p>
@@ -540,13 +517,21 @@ const MethodologySection = () => {
                     <Button 
                       size="sm" 
                       variant="outline"
-                      onClick={() => setCurrentEpoch(0)}
+                      onClick={() => {
+                        setCurrentEpoch(0);
+                        setIsTrainingPlaying(false);
+                      }}
                     >
                       Reset
                     </Button>
                     <Button 
                       size="sm" 
-                      onClick={() => setIsTrainingPlaying(!isTrainingPlaying)}
+                      onClick={() => {
+                        if (!isTrainingPlaying && currentEpoch >= trainingProgress.length - 1) {
+                          setCurrentEpoch(0); // Reset to 0 when replaying after completion
+                        }
+                        setIsTrainingPlaying(!isTrainingPlaying);
+                      }}
                     >
                       {isTrainingPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                       {isTrainingPlaying ? 'Pause' : 'Play'}
@@ -568,7 +553,7 @@ const MethodologySection = () => {
                       <YAxis 
                         stroke="hsl(var(--muted-foreground))" 
                         fontSize={10}
-                        domain={[40, 80]}
+                        domain={[0, 80]}
                       />
                       <Line 
                         type="monotone" 
