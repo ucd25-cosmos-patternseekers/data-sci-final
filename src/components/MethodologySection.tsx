@@ -85,6 +85,7 @@ const MethodologySection = () => {
   ];
 
   const trainingProgress = [
+    { epoch: 0, trainAcc: 0, testAcc: 0 },
     { epoch: 1, trainAcc: 45.2, testAcc: 42.1 },
     { epoch: 5, trainAcc: 62.1, testAcc: 58.3 },
     { epoch: 10, trainAcc: 68.5, testAcc: 65.2 },
