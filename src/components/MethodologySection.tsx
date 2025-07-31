@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,15 +13,19 @@ import {
   Target,
   Search,
   TrendingUp,
-  Settings
+  Settings,
+  ArrowDown,
+  Play,
+  Pause
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, LineChart, Line, Area, AreaChart } from 'recharts';
 
 const MethodologySection = () => {
   const [filterApplied, setFilterApplied] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [windowPosition, setWindowPosition] = useState(0);
   const [currentTrial, setCurrentTrial] = useState(0);
+  const [currentEpoch, setCurrentEpoch] = useState(0);
+  const [isTrainingPlaying, setIsTrainingPlaying] = useState(false);
 
   // Sample data for visualizations
   const appData = [
@@ -81,14 +85,36 @@ const MethodologySection = () => {
   ];
 
   const trainingProgress = [
-    { epoch: 1, loss: 2.8, accuracy: 45.2 },
-    { epoch: 5, loss: 1.9, accuracy: 62.1 },
-    { epoch: 10, loss: 1.4, accuracy: 68.5 },
-    { epoch: 15, loss: 1.1, accuracy: 71.8 },
-    { epoch: 20, loss: 0.9, accuracy: 73.2 },
-    { epoch: 25, loss: 0.8, accuracy: 74.0 },
-    { epoch: 30, loss: 0.75, accuracy: 74.17 }
+    { epoch: 1, trainAcc: 45.2, testAcc: 42.1 },
+    { epoch: 5, trainAcc: 62.1, testAcc: 58.3 },
+    { epoch: 10, trainAcc: 68.5, testAcc: 65.2 },
+    { epoch: 15, trainAcc: 71.8, testAcc: 67.9 },
+    { epoch: 20, trainAcc: 73.2, testAcc: 68.8 },
+    { epoch: 25, trainAcc: 74.0, testAcc: 69.2 },
+    { epoch: 30, trainAcc: 74.17, testAcc: 68.0 }
   ];
+
+  // Effect for auto-playing training animation
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isTrainingPlaying) {
+      interval = setInterval(() => {
+        setCurrentEpoch(prev => {
+          if (prev >= trainingProgress.length - 1) {
+            setIsTrainingPlaying(false);
+            return 0;
+          }
+          return prev + 1;
+        });
+      }, 800);
+    }
+    return () => clearInterval(interval);
+  }, [isTrainingPlaying, trainingProgress.length]);
+
+  // Get data up to current epoch for animation
+  const getCurrentTrainingData = () => {
+    return trainingProgress.slice(0, currentEpoch + 1);
+  };
 
   return (
     <section id="methodology" className="py-20 px-6">
@@ -138,7 +164,7 @@ const MethodologySection = () => {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={280}>
-                  <BarChart data={appData.slice(0, 15)}>
+                  <BarChart data={filterApplied ? appData.filter(app => app.filtered) : appData.slice(0, 15)}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis 
                       dataKey="name" 
@@ -150,10 +176,10 @@ const MethodologySection = () => {
                     />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
                     <Bar dataKey="count" radius={[2, 2, 0, 0]}>
-                      {appData.slice(0, 15).map((entry, index) => (
+                      {(filterApplied ? appData.filter(app => app.filtered) : appData.slice(0, 15)).map((entry, index) => (
                         <Cell 
                           key={`cell-${index}`} 
-                          fill={filterApplied && !entry.filtered ? "hsl(var(--muted))" : "hsl(var(--primary))"} 
+                          fill={entry.filtered ? "hsl(var(--primary))" : "hsl(var(--muted))"} 
                         />
                       ))}
                     </Bar>
@@ -171,12 +197,15 @@ const MethodologySection = () => {
                     className="mb-2"
                   />
                   <div className="space-y-1 max-h-20 overflow-y-auto">
-                    {filteredTokens.slice(0, 3).map((item, index) => (
-                      <div key={index} className="flex justify-between text-xs">
-                        <span>{item.app}</span>
-                        <span className="text-primary">Token: {item.token}</span>
+                    {(searchTerm ? filteredTokens : tokenData).slice(0, 3).map((item, index) => (
+                      <div key={index} className="flex justify-between text-xs p-1 rounded bg-background/50">
+                        <span className="font-medium">{item.app}</span>
+                        <span className="text-primary bg-primary/10 px-2 py-0.5 rounded-full text-[10px]">Token: {item.token}</span>
                       </div>
                     ))}
+                    {searchTerm && filteredTokens.length === 0 && (
+                      <div className="text-xs text-muted-foreground text-center py-2">No matching apps found</div>
+                    )}
                   </div>
                 </div>
               </CardContent>
@@ -189,32 +218,72 @@ const MethodologySection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
             <Card className="data-card order-2 lg:order-1">
               <CardHeader>
-                <CardTitle>Chronological Data Split</CardTitle>
+                <CardTitle>Chronological vs Random Split</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <ResponsiveContainer width="100%" height={150}>
-                    <BarChart data={splitData} layout="horizontal">
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis type="number" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <YAxis type="category" dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                        {splitData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                  <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                <div className="space-y-6">
+                  {/* Random Split Diagram */}
+                  <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-2">
-                      <Target className="w-4 h-4 text-amber-600" />
-                      <span className="text-sm font-medium text-amber-800 dark:text-amber-200">
-                        Why Chronological?
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <span className="text-sm font-medium text-red-600">❌ Random Split (Data Leakage)</span>
+                    </div>
+                    <div className="flex gap-1 h-8">
+                      {Array.from({ length: 20 }, (_, i) => (
+                        <div 
+                          key={i} 
+                          className={`flex-1 rounded ${
+                            [2, 5, 8, 11, 14, 17].includes(i) ? 'bg-red-200' : 
+                            [3, 6, 9, 12, 15, 18].includes(i) ? 'bg-yellow-200' : 
+                            'bg-blue-200'
+                          }`}
+                          title={
+                            [2, 5, 8, 11, 14, 17].includes(i) ? 'Test' : 
+                            [3, 6, 9, 12, 15, 18].includes(i) ? 'Validation' : 
+                            'Train'
+                          }
+                        />
+                      ))}
+                    </div>
+                    <p className="text-xs text-red-600">Future data mixed with past data - model can "cheat"</p>
+                  </div>
+                  
+                  {/* Chronological Split Diagram */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      <span className="text-sm font-medium text-green-600">✅ Chronological Split (Realistic)</span>
+                    </div>
+                    <div className="flex gap-1 h-8">
+                      {Array.from({ length: 20 }, (_, i) => (
+                        <div 
+                          key={i} 
+                          className={`flex-1 rounded ${
+                            i < 14 ? 'bg-blue-200' : 
+                            i < 16 ? 'bg-yellow-200' : 
+                            'bg-red-200'
+                          }`}
+                          title={
+                            i < 14 ? 'Train (70%)' : 
+                            i < 16 ? 'Validation (10%)' : 
+                            'Test (20%)'
+                          }
+                        />
+                      ))}
+                    </div>
+                    <p className="text-xs text-green-600">Time flows left to right - model only learns from past</p>
+                  </div>
+
+                  <div className="bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm font-medium text-blue-800 dark:text-blue-200">
+                        Why Chronological Split Matters
                       </span>
                     </div>
-                    <p className="text-xs text-amber-700 dark:text-amber-300">
-                      Random splitting would allow the model to "cheat" by learning from future data to predict the past. 
-                      Time-based splits simulate real-world scenarios.
+                    <p className="text-xs text-blue-700 dark:text-blue-300">
+                      Prevents data leakage by ensuring the model only learns from historical data to predict future behavior, 
+                      just like in real-world deployment scenarios.
                     </p>
                   </div>
                 </div>
@@ -262,41 +331,92 @@ const MethodologySection = () => {
             </div>
             <Card className="data-card">
               <CardHeader>
-                <CardTitle>Neural Network Flow</CardTitle>
+                <CardTitle>Bidirectional LSTM Architecture</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg border border-primary/20">
-                    <span className="text-sm font-medium">Input Sequence</span>
-                    <div className="text-xs bg-primary/20 px-2 py-1 rounded">30 tokens</div>
+                <div className="space-y-4">
+                  {/* Input Layer */}
+                  <div className="relative">
+                    <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg border border-primary/20">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary/20 rounded flex items-center justify-center text-xs font-bold">1</div>
+                        <span className="text-sm font-medium">Input Sequence</span>
+                      </div>
+                      <div className="text-xs bg-primary/20 px-2 py-1 rounded">30 app tokens</div>
+                    </div>
+                    <div className="absolute -right-2 top-1/2 transform -translate-y-1/2">
+                      <ArrowDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
                   </div>
-                  <div className="flex justify-center">
-                    <div className="w-px h-6 bg-border"></div>
+
+                  {/* Embedding Layer */}
+                  <div className="relative">
+                    <div className="flex items-center justify-between p-3 bg-secondary/10 rounded-lg border border-secondary/20">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-secondary/20 rounded flex items-center justify-center text-xs font-bold">2</div>
+                        <div>
+                          <span className="text-sm font-medium">Embedding Layer</span>
+                          <div className="text-xs text-muted-foreground">Dense vector representation</div>
+                        </div>
+                      </div>
+                      <div className="text-xs bg-secondary/20 px-2 py-1 rounded">128-dim vectors</div>
+                    </div>
+                    <div className="absolute -right-2 top-1/2 transform -translate-y-1/2">
+                      <ArrowDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between p-3 bg-secondary/10 rounded-lg border border-secondary/20">
-                    <span className="text-sm font-medium">Embedding Layer</span>
-                    <div className="text-xs bg-secondary/20 px-2 py-1 rounded">64-128 dim</div>
+
+                  {/* Bidirectional LSTM */}
+                  <div className="relative">
+                    <div className="p-3 bg-accent/10 rounded-lg border border-accent/20 space-y-2">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-accent/20 rounded flex items-center justify-center text-xs font-bold">3</div>
+                        <span className="text-sm font-medium">Bidirectional LSTM</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="flex items-center gap-2 p-2 bg-accent/5 rounded border border-accent/10">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="text-xs">Forward LSTM →</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-accent/5 rounded border border-accent/10">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span className="text-xs">← Backward LSTM</span>
+                        </div>
+                      </div>
+                      <div className="text-xs text-center text-muted-foreground">Concatenated: 512 features</div>
+                    </div>
+                    <div className="absolute -right-2 top-1/2 transform -translate-y-1/2">
+                      <ArrowDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
                   </div>
-                  <div className="flex justify-center">
-                    <div className="w-px h-6 bg-border"></div>
+
+                  {/* Dense Layers */}
+                  <div className="relative">
+                    <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-purple-500/20 rounded flex items-center justify-center text-xs font-bold">4</div>
+                        <div>
+                          <span className="text-sm font-medium">Dense + Dropout</span>
+                          <div className="text-xs text-muted-foreground">Feature extraction + regularization</div>
+                        </div>
+                      </div>
+                      <div className="text-xs bg-purple-500/20 px-2 py-1 rounded">256 → 128</div>
+                    </div>
+                    <div className="absolute -right-2 top-1/2 transform -translate-y-1/2">
+                      <ArrowDown className="w-4 h-4 text-muted-foreground" />
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between p-3 bg-accent/10 rounded-lg border border-accent/20">
-                    <span className="text-sm font-medium">Bi-LSTM</span>
-                    <div className="text-xs bg-accent/20 px-2 py-1 rounded">64-256 units</div>
-                  </div>
-                  <div className="flex justify-center">
-                    <div className="w-px h-6 bg-border"></div>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
-                    <span className="text-sm font-medium">Dense Layers</span>
-                    <div className="text-xs bg-purple-500/20 px-2 py-1 rounded">2x layers</div>
-                  </div>
-                  <div className="flex justify-center">
-                    <div className="w-px h-6 bg-border"></div>
-                  </div>
+
+                  {/* Output Layer */}
                   <div className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/20">
-                    <span className="text-sm font-medium">Softmax Output</span>
-                    <div className="text-xs bg-green-500/20 px-2 py-1 rounded">Probabilities</div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-green-500/20 rounded flex items-center justify-center text-xs font-bold">5</div>
+                      <div>
+                        <span className="text-sm font-medium">Softmax Output</span>
+                        <div className="text-xs text-muted-foreground">Probability distribution</div>
+                      </div>
+                    </div>
+                    <div className="text-xs bg-green-500/20 px-2 py-1 rounded">43 apps</div>
                   </div>
                 </div>
               </CardContent>
@@ -311,12 +431,30 @@ const MethodologySection = () => {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span>Hyperparameter Optimization</span>
-                  <Button 
-                    size="sm" 
-                    onClick={() => setCurrentTrial((prev) => (prev + 1) % hyperparameterTrials.length)}
-                  >
-                    Trial {currentTrial + 1}/5
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => setCurrentTrial(Math.max(0, currentTrial - 1))}
+                      disabled={currentTrial === 0}
+                    >
+                      ←
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      onClick={() => setCurrentTrial((prev) => (prev + 1) % hyperparameterTrials.length)}
+                    >
+                      Trial {currentTrial + 1}/5
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => setCurrentTrial(Math.min(hyperparameterTrials.length - 1, currentTrial + 1))}
+                      disabled={currentTrial === hyperparameterTrials.length - 1}
+                    >
+                      →
+                    </Button>
+                  </div>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -396,39 +534,74 @@ const MethodologySection = () => {
             </div>
             <Card className="data-card">
               <CardHeader>
-                <CardTitle>Training Progress</CardTitle>
+                <CardTitle className="flex items-center justify-between">
+                  <span>Training Progress Animation</span>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => setCurrentEpoch(0)}
+                    >
+                      Reset
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      onClick={() => setIsTrainingPlaying(!isTrainingPlaying)}
+                    >
+                      {isTrainingPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                      {isTrainingPlaying ? 'Pause' : 'Play'}
+                    </Button>
+                  </div>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart data={trainingProgress}>
+                  <div className="text-center text-sm text-muted-foreground">
+                    Epoch {currentEpoch + 1}/{trainingProgress.length} 
+                    {isTrainingPlaying && <span className="ml-2 animate-pulse">● Training...</span>}
+                  </div>
+                  
+                  <ResponsiveContainer width="100%" height={250}>
+                    <LineChart data={getCurrentTrainingData()}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="epoch" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <Area 
-                        type="monotone" 
-                        dataKey="accuracy" 
-                        stroke="hsl(var(--primary))" 
-                        fill="hsl(var(--primary))" 
-                        fillOpacity={0.2}
-                        strokeWidth={2}
+                      <YAxis 
+                        stroke="hsl(var(--muted-foreground))" 
+                        fontSize={10}
+                        domain={[40, 80]}
                       />
-                    </AreaChart>
+                      <Line 
+                        type="monotone" 
+                        dataKey="trainAcc" 
+                        stroke="hsl(var(--primary))" 
+                        strokeWidth={2}
+                        dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 4 }}
+                        name="Train Accuracy"
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="testAcc" 
+                        stroke="hsl(var(--secondary))" 
+                        strokeWidth={2}
+                        strokeDasharray="5 5"
+                        dot={{ fill: "hsl(var(--secondary))", strokeWidth: 2, r: 4 }}
+                        name="Test Accuracy"
+                      />
+                    </LineChart>
                   </ResponsiveContainer>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="text-center p-3 bg-primary/10 rounded-lg">
-                      <div className="text-2xl font-bold text-primary">74.17%</div>
-                      <div className="text-xs text-muted-foreground">Test Accuracy</div>
+                  
+                  <div className="flex justify-center gap-6 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-0.5 bg-primary rounded"></div>
+                      <span>Train Accuracy: {getCurrentTrainingData()[currentEpoch]?.trainAcc.toFixed(1)}%</span>
                     </div>
-                    <div className="text-center p-3 bg-secondary/10 rounded-lg">
-                      <div className="text-2xl font-bold text-secondary">0.75</div>
-                      <div className="text-xs text-muted-foreground">Final Loss</div>
-                    </div>
-                    <div className="text-center p-3 bg-accent/10 rounded-lg">
-                      <div className="text-2xl font-bold text-accent">30</div>
-                      <div className="text-xs text-muted-foreground">Epochs</div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-0.5 bg-secondary rounded" style={{ borderTop: "2px dashed hsl(var(--secondary))" }}></div>
+                      <span>Test Accuracy: {getCurrentTrainingData()[currentEpoch]?.testAcc.toFixed(1)}%</span>
                     </div>
                   </div>
+
+                  <Progress value={(currentEpoch + 1) / trainingProgress.length * 100} className="h-2" />
                 </div>
               </CardContent>
             </Card>
