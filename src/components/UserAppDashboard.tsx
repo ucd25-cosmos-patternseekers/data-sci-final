@@ -112,7 +112,7 @@ const UserAppDashboard = () => {
                 });
         }
 
-        const userLimit = isExtended ? 100 : 50;
+        const userLimit = isExtended ? 96 : 48;
         return sortedUsers.slice(0, userLimit);
     };
 
@@ -408,12 +408,12 @@ const UserAppDashboard = () => {
                             {isExtended ? (
                                 <>
                                     <ChevronUp className="h-4 w-4" />
-                                    Show Less (50 Users)
+                                    Show Less (48 Users)
                                 </>
                             ) : (
                                 <>
                                     <ChevronDown className="h-4 w-4" />
-                                    Show More (100 Users)
+                                    Show More (96 Users)
                                 </>
                             )}
                         </Button>
