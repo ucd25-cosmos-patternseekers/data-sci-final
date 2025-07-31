@@ -229,14 +229,39 @@ const MethodologySection = () => {
                 <h3 className="text-3xl font-bold">1. Data Collection & Processing</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Raw dataset contains user interactions with timestamps. We filter for quality and convert text to numerical tokens.
+                We transform raw app usage data into a format that machine learning models can understand through four key steps.
               </p>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>• Dataset: user_id, app_name, timestamp triplets</li>
-                <li>• Filter apps appearing ≥50 times (removes noise)</li>
-                <li>• Tokenize app names to integers for neural processing</li>
-                <li>• Create sliding windows of 30 apps + 1 target</li>
-              </ul>
+              
+              {/* Subsections */}
+              <div className="space-y-4">
+                <div className="border-l-2 border-primary/30 pl-4">
+                  <h4 className="font-semibold text-foreground mb-2">Raw Data Collection</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Our dataset contains simple records: which user opened which app at what time. Think of it like a digital diary tracking every app tap.
+                  </p>
+                </div>
+                
+                <div className="border-l-2 border-primary/30 pl-4">
+                  <h4 className="font-semibold text-foreground mb-2">Quality Filtering</h4>
+                  <p className="text-sm text-muted-foreground">
+                    We remove rarely used apps (appearing less than 50 times) to focus on meaningful patterns. It's like cleaning noise from our data.
+                  </p>
+                </div>
+                
+                <div className="border-l-2 border-primary/30 pl-4">
+                  <h4 className="font-semibold text-foreground mb-2">App Tokenization</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Convert app names to numbers (Instagram→1, Chrome→2, etc.) since neural networks work with numbers, not text.
+                  </p>
+                </div>
+                
+                <div className="border-l-2 border-primary/30 pl-4">
+                  <h4 className="font-semibold text-foreground mb-2">Sequence Creation</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Create sliding windows of 30 consecutive apps to predict the next one. Like using the last 30 words to guess the next word in a sentence.
+                  </p>
+                </div>
+              </div>
             </div>
             <Card className="data-card">
               <CardHeader>
@@ -527,14 +552,31 @@ const MethodologySection = () => {
                 <h3 className="text-3xl font-bold">4. Optuna Tuning</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Optuna is an automatic hyperparameter optimization framework that intelligently searches for the best model settings.
+                Optuna is like having a smart assistant that automatically tests thousands of different model configurations to find the best one, so you don't have to guess.
               </p>
-              <ul className="space-y-3 text-muted-foreground">
-                <li>• <strong>Smart Search:</strong> Uses Tree-structured Parzen Estimator to learn from previous trials</li>
-                <li>• <strong>Pruning:</strong> Automatically stops unpromising trials early to save time</li>
-                <li>• <strong>Parallel:</strong> Can run multiple experiments simultaneously</li>
-                <li>• <strong>Result:</strong> Found optimal configuration that balances model complexity and performance</li>
-              </ul>
+              
+              <div className="space-y-4">
+                <div className="border-l-2 border-orange-500/30 pl-4">
+                  <h4 className="font-semibold text-foreground mb-2">How Optuna Works</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Think of it like a recipe optimizer. Instead of randomly trying ingredients, it learns from each attempt - if adding more salt improved the taste, it tries similar adjustments next time.
+                  </p>
+                </div>
+                
+                <div className="border-l-2 border-orange-500/30 pl-4">
+                  <h4 className="font-semibold text-foreground mb-2">Smart Pruning</h4>
+                  <p className="text-sm text-muted-foreground">
+                    It can tell early if a configuration is performing poorly and stops the trial, saving time and computational resources.
+                  </p>
+                </div>
+                
+                <div className="border-l-2 border-orange-500/30 pl-4">
+                  <h4 className="font-semibold text-foreground mb-2">Our Results</h4>
+                  <p className="text-sm text-muted-foreground">
+                    After testing 100 different configurations, Optuna found the optimal settings that achieved 71.2% accuracy - our best performing model.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
