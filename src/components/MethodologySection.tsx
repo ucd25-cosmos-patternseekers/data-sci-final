@@ -27,28 +27,35 @@ const MethodologySection = () => {
   const [currentEpoch, setCurrentEpoch] = useState(0);
   const [isTrainingPlaying, setIsTrainingPlaying] = useState(false);
 
-  // Sample data for visualizations
+  // Sample data for visualizations - showing top 5, middle 5, and bottom 5 apps
   const appData = [
-    { name: 'WeChat', count: 8542, filtered: true },
-    { name: 'Instagram', count: 6234, filtered: true },
-    { name: 'Chrome', count: 5821, filtered: true },
-    { name: 'Facebook', count: 4932, filtered: true },
-    { name: 'YouTube', count: 4203, filtered: true },
-    { name: 'WhatsApp', count: 3876, filtered: true },
-    { name: 'Gmail', count: 3421, filtered: true },
-    { name: 'Maps', count: 2987, filtered: true },
-    { name: 'Spotify', count: 2654, filtered: true },
-    { name: 'Twitter', count: 2341, filtered: true },
-    { name: 'Netflix', count: 1987, filtered: true },
-    { name: 'TikTok', count: 1654, filtered: true },
-    { name: 'LinkedIn', count: 1234, filtered: true },
-    { name: 'Uber', count: 987, filtered: true },
-    { name: 'Camera', count: 876, filtered: true },
-    { name: 'Calculator', count: 234, filtered: false },
-    { name: 'Weather', count: 123, filtered: false },
-    { name: 'Notes', count: 87, filtered: false },
-    { name: 'Clock', count: 45, filtered: false },
-    { name: 'Settings', count: 23, filtered: false }
+    // Top 5 apps
+    { name: 'Google Chrome', count: 53527, filtered: true },
+    { name: 'Google', count: 43098, filtered: true },
+    { name: 'Facebook', count: 29369, filtered: true },
+    { name: 'Facebook Messenger', count: 24077, filtered: true },
+    { name: 'Messages', count: 19296, filtered: true },
+    
+    // Middle 5 apps (around position 40-45 in original dataset)
+    { name: 'AOL', count: 1665, filtered: true },
+    { name: 'Spotify Music', count: 1659, filtered: true },
+    { name: 'Clock', count: 1600, filtered: true },
+    { name: 'Yahoo Mail', count: 1477, filtered: true },
+    { name: 'Calendar', count: 1459, filtered: true },
+    
+    // Additional middle apps (around position 50-55)
+    { name: 'Discord', count: 900, filtered: true },
+    { name: 'Netflix', count: 888, filtered: true },
+    { name: 'Pandora Music', count: 859, filtered: true },
+    { name: 'Microsoft Bing Search', count: 855, filtered: true },
+    { name: 'eBay', count: 693, filtered: true },
+    
+    // Bottom 5 apps
+    { name: 'Kik', count: 70, filtered: true },
+    { name: 'Pixlr', count: 16, filtered: false },
+    { name: 'EntertaiNow', count: 11, filtered: false },
+    { name: 'Text One', count: 10, filtered: false },
+    { name: 'Brave Browser', count: 3, filtered: false }
   ];
 
   const tokenData = [
@@ -247,15 +254,16 @@ const MethodologySection = () => {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={350}>
-                  <BarChart data={filterApplied ? appData.filter(app => app.filtered) : appData}>
+                  <BarChart data={filterApplied ? appData.filter(app => app.filtered) : appData} margin={{ bottom: 80 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis 
                       dataKey="name" 
                       stroke="hsl(var(--muted-foreground))" 
                       angle={-45}
                       textAnchor="end"
-                      height={60}
-                      fontSize={10}
+                      height={80}
+                      fontSize={9}
+                      interval={0}
                     />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
                     <Bar dataKey="count" radius={[2, 2, 0, 0]}>
