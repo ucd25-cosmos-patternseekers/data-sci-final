@@ -377,7 +377,7 @@ const MethodologySection = () => {
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
                   <Brain className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-3xl font-bold">3. Why LSTM for App Prediction?</h3>
+                <h3 className="text-3xl font-bold">3. Model Choice</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
                 We initially tried XGBoost but switched to LSTM after discovering that sequential patterns are crucial for app prediction.
