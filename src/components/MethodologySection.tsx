@@ -471,93 +471,50 @@ const MethodologySection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
             <Card className="data-card order-2 lg:order-1">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span>Hyperparameter Optimization</span>
-                  <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      onClick={() => setCurrentTrial(Math.max(0, currentTrial - 1))}
-                      disabled={currentTrial === 0}
-                    >
-                      ←
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      onClick={() => setCurrentTrial((prev) => (prev + 1) % hyperparameterTrials.length)}
-                    >
-                      Trial {currentTrial + 1}/5
-                    </Button>
-                    <Button 
-                      size="sm" 
-                      variant="outline"
-                      onClick={() => setCurrentTrial(Math.min(hyperparameterTrials.length - 1, currentTrial + 1))}
-                      disabled={currentTrial === hyperparameterTrials.length - 1}
-                    >
-                      →
-                    </Button>
-                  </div>
-                </CardTitle>
+                <CardTitle>Final Hyperparameters</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-sm font-medium">Trial {currentTrial} {hyperparameterTrials[currentTrial].status === 'Pruned' ? '(Pruned)' : ''}</h4>
-                    <div className="flex gap-1">
-                      {hyperparameterTrials.map((_, index) => (
-                        <Button
-                          key={index}
-                          size="sm"
-                          variant={currentTrial === index ? "default" : "outline"}
-                          onClick={() => setCurrentTrial(index)}
-                          className="h-6 w-8 text-xs"
-                        >
-                          {index}
-                        </Button>
-                      ))}
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <div className="text-sm font-medium mb-3 text-primary">
+                      Optimal Configuration (Trial 2)
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 text-sm font-mono">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Embedding:</span>
+                        <span>128</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">LSTM:</span>
+                        <span>256</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Dense:</span>
+                        <span>128</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Dropout:</span>
+                        <span>0.220</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Batch Size:</span>
+                        <span>256</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Learning Rate:</span>
+                        <span>0.0041</span>
+                      </div>
                     </div>
                   </div>
                   
-                  <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={getTrialProgressData(currentTrial)}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis dataKey="epoch" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} domain={[65, 75]} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="trainAcc" 
-                        stroke="hsl(var(--primary))" 
-                        strokeWidth={2}
-                        name="Training Accuracy"
-                        dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 3 }}
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="valAcc" 
-                        stroke="hsl(var(--secondary))" 
-                        strokeWidth={2}
-                        name="Validation Accuracy"
-                        dot={{ fill: "hsl(var(--secondary))", strokeWidth: 2, r: 3 }}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                  
-                  <div className="bg-muted/20 rounded-lg p-3">
-                    <div className="text-sm font-medium mb-2">
-                      Trial {currentTrial} Parameters:
+                  <div className="bg-secondary/5 border border-secondary/20 rounded-lg p-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Target className="w-4 h-4 text-secondary" />
+                      <span className="text-sm font-medium">Final Performance</span>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>Learning Rate: {hyperparameterTrials[currentTrial].lr}</div>
-                      <div>Dropout: {hyperparameterTrials[currentTrial].dropout}</div>
-                      <div className="col-span-2 text-primary font-medium">
-                        Final Validation Accuracy: {hyperparameterTrials[currentTrial].accuracy}%
-                      </div>
-                      {hyperparameterTrials[currentTrial].status === 'Pruned' && (
-                        <div className="col-span-2 text-destructive text-xs">
-                          ⚠️ Trial was pruned due to poor performance
-                        </div>
-                      )}
-                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Achieved 71.2% validation accuracy after optimization across 100 trials
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -570,15 +527,13 @@ const MethodologySection = () => {
                 <h3 className="text-3xl font-bold">4. Optuna Tuning</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Automated hyperparameter search across 5 trials using Tree-structured Parzen Estimator.
+                Optuna is an automatic hyperparameter optimization framework that intelligently searches for the best model settings.
               </p>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>• Embedding: 64-128 dimensions</li>
-                <li>• LSTM units: 64-256 (bidirectional)</li>
-                <li>• Dense layers: 64-256 units</li>
-                <li>• Dropout: 0.2-0.5 (prevent overfitting)</li>
-                <li>• Learning rate: 1e-4 to 1e-2 (log scale)</li>
-                <li>• Batch size: 128-256 samples</li>
+              <ul className="space-y-3 text-muted-foreground">
+                <li>• <strong>Smart Search:</strong> Uses Tree-structured Parzen Estimator to learn from previous trials</li>
+                <li>• <strong>Pruning:</strong> Automatically stops unpromising trials early to save time</li>
+                <li>• <strong>Parallel:</strong> Can run multiple experiments simultaneously</li>
+                <li>• <strong>Result:</strong> Found optimal configuration that balances model complexity and performance</li>
               </ul>
             </div>
           </div>
