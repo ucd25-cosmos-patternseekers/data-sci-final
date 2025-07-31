@@ -166,6 +166,39 @@ const MethodologySection = () => {
     return trainingProgress.slice(0, currentEpoch);
   };
 
+  // Generate epoch progression data for each trial
+  const getTrialProgressData = (trialIndex: number) => {
+    if (!trialDetails[trialIndex]) return [];
+    
+    const trial = trialDetails[trialIndex];
+    const epochData = [];
+    
+    // Generate data points for each epoch range
+    trial.epochs.forEach((epochRange, rangeIndex) => {
+      const [startStr, endStr] = epochRange.range.split('-');
+      const start = parseInt(startStr);
+      const end = parseInt(endStr);
+      
+      // Generate intermediate points for smooth progression
+      const steps = Math.min(10, end - start + 1);
+      for (let i = 0; i <= steps; i++) {
+        const progress = i / steps;
+        const epoch = Math.round(start + (end - start) * progress);
+        
+        const trainAcc = epochRange.trainStart + (epochRange.trainEnd - epochRange.trainStart) * progress;
+        const valAcc = epochRange.valStart + (epochRange.valEnd - epochRange.valStart) * progress;
+        
+        epochData.push({
+          epoch: epoch,
+          trainAcc: parseFloat(trainAcc.toFixed(2)),
+          valAcc: parseFloat(valAcc.toFixed(2))
+        });
+      }
+    });
+    
+    return epochData.sort((a, b) => a.epoch - b.epoch);
+  };
+
   return (
     <section id="methodology" className="py-20 px-6">
       <div className="container mx-auto max-w-7xl">
@@ -486,56 +519,60 @@ const MethodologySection = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-sm font-medium">Trial {currentTrial} {hyperparameterTrials[currentTrial].status === 'Pruned' ? '(Pruned)' : ''}</h4>
+                    <div className="flex gap-1">
+                      {hyperparameterTrials.map((_, index) => (
+                        <Button
+                          key={index}
+                          size="sm"
+                          variant={currentTrial === index ? "default" : "outline"}
+                          onClick={() => setCurrentTrial(index)}
+                          className="h-6 w-8 text-xs"
+                        >
+                          {index}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                  
                   <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={hyperparameterTrials}>
+                    <LineChart data={getTrialProgressData(currentTrial)}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                      <XAxis dataKey="trial" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} domain={[69, 72]} />
+                      <XAxis dataKey="epoch" stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} domain={[65, 75]} />
                       <Line 
                         type="monotone" 
-                        dataKey="accuracy" 
+                        dataKey="trainAcc" 
                         stroke="hsl(var(--primary))" 
                         strokeWidth={2}
-                        dot={(props) => {
-                          const { cx, cy, payload } = props;
-                          const isPruned = payload.status === 'Pruned';
-                          return (
-                            <circle 
-                              cx={cx} 
-                              cy={cy} 
-                              r={4} 
-                              fill={isPruned ? "hsl(var(--destructive))" : "hsl(var(--primary))"} 
-                              stroke={isPruned ? "hsl(var(--destructive))" : "hsl(var(--primary))"} 
-                              strokeWidth={2}
-                            />
-                          );
-                        }}
+                        name="Training Accuracy"
+                        dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 3 }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="valAcc" 
+                        stroke="hsl(var(--secondary))" 
+                        strokeWidth={2}
+                        name="Validation Accuracy"
+                        dot={{ fill: "hsl(var(--secondary))", strokeWidth: 2, r: 3 }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
                   
                   <div className="bg-muted/20 rounded-lg p-3">
                     <div className="text-sm font-medium mb-2">
-                      Trial {currentTrial} {hyperparameterTrials[currentTrial].status === 'Pruned' ? '(Pruned)' : ''} - Final Validation Accuracy: {hyperparameterTrials[currentTrial].accuracy}%
+                      Trial {currentTrial} Parameters:
                     </div>
-                    <div className="space-y-2 text-xs">
-                      <div className="grid grid-cols-2 gap-2">
-                        <div>Learning Rate: {hyperparameterTrials[currentTrial].lr}</div>
-                        <div>Dropout: {hyperparameterTrials[currentTrial].dropout}</div>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>Learning Rate: {hyperparameterTrials[currentTrial].lr}</div>
+                      <div>Dropout: {hyperparameterTrials[currentTrial].dropout}</div>
+                      <div className="col-span-2 text-primary font-medium">
+                        Final Validation Accuracy: {hyperparameterTrials[currentTrial].accuracy}%
                       </div>
-                      
-                      {trialDetails[currentTrial] && (
-                        <div className="mt-3 space-y-2">
-                          <div className="font-medium text-foreground">Epoch Progression:</div>
-                          {trialDetails[currentTrial].epochs.map((epoch, index) => (
-                            <div key={index} className="bg-muted/10 rounded p-2">
-                              <div className="font-medium text-xs mb-1">Epochs {epoch.range}</div>
-                              <div className="grid grid-cols-2 gap-2 text-xs">
-                                <div>Train: {epoch.trainStart}% → {epoch.trainEnd}%</div>
-                                <div>Val: {epoch.valStart}% → {epoch.valEnd}%</div>
-                              </div>
-                            </div>
-                          ))}
+                      {hyperparameterTrials[currentTrial].status === 'Pruned' && (
+                        <div className="col-span-2 text-destructive text-xs">
+                          ⚠️ Trial was pruned due to poor performance
                         </div>
                       )}
                     </div>
