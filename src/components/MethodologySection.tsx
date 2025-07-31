@@ -77,14 +77,63 @@ const MethodologySection = () => {
   ];
 
   const hyperparameterTrials = [
-    { trial: 1, embedding: 64, lstm: 128, dense: 64, dropout: 0.3, lr: 0.001, accuracy: 68.2 },
-    { trial: 2, embedding: 128, lstm: 256, dense: 128, dropout: 0.4, lr: 0.002, accuracy: 71.5 },
-    { trial: 3, embedding: 64, lstm: 64, dense: 256, dropout: 0.2, lr: 0.0005, accuracy: 69.8 },
-    { trial: 4, embedding: 128, lstm: 128, dense: 128, dropout: 0.35, lr: 0.0015, accuracy: 73.1 },
-    { trial: 5, embedding: 128, lstm: 256, dense: 256, dropout: 0.3, lr: 0.001, accuracy: 74.17 }
+    { trial: 0, lr: 0.001, dropout: 0.3, accuracy: 70.18, status: 'Complete' },
+    { trial: 1, lr: 0.002, dropout: 0.4, accuracy: 70.48, status: 'Complete' },
+    { trial: 2, lr: 0.0015, dropout: 0.35, accuracy: 71.18, status: 'Complete' },
+    { trial: 3, lr: 0.0005, dropout: 0.2, accuracy: 71.20, status: 'Pruned' },
+    { trial: 4, lr: 0.003, dropout: 0.5, accuracy: 0, status: 'Pruned' }
+  ];
+
+  const trialDetails = [
+    {
+      trial: 0,
+      finalAcc: 70.18,
+      epochs: [
+        { range: '1-30', trainStart: 38.43, trainEnd: 69.42, valStart: 42.46, valEnd: 70.09 },
+        { range: '31-60', trainStart: 38.50, trainEnd: 69.59, valStart: 44.45, valEnd: 70.28 },
+        { range: '61-90', trainStart: 37.74, trainEnd: 69.64, valStart: 42.02, valEnd: 70.18 }
+      ]
+    },
+    {
+      trial: 1,
+      finalAcc: 70.48,
+      epochs: [
+        { range: '1-30', trainStart: 41.81, trainEnd: 69.83, valStart: 52.36, valEnd: 70.47 },
+        { range: '31-58', trainStart: 41.07, trainEnd: 69.56, valStart: 52.55, valEnd: 70.37 },
+        { range: '61-90', trainStart: 41.47, trainEnd: 70.03, valStart: 50.19, valEnd: 70.38 }
+      ]
+    },
+    {
+      trial: 2,
+      finalAcc: 71.18,
+      epochs: [
+        { range: '1-30', trainStart: 44.03, trainEnd: 71.13, valStart: 55.82, valEnd: 71.18 },
+        { range: '31-60', trainStart: 43.98, trainEnd: 71.10, valStart: 55.39, valEnd: 71.27 },
+        { range: '61-90', trainStart: 43.70, trainEnd: 71.19, valStart: 55.79, valEnd: 71.08 }
+      ]
+    },
+    {
+      trial: 3,
+      finalAcc: 71.20,
+      epochs: [
+        { range: '1-9', trainStart: 67.21, trainEnd: 71.85, valStart: 70.75, valEnd: 71.22 },
+        { range: '31-41', trainStart: 66.80, trainEnd: 72.08, valStart: 70.83, valEnd: 71.01 },
+        { range: '61-69', trainStart: 67.40, trainEnd: 71.93, valStart: 70.84, valEnd: 71.05 }
+      ]
+    },
+    {
+      trial: 4,
+      finalAcc: 0,
+      epochs: [
+        { range: '1-22', trainStart: 57.79, trainEnd: 70.59, valStart: 67.42, valEnd: 71.34 },
+        { range: '31-43', trainStart: 56.17, trainEnd: 70.15, valStart: 67.20, valEnd: 71.17 },
+        { range: '61-77', trainStart: 56.37, trainEnd: 70.41, valStart: 67.20, valEnd: 70.95 }
+      ]
+    }
   ];
 
   const trainingProgress = [
+    { epoch: 0, trainAcc: 0, testAcc: 0 },
     { epoch: 1, trainAcc: 45.2, testAcc: 42.1 },
     { epoch: 5, trainAcc: 62.1, testAcc: 58.3 },
     { epoch: 10, trainAcc: 68.5, testAcc: 65.2 },
@@ -106,7 +155,7 @@ const MethodologySection = () => {
           }
           return prev + 1;
         });
-      }, 1500); // Slower animation - 1.5 seconds per epoch
+      }, 1000); // Faster animation - 1 second per epoch
     }
     return () => clearInterval(interval);
   }, [isTrainingPlaying, trainingProgress.length]);
@@ -441,27 +490,54 @@ const MethodologySection = () => {
                     <LineChart data={hyperparameterTrials}>
                       <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                       <XAxis dataKey="trial" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} domain={[69, 72]} />
                       <Line 
                         type="monotone" 
                         dataKey="accuracy" 
                         stroke="hsl(var(--primary))" 
                         strokeWidth={2}
-                        dot={{ fill: "hsl(var(--primary))", strokeWidth: 2, r: 4 }}
+                        dot={(props) => {
+                          const { cx, cy, payload } = props;
+                          const isPruned = payload.status === 'Pruned';
+                          return (
+                            <circle 
+                              cx={cx} 
+                              cy={cy} 
+                              r={4} 
+                              fill={isPruned ? "hsl(var(--destructive))" : "hsl(var(--primary))"} 
+                              stroke={isPruned ? "hsl(var(--destructive))" : "hsl(var(--primary))"} 
+                              strokeWidth={2}
+                            />
+                          );
+                        }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
+                  
                   <div className="bg-muted/20 rounded-lg p-3">
                     <div className="text-sm font-medium mb-2">
-                      Trial {currentTrial + 1} Parameters:
+                      Trial {currentTrial} {hyperparameterTrials[currentTrial].status === 'Pruned' ? '(Pruned)' : ''} - Final Validation Accuracy: {hyperparameterTrials[currentTrial].accuracy}%
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>Embedding: {hyperparameterTrials[currentTrial].embedding}</div>
-                      <div>LSTM: {hyperparameterTrials[currentTrial].lstm}</div>
-                      <div>Dense: {hyperparameterTrials[currentTrial].dense}</div>
-                      <div>Dropout: {hyperparameterTrials[currentTrial].dropout}</div>
-                      <div>Learning Rate: {hyperparameterTrials[currentTrial].lr}</div>
-                      <div className="text-primary font-medium">Accuracy: {hyperparameterTrials[currentTrial].accuracy}%</div>
+                    <div className="space-y-2 text-xs">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>Learning Rate: {hyperparameterTrials[currentTrial].lr}</div>
+                        <div>Dropout: {hyperparameterTrials[currentTrial].dropout}</div>
+                      </div>
+                      
+                      {trialDetails[currentTrial] && (
+                        <div className="mt-3 space-y-2">
+                          <div className="font-medium text-foreground">Epoch Progression:</div>
+                          {trialDetails[currentTrial].epochs.map((epoch, index) => (
+                            <div key={index} className="bg-muted/10 rounded p-2">
+                              <div className="font-medium text-xs mb-1">Epochs {epoch.range}</div>
+                              <div className="grid grid-cols-2 gap-2 text-xs">
+                                <div>Train: {epoch.trainStart}% → {epoch.trainEnd}%</div>
+                                <div>Val: {epoch.valStart}% → {epoch.valEnd}%</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
