@@ -545,28 +545,28 @@ const MethodologySection = () => {
                 <h3 className="text-3xl font-bold">4. Optuna Tuning</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                Optuna is like having a smart assistant that automatically tests thousands of different model configurations to find the best one, so you don't have to guess.
+                Optuna is an automated hyperparameter optimization framework that systematically searches for the best model configuration to maximize performance.
               </p>
               
               <div className="space-y-4">
                 <div className="border-l-2 border-orange-500/30 pl-4">
-                  <h4 className="font-semibold text-foreground mb-2">How Optuna Works</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Intelligent Search Strategy</h4>
                   <p className="text-sm text-muted-foreground">
-                    Think of it like a recipe optimizer. Instead of randomly trying ingredients, it learns from each attempt - if adding more salt improved the taste, it tries similar adjustments next time.
+                    Rather than random trial and error, Optuna uses sophisticated algorithms to learn from previous trials and guide the search toward promising parameter combinations.
                   </p>
                 </div>
                 
                 <div className="border-l-2 border-orange-500/30 pl-4">
-                  <h4 className="font-semibold text-foreground mb-2">Smart Pruning</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Efficient Pruning</h4>
                   <p className="text-sm text-muted-foreground">
-                    It can tell early if a configuration is performing poorly and stops the trial, saving time and computational resources.
+                    The system can identify underperforming configurations early in training and terminate them, allowing computational resources to focus on more promising trials.
                   </p>
                 </div>
                 
                 <div className="border-l-2 border-orange-500/30 pl-4">
-                  <h4 className="font-semibold text-foreground mb-2">Our Results</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Optimization Results</h4>
                   <p className="text-sm text-muted-foreground">
-                    After testing 100 different configurations, Optuna found the optimal settings that achieved 71.2% accuracy - our best performing model.
+                    After evaluating 100 different configurations, Optuna identified the optimal hyperparameters that achieved 71.2% validation accuracy - our best performing model.
                   </p>
                 </div>
               </div>
