@@ -134,43 +134,43 @@ const NetworkChart = ({
             // Get weights from processed links
             const weights = processedLinks.map((d: any) => d.weight);
 
-            // Create color scale for links using logarithmic scale
+            // Create color scale for links using theme colors
             const colorScale = d3.scaleSequential()
                 .domain([Math.min(...weights), Math.max(...weights)])
-                .interpolator(d3.interpolateViridis);
+                .interpolator(d3.interpolateRgb("hsl(217, 91%, 60%)", "hsl(174, 62%, 47%)"));
 
             // Create opacity scale for links using power scale
             let opacityExponent = nodeCount === 20 ? 0.8 : 1.6;
             const opacityScale = d3.scalePow()
                 .exponent(opacityExponent)
                 .domain([Math.min(...weights), Math.max(...weights)])
-                .range([0.01, 1]);
+                .range([0.2, 0.9]);
 
             // Create width scale for links
             const widthScale = d3.scaleLinear()
                 .domain([Math.min(...weights), Math.max(...weights)])
-                .range([1, 6]);
+                .range([1, 4]);
 
             // Create size scale for nodes
             const sizeScale = d3.scaleSqrt()
                 .domain([0, d3.max(nodes, (d: any) => d.size)])
-                .range([8, 40]);
+                .range([20, 50]);
 
-            // Create color scale for genres
+            // Create color scale for genres using theme colors
             const genreColors = {
-                "Social Media": "#E53E3E",
-                "Communication": "#319795",
-                "Entertainment": "#3182CE",
-                "System": "#68D391",
-                "Productivity": "#D69E2E",
-                "Media & News": "#B794F6",
-                "Lifestyle": "#4FD1C7",
-                "Gaming": "#F6E05E",
-                "Finance": "#9F7AEA",
-                "Shopping": "#63B3ED",
-                "Navigation": "#F6AD55",
-                "Health & Fitness": "#68D391",
-                "unknown": "#A0AEC0"
+                "Social Media": "hsl(217, 91%, 60%)",
+                "Communication": "hsl(174, 62%, 47%)",
+                "Entertainment": "hsl(262, 83%, 58%)",
+                "System": "hsl(174, 62%, 57%)",
+                "Productivity": "hsl(217, 91%, 70%)",
+                "Media & News": "hsl(262, 83%, 68%)",
+                "Lifestyle": "hsl(174, 62%, 37%)",
+                "Gaming": "hsl(217, 91%, 50%)",
+                "Finance": "hsl(262, 83%, 48%)",
+                "Shopping": "hsl(174, 62%, 67%)",
+                "Navigation": "hsl(217, 91%, 80%)",
+                "Health & Fitness": "hsl(174, 62%, 57%)",
+                "unknown": "hsl(240, 4%, 65%)"
             };
 
             // Create simulation
@@ -200,33 +200,89 @@ const NetworkChart = ({
                 .style("fill", (d: any) => genreColors[d.genre] || "#CCCCCC")
                 .call(drag(simulation) as any);
 
-            // Add labels
+            // Add labels with smart text wrapping
             const label = container.append("g")
                 .selectAll("text")
                 .data(connectedNodes)
                 .join("text")
-                .text((d: any) => d.id)
-                .attr("font-size", "12px")
-                .attr("text-anchor", "middle")
-                .attr("dy", "0.35em")
-                .style("pointer-events", "none")
-                .style("fill", "white");
+                .each(function(d: any) {
+                    const node = d3.select(this);
+                    const radius = sizeScale(d.size);
+                    const maxWidth = radius * 1.8;
+                    const words = d.id.split(/\s+/);
+                    let fontSize = Math.max(8, Math.min(12, radius / 3));
+                    
+                    // Adjust font size based on text length
+                    if (d.id.length > 15) fontSize = Math.max(6, fontSize - 2);
+                    if (d.id.length > 25) fontSize = Math.max(5, fontSize - 2);
+                    
+                    node.attr("font-size", `${fontSize}px`)
+                        .attr("text-anchor", "middle")
+                        .attr("dy", "0.35em")
+                        .style("pointer-events", "none")
+                        .style("fill", "hsl(0, 0%, 98%)")
+                        .style("font-weight", "600")
+                        .style("text-shadow", "1px 1px 2px rgba(0,0,0,0.8)")
+                        .style("font-family", "system-ui, -apple-system, sans-serif");
+                    
+                    // For single word or short text, just display it
+                    if (words.length === 1 || d.id.length <= 12) {
+                        node.text(d.id);
+                    } else {
+                        // Split into multiple lines for better readability
+                        const lines = [];
+                        let currentLine = "";
+                        
+                        for (const word of words) {
+                            const testLine = currentLine ? `${currentLine} ${word}` : word;
+                            if (testLine.length <= maxWidth / (fontSize * 0.6)) {
+                                currentLine = testLine;
+                            } else {
+                                if (currentLine) lines.push(currentLine);
+                                currentLine = word;
+                            }
+                        }
+                        if (currentLine) lines.push(currentLine);
+                        
+                        // Limit to 2 lines max
+                        const displayLines = lines.slice(0, 2);
+                        if (lines.length > 2) {
+                            displayLines[1] = displayLines[1].substring(0, 8) + "...";
+                        }
+                        
+                        if (displayLines.length === 1) {
+                            node.text(displayLines[0]);
+                        } else {
+                            node.selectAll("tspan").remove();
+                            displayLines.forEach((line, i) => {
+                                node.append("tspan")
+                                    .attr("x", 0)
+                                    .attr("dy", i === 0 ? "-0.2em" : "1em")
+                                    .text(line);
+                            });
+                        }
+                    }
+                });
 
-            // Create tooltip
+            // Create tooltip with modern design
             const tooltip = d3.select(containerRef.current).append("div")
                 .attr("class", "tooltip")
                 .style("position", "absolute")
                 .style("top", "20px")
                 .style("left", "20px")
-                .style("background", "rgba(0, 0, 0, 0.9)")
-                .style("color", "white")
-                .style("padding", "12px 16px")
-                .style("border-radius", "8px")
+                .style("background", "hsl(240, 10%, 3.9%)")
+                .style("backdrop-filter", "blur(12px)")
+                .style("border", "1px solid hsl(240, 5%, 15%)")
+                .style("color", "hsl(0, 0%, 98%)")
+                .style("padding", "16px 20px")
+                .style("border-radius", "12px")
                 .style("font-size", "14px")
+                .style("font-family", "system-ui, -apple-system, sans-serif")
                 .style("pointer-events", "none")
                 .style("z-index", "1000")
                 .style("display", "none")
-                .style("max-width", "300px");
+                .style("max-width", "320px")
+                .style("box-shadow", "0 25px 50px -12px hsl(217, 91%, 60%, 0.25)");
 
             // Node interactions
             node.on("mouseover", function (event: any, d: any) {
@@ -441,7 +497,7 @@ const NetworkChart = ({
                 {/* Network Visualization */}
                 <div
                     ref={containerRef}
-                    className="border-2 border-border rounded-lg bg-background overflow-hidden relative"
+                    className="chart-container overflow-hidden relative"
                     style={{ height: '700px' }}
                 >
                     {isLoading && (
@@ -488,29 +544,29 @@ const NetworkChart = ({
                 </div>
 
                 {/* Legend */}
-                <div className="mt-6 p-4 bg-muted/20 rounded-lg">
-                    <h4 className="text-center font-semibold mb-4">App Genres</h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <div className="mt-6 p-6 chart-container">
+                    <h4 className="text-center font-semibold mb-6 text-lg">App Genres</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                         {[
-                            { name: "Social Media", color: "#E53E3E" },
-                            { name: "Communication", color: "#319795" },
-                            { name: "Entertainment", color: "#3182CE" },
-                            { name: "System", color: "#68D391" },
-                            { name: "Productivity", color: "#D69E2E" },
-                            { name: "Media & News", color: "#B794F6" },
-                            { name: "Lifestyle", color: "#4FD1C7" },
-                            { name: "Gaming", color: "#F6E05E" },
-                            { name: "Finance", color: "#9F7AEA" },
-                            { name: "Shopping", color: "#63B3ED" },
-                            { name: "Navigation", color: "#F6AD55" },
-                            { name: "Health & Fitness", color: "#68D391" }
+                            { name: "Social Media", color: "hsl(217, 91%, 60%)" },
+                            { name: "Communication", color: "hsl(174, 62%, 47%)" },
+                            { name: "Entertainment", color: "hsl(262, 83%, 58%)" },
+                            { name: "System", color: "hsl(174, 62%, 57%)" },
+                            { name: "Productivity", color: "hsl(217, 91%, 70%)" },
+                            { name: "Media & News", color: "hsl(262, 83%, 68%)" },
+                            { name: "Lifestyle", color: "hsl(174, 62%, 37%)" },
+                            { name: "Gaming", color: "hsl(217, 91%, 50%)" },
+                            { name: "Finance", color: "hsl(262, 83%, 48%)" },
+                            { name: "Shopping", color: "hsl(174, 62%, 67%)" },
+                            { name: "Navigation", color: "hsl(217, 91%, 80%)" },
+                            { name: "Health & Fitness", color: "hsl(174, 62%, 57%)" }
                         ].map((genre) => (
-                            <div key={genre.name} className="flex items-center gap-2">
+                            <div key={genre.name} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
                                 <div
-                                    className="w-4 h-4 rounded-full"
+                                    className="w-4 h-4 rounded-full border border-border/20"
                                     style={{ backgroundColor: genre.color }}
                                 ></div>
-                                <span className="text-xs">{genre.name}</span>
+                                <span className="text-sm font-medium">{genre.name}</span>
                             </div>
                         ))}
                     </div>
