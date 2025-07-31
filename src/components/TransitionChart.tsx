@@ -284,10 +284,11 @@ const TransitionChart = ({
                 "unknown": "#A0AEC0"
             };
 
-            // Create simulation
+            // Create simulation with higher repulsion in arrows mode
+            const chargeStrength = showArrows ? -800 : -400;
             const simulation = d3.forceSimulation(connectedNodes as any)
                 .force("link", d3.forceLink(processedLinks).id((d: any) => d.id).distance(120))
-                .force("charge", d3.forceManyBody().strength(-400))
+                .force("charge", d3.forceManyBody().strength(chargeStrength))
                 .force("center", d3.forceCenter(width / 2, height / 2))
                 .force("collision", d3.forceCollide().radius((d: any) => sizeScale(d.size) + 10));
 
