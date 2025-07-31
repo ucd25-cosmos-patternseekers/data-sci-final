@@ -176,7 +176,7 @@ const TransitionChart = ({
 
             // Setup dimensions
             const width = containerRef.current?.clientWidth || 800;
-            const height = 700;
+            const height = 350;
 
             // Clear previous content
             if (svgRef.current) {
@@ -647,7 +647,7 @@ const TransitionChart = ({
                 <div
                     ref={containerRef}
                     className="border-2 border-border rounded-lg bg-background overflow-hidden relative"
-                    style={{ height: '700px' }}
+                    style={{ height: '350px' }}
                 >
                     {isLoading && (
                         <div className="flex items-center justify-center h-full absolute inset-0 z-10 bg-background">
@@ -692,34 +692,6 @@ const TransitionChart = ({
                     </svg>
                 </div>
 
-                {/* Legend */}
-                <div className="mt-6 p-4 bg-muted/20 rounded-lg">
-                    <h4 className="text-center font-semibold mb-4">App Genres</h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                        {[
-                            { name: "Social Media", color: "#E53E3E" },
-                            { name: "Communication", color: "#319795" },
-                            { name: "Entertainment", color: "#3182CE" },
-                            { name: "System", color: "#68D391" },
-                            { name: "Productivity", color: "#D69E2E" },
-                            { name: "Media & News", color: "#B794F6" },
-                            { name: "Lifestyle", color: "#4FD1C7" },
-                            { name: "Gaming", color: "#F6E05E" },
-                            { name: "Finance", color: "#9F7AEA" },
-                            { name: "Shopping", color: "#63B3ED" },
-                            { name: "Navigation", color: "#F6AD55" },
-                            { name: "Health & Fitness", color: "#68D391" }
-                        ].map((genre) => (
-                            <div key={genre.name} className="flex items-center gap-2">
-                                <div
-                                    className="w-4 h-4 rounded-full"
-                                    style={{ backgroundColor: genre.color }}
-                                ></div>
-                                <span className="text-xs">{genre.name}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
 
 
             </CardContent>
