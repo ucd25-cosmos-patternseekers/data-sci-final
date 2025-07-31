@@ -254,15 +254,16 @@ const MethodologySection = () => {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={350}>
-                  <BarChart data={filterApplied ? appData.filter(app => app.filtered) : appData}>
+                  <BarChart data={filterApplied ? appData.filter(app => app.filtered) : appData} margin={{ bottom: 80 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis 
                       dataKey="name" 
                       stroke="hsl(var(--muted-foreground))" 
                       angle={-45}
                       textAnchor="end"
-                      height={60}
-                      fontSize={10}
+                      height={80}
+                      fontSize={9}
+                      interval={0}
                     />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
                     <Bar dataKey="count" radius={[2, 2, 0, 0]}>
