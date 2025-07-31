@@ -17,7 +17,7 @@ const TransitionChart = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [nodeCount, setNodeCount] = useState(20);
-    const [showArrows, setShowArrows] = useState(true);
+    const [showArrows, setShowArrows] = useState(false);
 
     useEffect(() => {
         // Load D3.js dynamically

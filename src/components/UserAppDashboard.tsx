@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { PieChart, Users, Clock, Smartphone } from 'lucide-react';
+import { PieChart, Users, Clock, Smartphone, ChevronDown, ChevronUp } from 'lucide-react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -17,12 +17,11 @@ interface UserData {
     [userId: string]: UserAppData;
 }
 
-type FilterType = 'top200' | 'top100' | 'top50';
-
 const UserAppDashboard = () => {
     const [userData, setUserData] = useState<UserData>({});
-    const [currentFilter, setCurrentFilter] = useState<FilterType>('top100');
+    const [isExtended, setIsExtended] = useState(false);
     const [highlightedApp, setHighlightedApp] = useState<string | null>(null);
+    const [selectedAppFilter, setSelectedAppFilter] = useState<string>('all');
     const [isLoading, setIsLoading] = useState(true);
     const [stats, setStats] = useState({
         totalUsers: 0,
@@ -97,24 +96,36 @@ const UserAppDashboard = () => {
     };
 
     const getFilteredUsers = () => {
-        const sortedUsers = Object.entries(userData)
-            .sort(([, a], [, b]) => (b._total_time || 0) - (a._total_time || 0));
+        let sortedUsers = Object.entries(userData);
 
-        let userLimit: number;
-        switch (currentFilter) {
-            case 'top50':
-                userLimit = 50;
-                break;
-            case 'top100':
-                userLimit = 100;
-                break;
-            case 'top200':
-            default:
-                userLimit = 200;
-                break;
+        if (selectedAppFilter === 'all') {
+            // Sort by total time
+            sortedUsers = sortedUsers.sort(([, a], [, b]) => (b._total_time || 0) - (a._total_time || 0));
+        } else {
+            // Sort by specific app usage percentage
+            sortedUsers = sortedUsers
+                .filter(([, userApps]) => userApps[selectedAppFilter] && userApps[selectedAppFilter] > 0)
+                .sort(([, a], [, b]) => {
+                    const aPercentage = a[selectedAppFilter] && a._total_time ? (a[selectedAppFilter] / a._total_time) * 100 : 0;
+                    const bPercentage = b[selectedAppFilter] && b._total_time ? (b[selectedAppFilter] / b._total_time) * 100 : 0;
+                    return bPercentage - aPercentage;
+                });
         }
 
+        const userLimit = isExtended ? 200 : 50;
         return sortedUsers.slice(0, userLimit);
+    };
+
+    const getAllApps = () => {
+        const allApps = new Set<string>();
+        Object.values(userData).forEach(userApps => {
+            Object.keys(userApps).forEach(app => {
+                if (app !== '_total_time') {
+                    allApps.add(app);
+                }
+            });
+        });
+        return Array.from(allApps).sort();
     };
 
     const createChartData = (userApps: UserAppData) => {
@@ -131,7 +142,7 @@ const UserAppDashboard = () => {
             } else if (app === highlightedApp) {
                 return appColorMap[app] || '#CCCCCC';
             } else {
-                return '#E0E0E0'; // Grey out other apps
+                return '#1a1a1a'; // Dark background color for non-highlighted apps
             }
         });
 
@@ -148,6 +159,21 @@ const UserAppDashboard = () => {
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
+        animation: {
+            duration: 200,
+            easing: 'easeOutQuart' as const
+        },
+        hover: {
+            mode: 'nearest' as const,
+            intersect: true
+        },
+        interaction: {
+            intersect: true,
+            mode: 'nearest' as const
+        },
+        layout: {
+            padding: 0
+        },
         plugins: {
             legend: {
                 display: false
@@ -222,25 +248,34 @@ const UserAppDashboard = () => {
                         </div>
                     </div>
 
-                    {/* Filter Controls */}
-                    <div className="flex justify-center gap-2 mb-6">
-                        {(['top200', 'top100', 'top50'] as FilterType[]).map((filter) => (
-                            <Button
-                                key={filter}
-                                variant={currentFilter === filter ? "default" : "outline"}
-                                size="sm"
-                                onClick={() => setCurrentFilter(filter)}
-                            >
-                                {filter === 'top200' ? 'Top 200 Users' :
-                                    filter === 'top100' ? 'Top 100 Users' :
-                                        'Top 50 Users'}
-                            </Button>
-                        ))}
+                    {/* App Filter */}
+                    <div className="mb-6">
+                        <div className="flex items-center gap-4 justify-center">
+                            <label className="text-sm font-medium">Filter by App:</label>
+                            <Select value={selectedAppFilter} onValueChange={setSelectedAppFilter}>
+                                <SelectTrigger className="w-64">
+                                    <SelectValue placeholder="Select an app to filter by" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="all">All Apps (by total usage)</SelectItem>
+                                    {getAllApps().map((app) => (
+                                        <SelectItem key={app} value={app}>
+                                            {app}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        {selectedAppFilter !== 'all' && (
+                            <p className="text-center text-sm text-muted-foreground mt-2">
+                                Showing users sorted by <span className="font-medium">{selectedAppFilter}</span> usage percentage
+                            </p>
+                        )}
                     </div>
 
-                    {/* Scrollable Pie Charts Container */}
-                    <ScrollArea className="h-96 w-full border rounded-lg p-4">
-                        <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 lg:grid-cols-16 xl:grid-cols-20 gap-x-2 gap-y-1">
+                    {/* Pie Charts Container */}
+                    <div className="w-full border rounded-lg p-4 transition-all duration-500">
+                        <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 lg:grid-cols-16 xl:grid-cols-20 gap-x-2 gap-y-2">
                             {filteredUsers.map(([userId, userApps]) => {
                                 const appData = Object.entries(userApps)
                                     .filter(([app, time]) => app !== '_total_time' && time > 0)
@@ -252,7 +287,7 @@ const UserAppDashboard = () => {
                                 return (
                                     <div
                                         key={userId}
-                                        className="aspect-square w-full relative"
+                                        className="aspect-square w-full relative overflow-hidden"
                                         onMouseLeave={() => setHighlightedApp(null)}
                                     >
                                         <Pie
@@ -263,19 +298,45 @@ const UserAppDashboard = () => {
                                 );
                             })}
                         </div>
-                    </ScrollArea>
+                    </div>
+
+                    {/* Extend Button */}
+                    <div className="flex justify-center mt-4">
+                        <Button
+                            variant="outline"
+                            onClick={() => setIsExtended(!isExtended)}
+                            className="transition-all duration-200 flex items-center gap-2"
+                        >
+                            {isExtended ? (
+                                <>
+                                    <ChevronUp className="h-4 w-4" />
+                                    Show Less (50 Users)
+                                </>
+                            ) : (
+                                <>
+                                    <ChevronDown className="h-4 w-4" />
+                                    Show More (200 Users)
+                                </>
+                            )}
+                        </Button>
+                    </div>
 
                     {/* Legend Info */}
                     <div className="mt-4 text-center">
                         <p className="text-sm text-muted-foreground">
                             Each pie chart represents a user's app usage distribution.
                             Hover over charts to highlight apps across all visualizations.
+                            {!isExtended && ' Click "Show More" to see additional users.'}
                         </p>
                         {highlightedApp && (
                             <p className="text-sm mt-2 font-medium text-primary">
                                 Currently highlighting: <span className="font-bold">{highlightedApp}</span>
                             </p>
                         )}
+                        <p className="text-xs mt-1 text-muted-foreground">
+                            Currently showing: <span className="font-medium">{getFilteredUsers().length}</span> users
+                            {selectedAppFilter !== 'all' && ` with ${selectedAppFilter} usage`}
+                        </p>
                     </div>
                 </CardContent>
             </Card>
