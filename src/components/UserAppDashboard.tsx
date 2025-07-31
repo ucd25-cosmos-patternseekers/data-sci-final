@@ -56,7 +56,7 @@ const UserAppDashboard = () => {
 
     const loadData = async () => {
         try {
-            const response = await fetch('/visualizations/user_app_usage.json');
+            const response = await fetch('/user_app_usage.json');
             const data: UserData = await response.json();
             setUserData(data);
 
