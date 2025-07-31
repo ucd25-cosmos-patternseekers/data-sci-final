@@ -14,19 +14,24 @@ const ResultsSection = () => {
 
   const metrics = {
     accuracy: {
-      value: 74.17,
-      description: "Overall prediction accuracy across all apps",
+      value: 68.0,
+      description: "Overall LSTM prediction accuracy",
       color: "text-primary"
     },
     precision: {
-      value: 72.0,
-      description: "Macro average precision across all app categories",
+      value: 67.0,
+      description: "Weighted average precision across all apps",
       color: "text-secondary"
     },
-    loss: {
-      value: 0.92,
-      description: "Final model loss after training convergence",
+    top3accuracy: {
+      value: 88.47,
+      description: "Top-3 prediction accuracy using LSTM",
       color: "text-teal-600"
+    },
+    top5accuracy: {
+      value: 93.98,
+      description: "Top-5 prediction accuracy using LSTM",
+      color: "text-purple-600"
     }
   };
 
@@ -101,12 +106,12 @@ const ResultsSection = () => {
             <span className="gradient-text">Model Performance</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Trained on 72,854 app transitions across 43 different applications
+            LSTM Neural Network trained on 118,345 app transitions - Long Short-Term Memory models excel at learning sequential patterns in app usage behavior
           </p>
         </div>
 
         {/* Performance Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
           {Object.entries(metrics).map(([key, metric]) => (
             <Card 
               key={key}
@@ -117,14 +122,15 @@ const ResultsSection = () => {
             >
               <CardContent className="pt-6">
                 <div className={`text-3xl font-bold ${metric.color} mb-2`}>
-                  {key === 'loss' ? metric.value : `${metric.value}%`}
+                  {`${metric.value}%`}
                 </div>
                 <div className="text-sm font-medium mb-1">
-                  {key === 'precision' ? 'Macro Avg Precision' : 
-                   key === 'loss' ? 'Training Loss' :
+                  {key === 'precision' ? 'Weighted Avg Precision' : 
+                   key === 'top3accuracy' ? 'Top-3 Accuracy' :
+                   key === 'top5accuracy' ? 'Top-5 Accuracy' :
                    'Overall Accuracy'}
                 </div>
-                <Progress value={key === 'loss' ? metric.value * 100 : metric.value} className="h-2 mb-3" />
+                <Progress value={metric.value} className="h-2 mb-3" />
                 <p className="text-xs text-muted-foreground">
                   {metric.description}
                 </p>
@@ -246,7 +252,7 @@ const ResultsSection = () => {
 
         {/* Training Summary */}
         <div className="mt-12 text-center text-sm text-muted-foreground">
-          <p>Trained on 72,854 app transitions across 43 different applications • Model converged with early stopping</p>
+          <p>LSTM trained on 118,345 app transitions across 43 applications • Weighted avg F1-score: 67% • Macro avg F1-score: 51%</p>
         </div>
       </div>
     </section>
