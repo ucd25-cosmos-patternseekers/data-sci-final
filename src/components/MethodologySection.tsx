@@ -229,7 +229,7 @@ const MethodologySection = () => {
                 <h3 className="text-3xl font-bold">1. Data Collection & Processing</h3>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                We transform raw app usage data into a format that machine learning models can understand through four key steps.
+                We transformed raw app usage data in the original dataset into a format that models can understand through four key steps:
               </p>
               
               {/* Subsections */}
@@ -237,28 +237,28 @@ const MethodologySection = () => {
                 <div className="border-l-2 border-primary/30 pl-4">
                   <h4 className="font-semibold text-foreground mb-2">Raw Data Collection</h4>
                   <p className="text-sm text-muted-foreground">
-                    Our dataset contains simple records: which user opened which app at what time. Think of it like a digital diary tracking every app tap.
+                    Our dataset contains info on which user opened which app at what time.
                   </p>
                 </div>
                 
                 <div className="border-l-2 border-primary/30 pl-4">
                   <h4 className="font-semibold text-foreground mb-2">Quality Filtering</h4>
                   <p className="text-sm text-muted-foreground">
-                    We remove rarely used apps (appearing less than 50 times) to focus on meaningful patterns. It's like cleaning noise from our data.
+                    We remove rarely used apps (appearing less than 50 times) to focus on meaningful patterns and avoid unncessary training time.
                   </p>
                 </div>
                 
                 <div className="border-l-2 border-primary/30 pl-4">
                   <h4 className="font-semibold text-foreground mb-2">App Tokenization</h4>
                   <p className="text-sm text-muted-foreground">
-                    Convert app names to numbers (Instagram→1, Chrome→2, etc.) since neural networks work with numbers, not text.
+                    Convert app names to numbers (Instagram→1, Chrome→2, etc.) using encoding since neural networks work with numbers.
                   </p>
                 </div>
                 
                 <div className="border-l-2 border-primary/30 pl-4">
                   <h4 className="font-semibold text-foreground mb-2">Sequence Creation</h4>
                   <p className="text-sm text-muted-foreground">
-                    Create sliding windows of 30 consecutive apps to predict the next one. Like using the last 30 words to guess the next word in a sentence.
+                    Create sliding windows of 30 consecutive apps to predict the next one. Sliding window is used with LSTMs to convert a time series problem into a format that the neural network can learn from.
                   </p>
                 </div>
               </div>
@@ -319,7 +319,7 @@ const MethodologySection = () => {
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-3 h-3 bg-destructive rounded-full"></div>
-                      <span className="text-sm font-medium text-destructive">❌ Random Split (Data Leakage)</span>
+                      <span className="text-sm font-medium text-destructive">Random Split (Data Leakage)</span>
                     </div>
                     <div className="flex gap-1 h-8">
                       {Array.from({ length: 20 }, (_, i) => (
@@ -345,7 +345,7 @@ const MethodologySection = () => {
                   <div className="space-y-3">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-3 h-3 bg-secondary rounded-full"></div>
-                      <span className="text-sm font-medium text-secondary">✅ Chronological Split (Realistic)</span>
+                      <span className="text-sm font-medium text-secondary">Chronological Split (Realistic)</span>
                     </div>
                     <div className="flex gap-1 h-8">
                       {Array.from({ length: 20 }, (_, i) => (
@@ -376,7 +376,7 @@ const MethodologySection = () => {
                     </div>
                     <p className="text-xs text-muted-foreground">
                       Prevents data leakage by ensuring the model only learns from historical data to predict future behavior, 
-                      just like in real-world deployment scenarios.
+                      simulating real-world deployment scenarios.
                     </p>
                   </div>
                 </div>
@@ -416,10 +416,10 @@ const MethodologySection = () => {
                 We initially tried XGBoost but switched to LSTM after discovering that sequential patterns are crucial for app prediction.
               </p>
               <ul className="space-y-3 text-muted-foreground">
-                <li>• <strong>XGBoost Failed:</strong> Treated each app independently, missing sequential context</li>
-                <li>• <strong>Sequential Nature:</strong> App usage follows temporal patterns (morning routine, work apps, etc.)</li>
-                <li>• <strong>LSTM Advantage:</strong> Captures long-term dependencies in user behavior</li>
-                <li>• <strong>Bidirectional Design:</strong> Considers both past and future context in sequence</li>
+                <li>• <strong>XGBoost</strong> treated each app independently, missing sequential context</li>
+                <li>• App usage follows temporal patterns (morning routine, work apps, etc.)</li>
+                <li>• <strong>LSTM </strong> captures long-term dependencies in user behavior</li>
+                <li>• <strong>Bidirectional Design</strong> considers both past and future context in sequence</li>
               </ul>
             </div>
             <Card className="data-card">
@@ -438,11 +438,7 @@ const MethodologySection = () => {
                       <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-xs">Accuracy:</span>
-                          <span className="text-xs font-mono text-destructive">52.3%</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-xs">Top-5 Accuracy:</span>
-                          <span className="text-xs font-mono text-destructive">68.1%</span>
+                          <span className="text-xs font-mono text-destructive">38%</span>
                         </div>
                         <p className="text-xs text-muted-foreground mt-2">
                           Struggled with sequential dependencies. Treated each app as independent feature.
@@ -461,11 +457,7 @@ const MethodologySection = () => {
                       <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-xs">Accuracy:</span>
-                          <span className="text-xs font-mono text-primary">71.2%</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-xs">Top-5 Accuracy:</span>
-                          <span className="text-xs font-mono text-primary">89.4%</span>
+                          <span className="text-xs font-mono text-primary">68%</span>
                         </div>
                         <p className="text-xs text-muted-foreground mt-2">
                           Captures sequential patterns and temporal dependencies in user behavior.
@@ -482,7 +474,8 @@ const MethodologySection = () => {
                     </div>
                     <p className="text-xs text-muted-foreground">
                       App usage is inherently sequential - knowing the order and timing of previous apps 
-                      dramatically improves prediction accuracy. LSTM's memory mechanisms are essential for this task.
+                      dramatically improves prediction accuracy. LSTM's memory mechanisms are essential 
+                      for this task, which is why we decided on this model for this research task.
                     </p>
                   </div>
                 </div>
