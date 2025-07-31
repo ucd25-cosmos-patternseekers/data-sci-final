@@ -134,15 +134,10 @@ const NetworkChart = ({
             // Get weights from processed links
             const weights = processedLinks.map((d: any) => d.weight);
 
-            // Create color scale for links using theme colors
+            // Create color scale for links using logarithmic scale
             const colorScale = d3.scaleSequential()
                 .domain([Math.min(...weights), Math.max(...weights)])
-                .interpolator(d3.interpolateRgbBasis([
-                    "hsl(240 4% 65%)",
-                    "hsl(174 62% 47%)",
-                    "hsl(217 91% 60%)",
-                    "hsl(262 83% 58%)"
-                ]));
+                .interpolator(d3.interpolateViridis);
 
             // Create opacity scale for links using power scale
             let opacityExponent = nodeCount === 20 ? 0.8 : 1.6;
@@ -161,21 +156,21 @@ const NetworkChart = ({
                 .domain([0, d3.max(nodes, (d: any) => d.size)])
                 .range([8, 40]);
 
-            // Create color scale for genres using design system colors
+            // Create color scale for genres
             const genreColors = {
-                "Social Media": "hsl(0 84% 60%)",
-                "Communication": "hsl(174 62% 47%)",
-                "Entertainment": "hsl(217 91% 60%)",
-                "System": "hsl(142 76% 36%)",
-                "Productivity": "hsl(262 83% 58%)",
-                "Media & News": "hsl(270 95% 75%)",
-                "Lifestyle": "hsl(174 62% 47%)",
-                "Gaming": "hsl(45 93% 47%)",
-                "Finance": "hsl(262 83% 58%)",
-                "Shopping": "hsl(217 91% 70%)",
-                "Navigation": "hsl(25 95% 53%)",
-                "Health & Fitness": "hsl(142 76% 36%)",
-                "unknown": "hsl(240 4% 65%)"
+                "Social Media": "#E53E3E",
+                "Communication": "#319795",
+                "Entertainment": "#3182CE",
+                "System": "#68D391",
+                "Productivity": "#D69E2E",
+                "Media & News": "#B794F6",
+                "Lifestyle": "#4FD1C7",
+                "Gaming": "#F6E05E",
+                "Finance": "#9F7AEA",
+                "Shopping": "#63B3ED",
+                "Navigation": "#F6AD55",
+                "Health & Fitness": "#68D391",
+                "unknown": "#A0AEC0"
             };
 
             // Create simulation
@@ -215,30 +210,23 @@ const NetworkChart = ({
                 .attr("text-anchor", "middle")
                 .attr("dy", "0.35em")
                 .style("pointer-events", "none")
-                .style("fill", "hsl(0 0% 98%)")
-                .style("font-family", "system-ui, sans-serif")
-                .style("font-weight", "500");
+                .style("fill", "white");
 
-            // Create tooltip using design system
+            // Create tooltip
             const tooltip = d3.select(containerRef.current).append("div")
                 .attr("class", "tooltip")
                 .style("position", "absolute")
                 .style("top", "20px")
                 .style("left", "20px")
-                .style("background", "hsl(240 10% 3.9% / 0.95)")
-                .style("backdrop-filter", "blur(10px)")
-                .style("color", "hsl(0 0% 98%)")
-                .style("padding", "16px 20px")
-                .style("border-radius", "12px")
-                .style("border", "1px solid hsl(240 5% 15%)")
+                .style("background", "rgba(0, 0, 0, 0.9)")
+                .style("color", "white")
+                .style("padding", "12px 16px")
+                .style("border-radius", "8px")
                 .style("font-size", "14px")
-                .style("font-family", "system-ui, sans-serif")
-                .style("line-height", "1.5")
                 .style("pointer-events", "none")
                 .style("z-index", "1000")
                 .style("display", "none")
-                .style("max-width", "320px")
-                .style("box-shadow", "0 25px 50px -12px hsl(217 91% 60% / 0.25)");
+                .style("max-width", "300px");
 
             // Node interactions
             node.on("mouseover", function (event: any, d: any) {
@@ -264,12 +252,7 @@ const NetworkChart = ({
                 const connectionWeights = appConnections.map((l: any) => l.weight);
                 const nodeColorScale = d3.scaleSequential()
                     .domain([Math.min(...connectionWeights), Math.max(...connectionWeights)])
-                    .interpolator(d3.interpolateRgbBasis([
-                        "hsl(240 4% 65%)",
-                        "hsl(174 62% 47%)",
-                        "hsl(217 91% 60%)",
-                        "hsl(262 83% 58%)"
-                    ]));
+                    .interpolator(d3.interpolateViridis);
 
                 // Create opacity scale based on the connections of this specific node
                 const nodeOpacityScale = d3.scalePow()
@@ -423,15 +406,15 @@ const NetworkChart = ({
     };
 
     return (
-        <Card className="w-full animate-fade-in data-card">
+        <Card className="w-full animate-fade-in">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2 gradient-text">
-                    <Network className="w-5 h-5 text-primary" />
+                <CardTitle className="flex items-center gap-2">
+                    <Network className="w-5 h-5" />
                     {title}
                 </CardTitle>
                 <p className="text-sm text-muted-foreground">{description}</p>
             </CardHeader>
-            <CardContent className="chart-container">
+            <CardContent>
                 {/* Controls */}
                 <div className="flex justify-center mb-6">
                     <div className="flex flex-col items-center gap-2">
@@ -505,29 +488,29 @@ const NetworkChart = ({
                 </div>
 
                 {/* Legend */}
-                <div className="mt-6 p-6 bg-gradient-to-br from-card/50 to-muted/10 rounded-lg border border-border/30">
-                    <h4 className="font-semibold mb-4 text-foreground">App Genres</h4>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                        {Object.entries({
-                            "Social Media": "hsl(0 84% 60%)",
-                            "Communication": "hsl(174 62% 47%)",
-                            "Entertainment": "hsl(217 91% 60%)",
-                            "System": "hsl(142 76% 36%)",
-                            "Productivity": "hsl(262 83% 58%)",
-                            "Media & News": "hsl(270 95% 75%)",
-                            "Lifestyle": "hsl(174 62% 47%)",
-                            "Gaming": "hsl(45 93% 47%)",
-                            "Finance": "hsl(262 83% 58%)",
-                            "Shopping": "hsl(217 91% 70%)",
-                            "Navigation": "hsl(25 95% 53%)",
-                            "Health & Fitness": "hsl(142 76% 36%)",
-                        }).map(([genre, color]) => (
-                            <div key={genre} className="flex items-center gap-2">
+                <div className="mt-6 p-4 bg-muted/20 rounded-lg">
+                    <h4 className="text-center font-semibold mb-4">App Genres</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                        {[
+                            { name: "Social Media", color: "#E53E3E" },
+                            { name: "Communication", color: "#319795" },
+                            { name: "Entertainment", color: "#3182CE" },
+                            { name: "System", color: "#68D391" },
+                            { name: "Productivity", color: "#D69E2E" },
+                            { name: "Media & News", color: "#B794F6" },
+                            { name: "Lifestyle", color: "#4FD1C7" },
+                            { name: "Gaming", color: "#F6E05E" },
+                            { name: "Finance", color: "#9F7AEA" },
+                            { name: "Shopping", color: "#63B3ED" },
+                            { name: "Navigation", color: "#F6AD55" },
+                            { name: "Health & Fitness", color: "#68D391" }
+                        ].map((genre) => (
+                            <div key={genre.name} className="flex items-center gap-2">
                                 <div
-                                    className="w-3 h-3 rounded-full shadow-sm"
-                                    style={{ backgroundColor: color }}
-                                />
-                                <span className="text-sm text-muted-foreground font-medium">{genre}</span>
+                                    className="w-4 h-4 rounded-full"
+                                    style={{ backgroundColor: genre.color }}
+                                ></div>
+                                <span className="text-xs">{genre.name}</span>
                             </div>
                         ))}
                     </div>
