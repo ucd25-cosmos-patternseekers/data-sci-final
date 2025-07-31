@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive App Transition Network</title>
+    <title>App Relationships Network</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         body {
@@ -214,8 +214,10 @@
 
 <body>
     <div class="container">
-        <h1>🔄 App Transition Network</h1>
-        <p class="subtitle">Visualizing app switching patterns between users</p>
+        <h1>🔗 App Relationships Network</h1>
+        <p class="subtitle">Visualizing which apps are used together by the same users</p>
+
+
 
 
 
@@ -229,7 +231,8 @@
             </div>
         </div>
 
-        <svg id="network" width="100%" height="600"></svg>
+        <svg id="network" width="100%" height="700"></svg>
+
 
         <div class="legend" style="margin-top: 20px;">
             <h4 style="text-align: center; margin-bottom: 15px;">App Genres</h4>
@@ -288,11 +291,12 @@
 
     <div class="info-panel">
         <h3>How to Use</h3>
-        <p><strong>Drag:</strong> Move nodes around</p>
+        <p><strong>Drag:</strong> Move apps around</p>
         <p><strong>Scroll:</strong> Zoom in/out</p>
         <p><strong>Hover:</strong> See app details</p>
-        <p><strong>Click:</strong> Focus on node</p>
+        <p><strong>Click:</strong> Focus on app</p>
         <p><strong>Double-click:</strong> Reset view</p>
+        <p><strong>Filter:</strong> Show different relationship strengths</p>
     </div>
 
     <div class="tooltip" id="tooltip" style="display: none;"></div>
@@ -307,7 +311,7 @@
 
         // Load the data
         Promise.all([
-            d3.json("app_transition_network.json"),
+            d3.json("app_relationships_network.json"),
             d3.json("app_genre_mapping.json")
         ]).then(function ([data, genreMapping]) {
             networkData = data;
@@ -316,11 +320,7 @@
 
             // Add genre information to nodes
             nodes.forEach(node => {
-                // Try exact match first, then case-insensitive match
-                node.genre = genreMapping[node.id] ||
-                    genreMapping[Object.keys(genreMapping).find(key =>
-                        key.toLowerCase() === node.id.toLowerCase()
-                    )] || "unknown";
+                node.genre = genreMapping[node.id] || "unknown";
             });
 
             // Sort nodes by size (total duration) and take top 20 initially
@@ -350,6 +350,8 @@
 
             // Filter nodes to only include those with connections
             const connectedNodes = topNodes.filter(node => connectedNodeIds.has(node.id));
+
+
 
             // Setup
             const width = document.getElementById('network').clientWidth;
@@ -472,16 +474,15 @@
                 // Show tooltip
                 tooltip.style("display", "block")
                     .html(`
-                            <strong>${d.id}</strong><br>
+                        <strong>${d.id}</strong><br>
                         Genre: ${d.genre}<br>
-                            Size: ${d.size.toFixed(1)}<br>
-                            Raw Count: ${d.raw_count.toLocaleString()}<br>
+                        Users: ${d.user_count.toLocaleString()}<br>
                         Connections: ${appConnections.length}<br>
-                            <strong>Strongest Connection:</strong><br>
+                        <strong>Strongest Connection:</strong><br>
                         → ${strongestConnection ? (strongestConnection.source.id === d.id ?
-                            strongestConnection.target.id : strongestConnection.source.id) : 'None'}<br>
-                        Weight: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
-                        `)
+                            strongestConnection.target.id : strongestConnection.source.id) : 'N/A'}<br>
+                        Similarity: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
+                    `)
                     .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
                     .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
 
@@ -495,7 +496,7 @@
                 const nodeOpacityScale = d3.scalePow()
                     .exponent(opacityExponent)
                     .domain([Math.min(...connectionWeights), Math.max(...connectionWeights)])
-                    .range([0.6, 1]);
+                    .range([0.01, 1]);
 
                 // Focus on this node - highlight its connections and hide others
                 link.style("stroke-opacity", function (l) {
@@ -562,8 +563,13 @@
                 .on("mouseout", function () {
                     tooltip.style("display", "none");
 
-                    // Reset all links to normal appearance
-                    link.style("stroke-opacity", d => opacityScale(d.weight))
+                    // Reset all links to normal appearance with current opacity scale
+                    const currentOpacityScale = d3.scalePow()
+                        .exponent(opacityExponent)
+                        .domain([Math.min(...processedLinks.map(d => d.weight)), Math.max(...processedLinks.map(d => d.weight))])
+                        .range([0.01, 1]);
+
+                    link.style("stroke-opacity", d => currentOpacityScale(d.weight))
                         .style("stroke", d => colorScale(d.weight));
 
                     // Reset all nodes to normal appearance
@@ -575,10 +581,11 @@
             link.on("mouseover", function (event, d) {
                 tooltip.style("display", "block")
                     .html(`
-                            <strong>${d.source.id} → ${d.target.id}</strong><br>
-                            Weight: ${d.weight.toFixed(3)}<br>
-                            Raw Frequency: ${d.raw_freq.toLocaleString()}
-                        `)
+                        <strong>${d.source.id} ↔ ${d.target.id}</strong><br>
+                        Similarity: ${d.weight.toFixed(3)}<br>
+                        Shared Users: ${d.shared_users.toLocaleString()}<br>
+                        Jaccard Index: ${d.weight.toFixed(3)}
+                    `)
                     .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
                     .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
             })
@@ -627,6 +634,30 @@
                     .on("drag", dragged)
                     .on("end", dragended);
             }
+
+            // Control handlers
+            function updateNodeCount(count) {
+                // Update button states
+                document.getElementById('btn-20').classList.remove('active');
+                document.getElementById('btn-60').classList.remove('active');
+                if (count === 20) {
+                    document.getElementById('btn-20').classList.add('active');
+                } else if (count === 60) {
+                    document.getElementById('btn-60').classList.add('active');
+                }
+
+                window.updateNodeCount(count);
+            }
+
+
+
+            // Responsive resize
+            window.addEventListener('resize', function () {
+                const newWidth = document.getElementById('network').clientWidth;
+                svg.attr("width", newWidth);
+                simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
+                simulation.alpha(0.3).restart();
+            });
 
             // Function to update opacity exponent
             function updateOpacityExponent(exponent) {
@@ -756,13 +787,12 @@
                         .html(`
                             <strong>${d.id}</strong><br>
                             Genre: ${d.genre}<br>
-                            Size: ${d.size.toFixed(1)}<br>
-                            Raw Count: ${d.raw_count.toLocaleString()}<br>
+                            Users: ${d.user_count.toLocaleString()}<br>
                             Connections: ${appConnections.length}<br>
                             <strong>Strongest Connection:</strong><br>
                             → ${strongestConnection ? (strongestConnection.source.id === d.id ?
                                 strongestConnection.target.id : strongestConnection.source.id) : 'N/A'}<br>
-                            Weight: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
+                            Similarity: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
                         `)
                         .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
                         .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
@@ -864,9 +894,10 @@
                 link.on("mouseover", function (event, d) {
                     tooltip.style("display", "block")
                         .html(`
-                            <strong>${d.source.id} → ${d.target.id}</strong><br>
-                            Weight: ${d.weight.toFixed(3)}<br>
-                            Raw Frequency: ${d.raw_freq.toLocaleString()}
+                            <strong>${d.source.id} ↔ ${d.target.id}</strong><br>
+                            Similarity: ${d.weight.toFixed(3)}<br>
+                            Shared Users: ${d.shared_users.toLocaleString()}<br>
+                            Jaccard Index: ${d.weight.toFixed(3)}
                         `)
                         .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
                         .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
@@ -874,36 +905,15 @@
                     .on("mouseout", function () {
                         tooltip.style("display", "none");
                     });
+
+
             };
-
-            // Control handlers
-            function updateNodeCount(count) {
-                // Update button states
-                document.getElementById('btn-20').classList.remove('active');
-                document.getElementById('btn-60').classList.remove('active');
-                if (count === 20) {
-                    document.getElementById('btn-20').classList.add('active');
-                } else if (count === 60) {
-                    document.getElementById('btn-60').classList.add('active');
-                }
-
-                window.updateNodeCount(count);
-            }
-
-
-
-            // Responsive resize
-            window.addEventListener('resize', function () {
-                const newWidth = document.getElementById('network').clientWidth;
-                svg.attr("width", newWidth);
-                simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
-                simulation.alpha(0.3).restart();
-            });
-
         }).catch(function (error) {
             console.error("Error loading data:", error);
-            document.body.innerHTML = "<div style='text-align: center; padding: 50px;'><h2>Error loading data</h2><p>Make sure the JSON file exists at data/app_transition_network.json</p></div>";
+            document.body.innerHTML = "<div style='text-align: center; padding: 50px;'><h2>Error loading data</h2><p>Make sure the JSON file exists at data/app_relationships_network.json</p></div>";
         });
+
+
     </script>
 </body>
 
