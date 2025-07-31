@@ -35,10 +35,10 @@ const ConclusionSection = () => {
   ];
 
   const limitations = [
-    "Privacy concerns with detailed usage tracking",
-    "Model accuracy varies significantly across user segments",
-    "Cold start problem for new users with limited data",
-    "Computational overhead for real-time predictions"
+    "Hard to predict when users try new or unusual apps they haven't used before",
+    "Our data might miss important context, like where or why someone is using an app",
+    "Some apps are used much more than others, which can make the model favor the popular ones and overlook rare choices",
+    "Model performance varies across different user behavior patterns"
   ];
 
   const futureWork = [
@@ -67,22 +67,22 @@ const ConclusionSection = () => {
               <CheckCircle className="w-12 h-12 text-green-500 mb-4" />
               <CardTitle>Model Success</CardTitle>
               <CardDescription>
-                Achieved 87.3% accuracy in predicting next app usage
+                LSTM model achieved 68% accuracy with 94% top-5 accuracy
               </CardDescription>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Strong temporal patterns identified
+                  88% top-3 prediction accuracy
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  Sequential dependencies confirmed
+                  Strong sequential pattern learning
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent rounded-full"></div>
-                  User clustering validated
+                  Effective temporal dependency capture
                 </li>
               </ul>
             </CardContent>
@@ -100,15 +100,15 @@ const ConclusionSection = () => {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  Morning/evening routines are highly predictable
+                  Popular apps dominate predictions
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  Previous app is strongest predictor
+                  Time of day strongly influences usage
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent rounded-full"></div>
-                  Context improves accuracy by 12%
+                  Sequential patterns vary by user type
                 </li>
               </ul>
             </CardContent>
@@ -126,15 +126,15 @@ const ConclusionSection = () => {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  Privacy and data protection
+                  Hard to predict new/unusual apps
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  User segment variations
+                  Missing contextual information
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  Real-time computation overhead
+                  Data imbalance favors popular apps
                 </li>
               </ul>
             </CardContent>
