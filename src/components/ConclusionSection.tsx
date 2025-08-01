@@ -67,22 +67,22 @@ const ConclusionSection = () => {
               <CheckCircle className="w-12 h-12 text-green-500 mb-4" />
               <CardTitle>Model Success</CardTitle>
               <CardDescription>
-                LSTM model achieved 68% accuracy with 94% top-5 accuracy
+                Our AI model correctly guesses the next app 7 out of 10 times - and gets it right 94% of the time when looking at its top 5 guesses
               </CardDescription>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-primary rounded-full"></div>
-                  88% top-3 prediction accuracy
+                  Gets it right 88% of the time when looking at top 3 guesses
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                  Strong sequential pattern learning
+                  Successfully learned how apps connect to each other in sequences
                 </li>
                 <li className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent rounded-full"></div>
-                  Effective temporal dependency capture
+                  Remembers patterns over time - what you used before affects what comes next
                 </li>
               </ul>
             </CardContent>
