@@ -8,6 +8,7 @@ import AdvancedChart from "@/components/AdvancedChart";
 import NetworkChart from "@/components/NetworkChart";
 import TransitionChart from "@/components/TransitionChart";
 import UserAppDashboard from "@/components/UserAppDashboard";
+import TopAppsCharts from "@/components/TopAppsCharts";
 
 const Index = () => {
   return (
@@ -33,8 +34,8 @@ const Index = () => {
               </p>
             </div>
             <div className="flex justify-center">
-              <img 
-                src="/lovable-uploads/7b285b1f-a4bb-4e84-8c6d-d781ed10132f.png" 
+              <img
+                src="/lovable-uploads/7b285b1f-a4bb-4e84-8c6d-d781ed10132f.png"
                 alt="Colorful 3D smartphone app icons including Spotify, Google, Starbucks and other popular applications"
                 className="rounded-lg shadow-lg max-w-full h-auto"
               />
@@ -52,7 +53,7 @@ const Index = () => {
               The LSAPP (Life-logging Smartphone App Prediction) dataset contains detailed, time-stamped records of app launches collected from Android users over several months. For each user, it captures a sequential log of which apps were opened and when, providing a rich source of temporal and behavioral patterns. The dataset is anonymized, yet preserves enough structure to support meaningful analysis of user habits.
             </p>
           </div>
-          
+
           <div className="bg-card rounded-lg border p-6">
             <h3 className="text-xl font-semibold mb-4">Dataset Preview</h3>
             <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm">
@@ -77,6 +78,22 @@ const Index = () => {
               <p><strong>Format:</strong> Each row represents an app event with user ID, session ID, timestamp, app name, and event type (Opened/Closed).</p>
               <p><strong>Scale:</strong> The complete dataset contains over 50,000 app events from 100+ users over 6 months of smartphone usage.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Top Apps Analysis */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Top 10 Most Popular Apps</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive analysis of the most popular apps based on total usage time and user interactions.
+              These insights reveal which applications dominate user attention and engagement.
+            </p>
+          </div>
+          <div className="max-w-6xl mx-auto">
+            <TopAppsCharts />
           </div>
         </div>
       </section>
