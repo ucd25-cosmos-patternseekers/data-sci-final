@@ -55,28 +55,21 @@ const Index = () => {
           
           <div className="bg-card rounded-lg border p-6">
             <h3 className="text-xl font-semibold mb-4">Dataset Preview</h3>
-            <div className="bg-muted/50 rounded-lg p-4 h-80 overflow-auto font-mono text-sm">
+            <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm">
               <div className="space-y-1">
                 <div className="text-muted-foreground border-b border-border pb-2 mb-3 font-semibold">
                   user_id | session_id | timestamp | app_name | event_type
                 </div>
                 <div>154 | 38896 | 2018-05-03 18:51:29 | Settings | Opened</div>
                 <div>154 | 38896 | 2018-05-03 18:51:34 | Settings | Closed</div>
-                <div>154 | 38896 | 2018-05-03 18:51:34 | Settings | Closed</div>
-                <div>154 | 38896 | 2018-05-03 18:51:35 | Google Chrome | Opened</div>
                 <div>154 | 38896 | 2018-05-03 18:51:35 | Google Chrome | Opened</div>
                 <div>154 | 38896 | 2018-05-03 18:51:39 | Google Chrome | Closed</div>
                 <div>154 | 38896 | 2018-05-03 18:51:39 | Settings | Opened</div>
-                <div>154 | 38896 | 2018-05-03 18:51:39 | Google Chrome | Closed</div>
-                <div>154 | 38896 | 2018-05-03 18:51:39 | Settings | Opened</div>
-                <div>154 | 38896 | 2018-05-03 18:51:43 | Settings | Closed</div>
                 <div>154 | 38896 | 2018-05-03 18:51:43 | Settings | Closed</div>
                 <div>154 | 38896 | 2018-05-03 18:51:46 | Settings | Opened</div>
-                <div>154 | 38896 | 2018-05-03 18:51:46 | Settings | Opened</div>
-                <div>154 | 38896 | 2018-05-03 18:51:51 | Settings | Closed</div>
                 <div>154 | 38896 | 2018-05-03 18:51:51 | Settings | Closed</div>
                 <div className="text-muted-foreground mt-4 pt-2 border-t border-border">
-                  ... (showing 15 of 50,000+ records)
+                  ... (showing 8 of 50,000+ records)
                 </div>
               </div>
             </div>
