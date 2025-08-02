@@ -42,17 +42,24 @@ const HeroSection = () => {
         </div>
 
         <div className="animate-slide-in-right mb-8">
-          <p className="text-lg text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
-             onClick={() => scrollToSection('methodology')}>
+          <Button 
+            size="lg"
+            onClick={() => scrollToSection('methodology')}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
             Explore Our Research
-          </p>
+          </Button>
         </div>
 
         <div className="flex justify-center">
-          <ChevronDown 
-            className="w-8 h-8 text-muted-foreground cursor-pointer hover:text-primary transition-colors animate-bounce"
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => scrollToSection('methodology')}
-          />
+            className="rounded-full w-12 h-12 hover:bg-primary/10 transition-all duration-300 animate-bounce"
+          >
+            <ChevronDown className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
+          </Button>
         </div>
       </div>
     </section>
