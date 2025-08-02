@@ -386,7 +386,7 @@ const UserAppDashboard = () => {
                                         key={userId}
                                         className="aspect-square w-full relative overflow-hidden"
                                         onMouseLeave={() => setHighlightedApp(null)}
-                                        title={`User ${userId}`}
+                                        title={`User ${userId}: ${Math.round((userApps._total_time || 0) / 60 * 10) / 10}h total`}
                                     >
                                         <Pie
                                             data={createChartData(userApps)}
