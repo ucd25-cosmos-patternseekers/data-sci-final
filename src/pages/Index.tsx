@@ -9,8 +9,14 @@ import NetworkChart from "@/components/NetworkChart";
 import TransitionChart from "@/components/TransitionChart";
 import UserAppDashboard from "@/components/UserAppDashboard";
 import TopAppsCharts from "@/components/TopAppsCharts";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 const Index = () => {
+  const [isNetworkOpen, setIsNetworkOpen] = useState(false);
+
   return (
     <div className="min-h-screen">
       <ScrollAnimation />
@@ -127,7 +133,19 @@ const Index = () => {
             </p>
           </div>
           <div className="max-w-6xl mx-auto">
-            <NetworkChart />
+            <Collapsible open={isNetworkOpen} onOpenChange={setIsNetworkOpen}>
+              <div className="flex justify-center mb-6">
+                <CollapsibleTrigger asChild>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    {isNetworkOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    {isNetworkOpen ? "Hide Network Visualization" : "Show Network Visualization"}
+                  </Button>
+                </CollapsibleTrigger>
+              </div>
+              <CollapsibleContent className="space-y-4">
+                <NetworkChart />
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </div>
       </section>
