@@ -176,7 +176,7 @@ const TransitionChart = ({
 
             // Setup dimensions
             const width = containerRef.current?.clientWidth || 800;
-            const height = 350;
+            const height = 500;
 
             // Clear previous content
             if (svgRef.current) {
@@ -648,7 +648,7 @@ const TransitionChart = ({
                 <div
                     ref={containerRef}
                     className="border-2 border-border rounded-lg bg-background overflow-hidden relative"
-                    style={{ height: '350px' }}
+                    style={{ height: '500px' }}
                 >
                     {isLoading && (
                         <div className="flex items-center justify-center h-full absolute inset-0 z-10 bg-background">

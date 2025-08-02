@@ -58,7 +58,7 @@ const Index = () => {
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-6">LSAPP Dataset</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto">
-              The LSAPP (Life-logging Smartphone App Prediction) dataset contains detailed, time-stamped records of app launches collected from Android users over several months. For each user, it captures a sequential log of which apps were opened and when, providing a rich source of temporal and behavioral patterns. The dataset is anonymized, yet preserves enough structure to support meaningful analysis of user habits.
+              The LSAPP (Large dataset of Sequential mobile App usage) dataset contains detailed, time-stamped records of app launches collected from Android users over several months. For each user, it captures a sequential log of which apps were opened and when, providing a rich source of temporal and behavioral patterns. The dataset is anonymized, yet preserves enough structure to support meaningful analysis of user habits.
             </p>
           </div>
 

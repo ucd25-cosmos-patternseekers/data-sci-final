@@ -12,7 +12,7 @@ interface NetworkChartProps {
 const NetworkChart = ({
     title = "App Relationships Network",
     description = "Interactive network visualization showing which apps are used together by the same users",
-    height = 700
+    height = 600
 }: NetworkChartProps) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
