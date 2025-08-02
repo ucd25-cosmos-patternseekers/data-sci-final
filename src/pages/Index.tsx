@@ -19,7 +19,9 @@ const Index = () => {
       <HeroSection />
 
       {/* Research Question Section */}
-      <ResearchQuestionSection />
+      <div id="research-question">
+        <ResearchQuestionSection />
+      </div>
 
       {/* Introduction Section */}
       <section className="py-16 px-6">
@@ -45,7 +47,7 @@ const Index = () => {
       </section>
 
       {/* LSAPP Dataset Section */}
-      <section className="py-16 px-6 bg-muted/5">
+      <section id="lsapp-dataset" className="py-16 px-6 bg-muted/5">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-6">LSAPP Dataset</h2>
@@ -147,10 +149,14 @@ const Index = () => {
       </section>
 
       {/* Methodology Section */}
-      <MethodologySection />
+      <div id="methodology">
+        <MethodologySection />
+      </div>
 
       {/* Results Section */}
-      <ResultsSection />
+      <div id="results">
+        <ResultsSection />
+      </div>
 
       {/* Conclusion Section */}
       <ConclusionSection />

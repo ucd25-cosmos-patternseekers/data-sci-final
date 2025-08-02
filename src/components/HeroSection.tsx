@@ -27,39 +27,35 @@ const HeroSection = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 mb-12 animate-scale-in">
-          <div className="data-card p-6 flex items-center gap-3">
+          <div className="data-card p-6 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform" 
+               onClick={() => scrollToSection('lsapp-dataset')}>
             <Database className="w-8 h-8 text-primary" />
             <span className="text-lg font-semibold">Data Analysis</span>
           </div>
-          <div className="data-card p-6 flex items-center gap-3">
+          <div className="data-card p-6 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform"
+               onClick={() => scrollToSection('methodology')}>
             <Brain className="w-8 h-8 text-secondary" />
             <span className="text-lg font-semibold">Machine Learning</span>
           </div>
-          <div className="data-card p-6 flex items-center gap-3">
+          <div className="data-card p-6 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform"
+               onClick={() => scrollToSection('results')}>
             <TrendingUp className="w-8 h-8 text-accent" />
             <span className="text-lg font-semibold">Prediction</span>
           </div>
         </div>
 
         <div className="animate-slide-in-right mb-8">
-          <Button 
-            size="lg"
-            onClick={() => scrollToSection('methodology')}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-          >
+          <p className="text-lg text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
+             onClick={() => scrollToSection('research-question')}>
             Explore Our Research
-          </Button>
+          </p>
         </div>
 
         <div className="flex justify-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => scrollToSection('methodology')}
-            className="rounded-full w-12 h-12 hover:bg-primary/10 transition-all duration-300 animate-bounce"
-          >
-            <ChevronDown className="w-6 h-6 text-muted-foreground hover:text-primary transition-colors" />
-          </Button>
+          <ChevronDown 
+            className="w-8 h-8 text-muted-foreground cursor-pointer hover:text-primary transition-colors animate-bounce"
+            onClick={() => scrollToSection('research-question')}
+          />
         </div>
       </div>
     </section>
