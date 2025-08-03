@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Relationships Network</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .control-group input {
+            width: 120px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        #network {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            margin: 20px 0;
+        }
+
+        .node {
+            cursor: pointer;
+            stroke: #fff;
+            stroke-width: 3px;
+            transition: stroke-width 0.2s ease;
+        }
+
+        .node:hover {
+            stroke: #667eea;
+            stroke-width: 4px;
+        }
+
+        .link {
+            stroke-opacity: 0.6;
+            cursor: pointer;
+            transition: stroke-opacity 0.2s ease, stroke-width 0.2s ease;
+        }
+
+        .link:hover {
+            stroke-opacity: 1;
+            stroke-width: 4px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        .info-panel {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 350px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        .info-panel h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .info-panel p {
+            margin: 8px 0;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .filter-controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .filter-btn.active {
+            background: #5a6fd8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔗 App Relationships Network</h1>
+        <p class="subtitle">Visualizing which apps are used together by the same users</p>
+
+
+
+
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Number of Apps</label>
+                <div style="display: flex; gap: 10px; margin-top: 5px;">
+                    <button id="btn-20" class="filter-btn active" onclick="updateNodeCount(20)">20 Apps</button>
+                    <button id="btn-60" class="filter-btn" onclick="updateNodeCount(60)">60 Apps</button>
+                </div>
+            </div>
+        </div>
+
+        <svg id="network" width="100%" height="700"></svg>
+
+
+        <div class="legend" style="margin-top: 20px;">
+            <h4 style="text-align: center; margin-bottom: 15px;">App Genres</h4>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FF6B6B;"></div>
+                    <span>Social Media</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4ECDC4;"></div>
+                    <span>Communication</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #45B7D1;"></div>
+                    <span>Entertainment</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #96CEB4;"></div>
+                    <span>System</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FFEAA7;"></div>
+                    <span>Productivity</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #DDA0DD;"></div>
+                    <span>Media & News</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #98D8C8;"></div>
+                    <span>Lifestyle</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #F7DC6F;"></div>
+                    <span>Gaming</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #BB8FCE;"></div>
+                    <span>Finance</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #85C1E9;"></div>
+                    <span>Shopping</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #F8C471;"></div>
+                    <span>Navigation</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #82E0AA;"></div>
+                    <span>Health & Fitness</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-panel">
+        <h3>How to Use</h3>
+        <p><strong>Drag:</strong> Move apps around</p>
+        <p><strong>Scroll:</strong> Zoom in/out</p>
+        <p><strong>Hover:</strong> See app details</p>
+        <p><strong>Click:</strong> Focus on app</p>
+        <p><strong>Double-click:</strong> Reset view</p>
+        <p><strong>Filter:</strong> Show different relationship strengths</p>
+    </div>
+
+    <div class="tooltip" id="tooltip" style="display: none;"></div>
+
+    <script>
+        let networkData = null;
+        let currentFilter = 'all';
+        let link = null;
+        let node = null;
+        let label = null;
+        let simulation = null;
+
+        // Load the data
+        Promise.all([
+            d3.json("app_relationships_network.json"),
+            d3.json("app_genre_mapping.json")
+        ]).then(function ([data, genreMapping]) {
+            networkData = data;
+            const nodes = data.nodes;
+            const links = data.edges;
+
+            // Add genre information to nodes
+            nodes.forEach(node => {
+                node.genre = genreMapping[node.id] || "unknown";
+            });
+
+            // Sort nodes by size (total duration) and take top 20 initially
+            nodes.sort((a, b) => b.size - a.size);
+            const initialNodeCount = 20;
+            const topNodes = nodes.slice(0, initialNodeCount);
+            const topNodeIds = new Set(topNodes.map(n => n.id));
+
+            // Filter links to only include connections between top nodes
+            const filteredLinks = links.filter(l =>
+                topNodeIds.has(l.source) && topNodeIds.has(l.target)
+            );
+
+            // Convert string references to object references for D3
+            const processedLinks = filteredLinks.map(l => ({
+                ...l,
+                source: topNodes.find(n => n.id === l.source),
+                target: topNodes.find(n => n.id === l.target)
+            }));
+
+            // Get nodes that actually have connections
+            const connectedNodeIds = new Set();
+            processedLinks.forEach(link => {
+                connectedNodeIds.add(link.source.id);
+                connectedNodeIds.add(link.target.id);
+            });
+
+            // Filter nodes to only include those with connections
+            const connectedNodes = topNodes.filter(node => connectedNodeIds.has(node.id));
+
+
+
+            // Setup
+            const width = document.getElementById('network').clientWidth;
+            const height = 700;
+
+            const svg = d3.select("#network")
+                .attr("width", width)
+                .attr("height", height);
+
+            // Create zoom behavior
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 10])
+                .on("zoom", (event) => {
+                    container.attr("transform", event.transform);
+                });
+
+            svg.call(zoom);
+
+            // Double-click to reset
+            svg.on("dblclick", () => {
+                svg.transition().duration(750).call(
+                    zoom.transform,
+                    d3.zoomIdentity
+                );
+            });
+
+            const container = svg.append("g");
+
+            // Get weights from processed links
+            const weights = processedLinks.map(d => d.weight);
+
+            // Create color scale for links using logarithmic scale
+            const colorScale = d3.scaleSequential()
+                .domain([Math.max(...weights), Math.min(...weights)])
+                .interpolator(d3.interpolateViridis);
+
+            // Create opacity scale for links using power scale
+            let opacityExponent = 0.8; // Default for 20 apps
+            const opacityScale = d3.scalePow()
+                .exponent(opacityExponent)
+                .domain([Math.min(...weights), Math.max(...weights)])
+                .range([0.01, 1]);
+
+            // Create width scale for links
+            const widthScale = d3.scaleLinear()
+                .domain([Math.min(...weights), Math.max(...weights)])
+                .range([1, 6]);
+
+            // Create size scale for nodes
+            const sizeScale = d3.scaleSqrt()
+                .domain([0, d3.max(nodes, d => d.size)])
+                .range([8, 40]);
+
+            // Create color scale for genres
+            const genres = [...new Set(nodes.map(d => d.genre))];
+            const genreColors = {
+                "Social Media": "#FF6B6B",
+                "Communication": "#4ECDC4",
+                "Entertainment": "#45B7D1",
+                "System": "#96CEB4",
+                "Productivity": "#FFEAA7",
+                "Media & News": "#DDA0DD",
+                "Lifestyle": "#98D8C8",
+                "Gaming": "#F7DC6F",
+                "Finance": "#BB8FCE",
+                "Shopping": "#85C1E9",
+                "Navigation": "#F8C471",
+                "Health & Fitness": "#82E0AA",
+                "unknown": "#CCCCCC"
+            };
+
+            // Create simulation
+            simulation = d3.forceSimulation(connectedNodes)
+                .force("link", d3.forceLink(processedLinks).id(d => d.id).distance(120))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(d => sizeScale(d.size) + 10));
+
+            // Create links
+            link = container.append("g")
+                .selectAll("line")
+                .data(processedLinks)
+                .join("line")
+                .attr("class", "link")
+                .style("stroke", d => colorScale(d.weight))
+                .style("stroke-width", d => widthScale(d.weight))
+                .style("stroke-opacity", d => opacityScale(d.weight));
+
+            // Create nodes
+            node = container.append("g")
+                .selectAll("circle")
+                .data(connectedNodes)
+                .join("circle")
+                .attr("class", "node")
+                .attr("r", d => sizeScale(d.size))
+                .style("fill", d => genreColors[d.genre] || "#CCCCCC")
+                .call(drag(simulation));
+
+            // Add labels
+            label = container.append("g")
+                .selectAll("text")
+                .data(connectedNodes)
+                .join("text")
+                .text(d => d.id)
+                .attr("font-size", "12px")
+                .attr("text-anchor", "middle")
+                .attr("dy", "0.35em")
+                .style("pointer-events", "none")
+                .style("fill", "#333");
+
+            // Tooltip
+            const tooltip = d3.select("#tooltip");
+
+            node.on("mouseover", function (event, d) {
+                // Find all connections for this app
+                const appConnections = processedLinks.filter(l => l.source.id === d.id || l.target.id === d.id);
+                const strongestConnection = appConnections.reduce((max, link) =>
+                    link.weight > max.weight ? link : max, appConnections[0]);
+
+                // Show tooltip
+                tooltip.style("display", "block")
+                    .html(`
+                        <strong>${d.id}</strong><br>
+                        Genre: ${d.genre}<br>
+                        Users: ${d.user_count.toLocaleString()}<br>
+                        Connections: ${appConnections.length}<br>
+                        <strong>Strongest Connection:</strong><br>
+                        → ${strongestConnection ? (strongestConnection.source.id === d.id ?
+                            strongestConnection.target.id : strongestConnection.source.id) : 'N/A'}<br>
+                        Similarity: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
+                    `)
+                    .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
+                    .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
+
+                // Create color scale based on the connections of this specific node
+                const connectionWeights = appConnections.map(l => l.weight);
+                const nodeColorScale = d3.scaleSequential()
+                    .domain([Math.max(...connectionWeights), Math.min(...connectionWeights)])
+                    .interpolator(d3.interpolateViridis);
+
+                // Create opacity scale based on the connections of this specific node
+                const nodeOpacityScale = d3.scalePow()
+                    .exponent(opacityExponent)
+                    .domain([Math.min(...connectionWeights), Math.max(...connectionWeights)])
+                    .range([0.01, 1]);
+
+                // Focus on this node - highlight its connections and hide others
+                link.style("stroke-opacity", function (l) {
+                    return (l.source.id === d.id || l.target.id === d.id) ?
+                        nodeOpacityScale(l.weight) : 0;
+                })
+                    .style("stroke", function (l) {
+                        return (l.source.id === d.id || l.target.id === d.id) ?
+                            nodeColorScale(l.weight) : "#ccc";
+                    });
+
+                // Highlight connected nodes with opacity based on connection strength
+                node.style("opacity", function (n) {
+                    if (n.id === d.id) return 1;
+
+                    // Find the connection between this node and the hovered node
+                    const connection = processedLinks.find(l =>
+                        (l.source.id === d.id && l.target.id === n.id) ||
+                        (l.target.id === d.id && l.source.id === n.id)
+                    );
+
+                    if (connection) {
+                        // Use the same scale as color for opacity
+                        return nodeOpacityScale(connection.weight);
+                    }
+
+                    return 0.6; // Increased minimum opacity for unconnected nodes
+                })
+                    .style("fill", function (n) {
+                        if (n.id === d.id) return genreColors[n.genre] || "#CCCCCC";
+
+                        // Find the connection between this node and the hovered node
+                        const connection = processedLinks.find(l =>
+                            (l.source.id === d.id && l.target.id === n.id) ||
+                            (l.target.id === d.id && l.source.id === n.id)
+                        );
+
+                        if (connection) {
+                            // Keep original genre color for connected nodes
+                            return genreColors[n.genre] || "#CCCCCC";
+                        }
+
+                        return "#CCCCCC"; // Grey for unconnected nodes
+                    });
+
+                // Highlight connected node labels with opacity based on connection strength
+                label.style("opacity", function (n) {
+                    if (n.id === d.id) return 1;
+
+                    // Find the connection between this node and the hovered node
+                    const connection = processedLinks.find(l =>
+                        (l.source.id === d.id && l.target.id === n.id) ||
+                        (l.target.id === d.id && l.source.id === n.id)
+                    );
+
+                    if (connection) {
+                        // Use the same scale as color for opacity
+                        return nodeOpacityScale(connection.weight);
+                    }
+
+                    return 0.6; // Increased minimum opacity for unconnected nodes
+                });
+            })
+                .on("mouseout", function () {
+                    tooltip.style("display", "none");
+
+                    // Reset all links to normal appearance with current opacity scale
+                    const currentOpacityScale = d3.scalePow()
+                        .exponent(opacityExponent)
+                        .domain([Math.min(...processedLinks.map(d => d.weight)), Math.max(...processedLinks.map(d => d.weight))])
+                        .range([0.01, 1]);
+
+                    link.style("stroke-opacity", d => currentOpacityScale(d.weight))
+                        .style("stroke", d => colorScale(d.weight));
+
+                    // Reset all nodes to normal appearance
+                    node.style("opacity", 1)
+                        .style("fill", d => genreColors[d.genre] || "#CCCCCC");
+                    label.style("opacity", 1);
+                });
+
+            link.on("mouseover", function (event, d) {
+                tooltip.style("display", "block")
+                    .html(`
+                        <strong>${d.source.id} ↔ ${d.target.id}</strong><br>
+                        Similarity: ${d.weight.toFixed(3)}<br>
+                        Shared Users: ${d.shared_users.toLocaleString()}<br>
+                        Jaccard Index: ${d.weight.toFixed(3)}
+                    `)
+                    .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
+                    .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
+            })
+                .on("mouseout", function () {
+                    tooltip.style("display", "none");
+                });
+
+            // Update positions on simulation tick
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+
+                label
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y);
+            });
+
+            // Drag behavior
+            function drag(simulation) {
+                function dragstarted(event, d) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+
+                function dragged(event, d) {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                }
+
+                function dragended(event, d) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                }
+
+                return d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended);
+            }
+
+            // Control handlers
+            function updateNodeCount(count) {
+                // Update button states
+                document.getElementById('btn-20').classList.remove('active');
+                document.getElementById('btn-60').classList.remove('active');
+                if (count === 20) {
+                    document.getElementById('btn-20').classList.add('active');
+                } else if (count === 60) {
+                    document.getElementById('btn-60').classList.add('active');
+                }
+
+                window.updateNodeCount(count);
+            }
+
+
+
+            // Responsive resize
+            window.addEventListener('resize', function () {
+                const newWidth = document.getElementById('network').clientWidth;
+                svg.attr("width", newWidth);
+                simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
+                simulation.alpha(0.3).restart();
+            });
+
+            // Function to update opacity exponent
+            function updateOpacityExponent(exponent) {
+                opacityExponent = exponent;
+
+                // Get current link weights
+                const currentWeights = link.data().map(d => d.weight);
+
+                const newOpacityScale = d3.scalePow()
+                    .exponent(exponent)
+                    .domain([Math.min(...currentWeights), Math.max(...currentWeights)])
+                    .range([0.01, 1]);
+
+                // Update all links with new opacity
+                link.style("stroke-opacity", d => newOpacityScale(d.weight));
+            }
+
+            // Function to update number of nodes
+            window.updateNodeCount = function (count) {
+                // Set opacity exponent based on node count
+                opacityExponent = count === 20 ? 0.8 : 1.6;
+
+                // Get top N nodes by size
+                const newTopNodes = nodes.slice(0, count);
+                const newTopNodeIds = new Set(newTopNodes.map(n => n.id));
+
+                // Filter links to only include connections between new top nodes
+                const newFilteredLinks = links.filter(l =>
+                    newTopNodeIds.has(l.source) && newTopNodeIds.has(l.target)
+                );
+
+                // Convert string references to object references for D3
+                const processedLinks = newFilteredLinks.map(l => ({
+                    ...l,
+                    source: newTopNodes.find(n => n.id === l.source),
+                    target: newTopNodes.find(n => n.id === l.target)
+                }));
+
+                // Get nodes that actually have connections
+                const connectedNodeIds = new Set();
+                processedLinks.forEach(link => {
+                    connectedNodeIds.add(link.source.id);
+                    connectedNodeIds.add(link.target.id);
+                });
+
+                // Filter nodes to only include those with connections
+                const connectedNodes = newTopNodes.filter(node => connectedNodeIds.has(node.id));
+
+                // Clear existing elements and create new simulation
+                node.remove();
+                link.remove();
+                label.remove();
+
+                // Create new simulation
+                simulation = d3.forceSimulation(connectedNodes)
+                    .force("link", d3.forceLink(processedLinks).id(d => d.id).distance(120))
+                    .force("charge", d3.forceManyBody().strength(-300))
+                    .force("center", d3.forceCenter(width / 2, height / 2))
+                    .force("collision", d3.forceCollide().radius(d => sizeScale(d.size) + 10));
+
+                // Create new links with current opacity exponent
+                const currentOpacityScale = d3.scalePow()
+                    .exponent(opacityExponent)
+                    .domain([Math.min(...processedLinks.map(d => d.weight)), Math.max(...processedLinks.map(d => d.weight))])
+                    .range([0.01, 1]);
+
+                link = container.append("g")
+                    .selectAll("line")
+                    .data(processedLinks)
+                    .join("line")
+                    .attr("class", "link")
+                    .style("stroke", d => colorScale(d.weight))
+                    .style("stroke-width", d => widthScale(d.weight))
+                    .style("stroke-opacity", d => currentOpacityScale(d.weight));
+
+                // Create new nodes
+                node = container.append("g")
+                    .selectAll("circle")
+                    .data(connectedNodes)
+                    .join("circle")
+                    .attr("class", "node")
+                    .attr("r", d => sizeScale(d.size))
+                    .style("fill", d => genreColors[d.genre] || "#CCCCCC")
+                    .call(drag(simulation));
+
+                // Create new labels
+                label = container.append("g")
+                    .selectAll("text")
+                    .data(connectedNodes)
+                    .join("text")
+                    .text(d => d.id)
+                    .attr("font-size", "12px")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", "0.35em")
+                    .style("pointer-events", "none")
+                    .style("fill", "#333");
+
+                // Update positions on simulation tick
+                simulation.on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y);
+
+                    label
+                        .attr("x", d => d.x)
+                        .attr("y", d => d.y);
+                });
+
+                // Add hover events to new nodes
+                node.on("mouseover", function (event, d) {
+                    // Get current link data
+                    const currentLinks = link.data();
+
+                    // Find all connections for this app
+                    const appConnections = currentLinks.filter(l => l.source.id === d.id || l.target.id === d.id);
+                    const strongestConnection = appConnections.reduce((max, link) =>
+                        link.weight > max.weight ? link : max, appConnections[0]);
+
+                    // Show tooltip
+                    tooltip.style("display", "block")
+                        .html(`
+                            <strong>${d.id}</strong><br>
+                            Genre: ${d.genre}<br>
+                            Users: ${d.user_count.toLocaleString()}<br>
+                            Connections: ${appConnections.length}<br>
+                            <strong>Strongest Connection:</strong><br>
+                            → ${strongestConnection ? (strongestConnection.source.id === d.id ?
+                                strongestConnection.target.id : strongestConnection.source.id) : 'N/A'}<br>
+                            Similarity: ${strongestConnection ? strongestConnection.weight.toFixed(3) : 'N/A'}
+                        `)
+                        .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
+                        .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
+
+                    // Create color scale based on the connections of this specific node
+                    const connectionWeights = appConnections.map(l => l.weight);
+                    const nodeColorScale = d3.scaleSequential()
+                        .domain([Math.max(...connectionWeights), Math.min(...connectionWeights)])
+                        .interpolator(d3.interpolateViridis);
+
+                    // Create opacity scale based on the connections of this specific node
+                    const nodeOpacityScale = d3.scalePow()
+                        .exponent(opacityExponent)
+                        .domain([Math.min(...connectionWeights), Math.max(...connectionWeights)])
+                        .range([0.6, 1]);
+
+                    // Focus on this node - highlight its connections and hide others
+                    link.style("stroke-opacity", function (l) {
+                        return (l.source.id === d.id || l.target.id === d.id) ?
+                            nodeOpacityScale(l.weight) : 0;
+                    })
+                        .style("stroke", function (l) {
+                            return (l.source.id === d.id || l.target.id === d.id) ?
+                                nodeColorScale(l.weight) : "#ccc";
+                        });
+
+                    // Highlight connected nodes with opacity based on connection strength
+                    node.style("opacity", function (n) {
+                        if (n.id === d.id) return 1;
+
+                        // Find the connection between this node and the hovered node
+                        const connection = currentLinks.find(l =>
+                            (l.source.id === d.id && l.target.id === n.id) ||
+                            (l.target.id === d.id && l.source.id === n.id)
+                        );
+
+                        if (connection) {
+                            // Use the same scale as color for opacity
+                            return nodeOpacityScale(connection.weight);
+                        }
+
+                        return 0.6; // Increased minimum opacity for unconnected nodes
+                    })
+                        .style("fill", function (n) {
+                            if (n.id === d.id) return genreColors[n.genre] || "#CCCCCC";
+
+                            // Find the connection between this node and the hovered node
+                            const connection = currentLinks.find(l =>
+                                (l.source.id === d.id && l.target.id === n.id) ||
+                                (l.target.id === d.id && l.source.id === n.id)
+                            );
+
+                            if (connection) {
+                                // Keep original genre color for connected nodes
+                                return genreColors[n.genre] || "#CCCCCC";
+                            }
+
+                            return "#CCCCCC"; // Grey for unconnected nodes
+                        });
+
+                    // Highlight connected node labels with opacity based on connection strength
+                    label.style("opacity", function (n) {
+                        if (n.id === d.id) return 1;
+
+                        // Find the connection between this node and the hovered node
+                        const connection = currentLinks.find(l =>
+                            (l.source.id === d.id && l.target.id === n.id) ||
+                            (l.target.id === d.id && l.source.id === n.id)
+                        );
+
+                        if (connection) {
+                            // Use the same scale as color for opacity
+                            return nodeOpacityScale(connection.weight);
+                        }
+
+                        return 0.6; // Increased minimum opacity for unconnected nodes
+                    });
+                })
+                    .on("mouseout", function () {
+                        tooltip.style("display", "none");
+
+                        // Reset all links to normal appearance with current opacity scale
+                        const currentLinks = link.data();
+                        const currentOpacityScale = d3.scalePow()
+                            .exponent(opacityExponent)
+                            .domain([Math.min(...currentLinks.map(d => d.weight)), Math.max(...currentLinks.map(d => d.weight))])
+                            .range([0.01, 1]);
+
+                        link.style("stroke-opacity", d => currentOpacityScale(d.weight))
+                            .style("stroke", d => colorScale(d.weight));
+
+                        // Reset all nodes to normal appearance
+                        node.style("opacity", 1)
+                            .style("fill", d => genreColors[d.genre] || "#CCCCCC");
+                        label.style("opacity", 1);
+                    });
+
+                // Add hover events to new links
+                link.on("mouseover", function (event, d) {
+                    tooltip.style("display", "block")
+                        .html(`
+                            <strong>${d.source.id} ↔ ${d.target.id}</strong><br>
+                            Similarity: ${d.weight.toFixed(3)}<br>
+                            Shared Users: ${d.shared_users.toLocaleString()}<br>
+                            Jaccard Index: ${d.weight.toFixed(3)}
+                        `)
+                        .style("left", (document.getElementById('network').getBoundingClientRect().left + 20) + "px")
+                        .style("top", (document.getElementById('network').getBoundingClientRect().top + 20) + "px");
+                })
+                    .on("mouseout", function () {
+                        tooltip.style("display", "none");
+                    });
+
+
+            };
+        }).catch(function (error) {
+            console.error("Error loading data:", error);
+            document.body.innerHTML = "<div style='text-align: center; padding: 50px;'><h2>Error loading data</h2><p>Make sure the JSON file exists at data/app_relationships_network.json</p></div>";
+        });
+
+
+    </script>
+</body>
+
+</html>

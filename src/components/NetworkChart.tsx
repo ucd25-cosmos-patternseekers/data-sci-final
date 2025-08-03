@@ -6,13 +6,11 @@ import { Network } from 'lucide-react';
 interface NetworkChartProps {
     title?: string;
     description?: string;
-    height?: number;
 }
 
 const NetworkChart = ({
     title = "App Relationships Network",
-    description = "Interactive network visualization showing which apps are used together by the same users",
-    height = 600
+    description = "Interactive network visualization showing which apps are used together by the same users"
 }: NetworkChartProps) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -98,7 +96,7 @@ const NetworkChart = ({
 
             // Setup dimensions
             const width = containerRef.current?.clientWidth || 800;
-            const networkHeight = height;
+            const height = 350;
 
             // Clear previous content
             if (svgRef.current) {
@@ -112,7 +110,7 @@ const NetworkChart = ({
 
             const svg = d3.select(svgRef.current)
                 .attr("width", width)
-                .attr("height", networkHeight);
+                .attr("height", height);
 
             // Create zoom behavior
             const zoom = d3.zoom()
@@ -179,7 +177,7 @@ const NetworkChart = ({
             const simulation = d3.forceSimulation(connectedNodes as any)
                 .force("link", d3.forceLink(processedLinks).id((d: any) => d.id).distance(120))
                 .force("charge", d3.forceManyBody().strength(-400))
-                .force("center", d3.forceCenter(width / 2, networkHeight / 2))
+                .force("center", d3.forceCenter(width / 2, height / 2))
                 .force("collision", d3.forceCollide().radius((d: any) => sizeScale(d.size) + 10));
 
             // Create links
@@ -444,7 +442,7 @@ const NetworkChart = ({
                 <div
                     ref={containerRef}
                     className="border-2 border-border rounded-lg bg-background overflow-hidden relative"
-                    style={{ height: `${height}px` }}
+                    style={{ height: '350px' }}
                 >
                     {isLoading && (
                         <div className="flex items-center justify-center h-full absolute inset-0 z-10 bg-background">
