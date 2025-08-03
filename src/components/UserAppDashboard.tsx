@@ -112,7 +112,7 @@ const UserAppDashboard = () => {
                 });
         }
 
-        const userLimit = isExtended ? 96 : 48;
+        const userLimit = isExtended ? 120 : 48;
         return sortedUsers.slice(0, userLimit);
     };
 
@@ -386,7 +386,7 @@ const UserAppDashboard = () => {
                                         key={userId}
                                         className="aspect-square w-full relative overflow-hidden"
                                         onMouseLeave={() => setHighlightedApp(null)}
-                                        title={`User ${userId}`}
+                                        title={`User ${userId}: ${Math.round((userApps._total_time || 0) / 60 * 10) / 10}h total`}
                                     >
                                         <Pie
                                             data={createChartData(userApps)}
@@ -411,10 +411,10 @@ const UserAppDashboard = () => {
                                     Show Less (48 Users)
                                 </>
                             ) : (
-                                <>
-                                    <ChevronDown className="h-4 w-4" />
-                                    Show More (96 Users)
-                                </>
+                <>
+                    <ChevronDown className="h-4 w-4" />
+                    Show More (120 Users)
+                </>
                             )}
                         </Button>
                     </div>

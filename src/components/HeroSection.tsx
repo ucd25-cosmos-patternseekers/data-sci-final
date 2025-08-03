@@ -27,15 +27,18 @@ const HeroSection = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 mb-12 animate-scale-in">
-          <div className="data-card p-6 flex items-center gap-3">
+          <div className="data-card p-6 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform" 
+               onClick={() => scrollToSection('lsapp-dataset')}>
             <Database className="w-8 h-8 text-primary" />
             <span className="text-lg font-semibold">Data Analysis</span>
           </div>
-          <div className="data-card p-6 flex items-center gap-3">
+          <div className="data-card p-6 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform"
+               onClick={() => scrollToSection('methodology')}>
             <Brain className="w-8 h-8 text-secondary" />
             <span className="text-lg font-semibold">Machine Learning</span>
           </div>
-          <div className="data-card p-6 flex items-center gap-3">
+          <div className="data-card p-6 flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform"
+               onClick={() => scrollToSection('results')}>
             <TrendingUp className="w-8 h-8 text-accent" />
             <span className="text-lg font-semibold">Prediction</span>
           </div>
@@ -43,7 +46,7 @@ const HeroSection = () => {
 
         <div className="animate-slide-in-right mb-8">
           <p className="text-lg text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
-             onClick={() => scrollToSection('methodology')}>
+             onClick={() => scrollToSection('research-question')}>
             Explore Our Research
           </p>
         </div>
@@ -51,7 +54,7 @@ const HeroSection = () => {
         <div className="flex justify-center">
           <ChevronDown 
             className="w-8 h-8 text-muted-foreground cursor-pointer hover:text-primary transition-colors animate-bounce"
-            onClick={() => scrollToSection('methodology')}
+            onClick={() => scrollToSection('research-question')}
           />
         </div>
       </div>
